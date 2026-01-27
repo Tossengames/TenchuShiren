@@ -1,36 +1,30 @@
 // supporters.js
-// List of clan allies/supporters for Tenchu Shiren
+// List of supporters for Tenchu Shiren
 
 const supporters = [
     {
         name: "Rikimaru",
         handle: "@AzureShadow",
         role: "Master Ninja",
-        contribution: "Primary stealth advisor"
+        contribution: "Stealth advisor"
     },
     {
         name: "Ayame",
         handle: "@CrimsonBlossom",
         role: "Kunoichi Specialist",
-        contribution: "Speed and agility"
+        contribution: "Speed techniques"
     },
     {
         name: "Tatsumaru",
         handle: "@FallenBlade",
-        role: "Former Azuma Elite",
-        contribution: "Advanced combat"
+        role: "Former Elite",
+        contribution: "Combat strategy"
     },
     {
         name: "Lord Gohda",
         handle: "@GohdaLord",
         role: "Clan Patron",
-        contribution: "Historical accuracy"
-    },
-    {
-        name: "Matsunoshin",
-        handle: "@GoldenRetainer",
-        role: "Chief Strategist",
-        contribution: "Mission ethics"
+        contribution: "Historical lore"
     },
     {
         name: "Shadow Walker",
@@ -40,59 +34,44 @@ const supporters = [
     },
     {
         name: "Silent Blade",
-        handle: "@StealthArt",
-        role: "Weapons Master",
-        contribution: "Tool design"
-    },
-    {
-        name: "Kunoichi",
-        handle: "@NightFlower",
-        role: "Training Master",
-        contribution: "Technique refinement"
+        handle: "@StealthMaster",
+        role: "Weapons Expert",
+        contribution: "Tool knowledge"
     }
 ];
 
-// Function to add new supporters dynamically
-function addSupporter(newSupporter) {
-    if (newSupporter && newSupporter.name) {
-        supporters.push(newSupporter);
-        updateSupportersList();
-        return true;
-    }
-    return false;
-}
-
-// Function to update the UI list
+// Function to update supporters list in HTML
 function updateSupportersList() {
-    const list = document.getElementById("supporters-list");
-    if (list) {
-        list.innerHTML = "";
-        supporters.forEach(s => {
-            const li = document.createElement("li");
-            li.style.padding = "12px";
-            li.style.borderBottom = "1px solid #333";
-            li.style.marginBottom = "5px";
-            li.innerHTML = `
-                <div style="color: #d4af37; font-weight: bold; font-size: 1.1em;">${s.name}</div>
-                <div style="color: #aaa; font-size: 0.9em;">${s.handle || ''}</div>
-                <div style="color: #888; font-size: 0.85em; font-style: italic;">${s.role || 'Clan Ally'}</div>
-            `;
-            list.appendChild(li);
-        });
-    }
+    const list = document.getElementById('supporters-list');
+    if (!list) return;
+    
+    list.innerHTML = '';
+    
+    supporters.forEach(supporter => {
+        const li = document.createElement('li');
+        li.innerHTML = `
+            <strong>${supporter.name}</strong>
+            <br><small>${supporter.handle}</small>
+            ${supporter.role ? `<br><em>${supporter.role}</em>` : ''}
+        `;
+        list.appendChild(li);
+    });
 }
 
-// Function to get supporter count
-function getSupporterCount() {
-    return supporters.length;
+// Function to get random appreciation message
+function getSupporterAppreciation() {
+    const messages = [
+        "The shadows remember their allies.",
+        "Your support strengthens the Azuma clan.",
+        "Honor to those who stand with us.",
+        "The clan thrives with allies like you.",
+        "True allies walk in shadow with us.",
+        "Your contribution preserves our traditions."
+    ];
+    return messages[Math.floor(Math.random() * messages.length)];
 }
 
-// Initialize when page loads
+// Initialize on page load
 if (typeof window !== 'undefined') {
     window.addEventListener('DOMContentLoaded', updateSupportersList);
-}
-
-// Export for use in other scripts
-if (typeof module !== 'undefined' && module.exports) {
-    module.exports = { supporters, addSupporter, getSupporterCount };
 }
