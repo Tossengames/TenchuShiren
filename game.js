@@ -1,4 +1,4 @@
-// game.js - Enhanced with supporter appreciation system
+// game.js - Fixed flow with character feedback only at results
 
 // Game state
 let playerName = "Shadow Warrior";
@@ -7,7 +7,8 @@ let score = 0;
 let questions = [];
 let gameActive = false;
 let correctAnswers = 0;
-let showAppreciationScreen = false;
+let playerAnswers = []; // Store each answer for results feedback
+let showAppreciation = false;
 
 // Game elements
 let currentScreen = 'menu';
@@ -15,7 +16,7 @@ let currentScreen = 'menu';
 // Fallback questions
 const fallbackQuestions = [
     {
-        question: "A figure stands in the moonlight with silver hair. Identify this shadow.",
+        question: "A shadow moves with silver hair under the moonlight. Who is this?",
         options: ["Rikimaru", "Onikage", "Tatsumaru", "Lord Gohda"],
         answer: "Rikimaru",
         commentator: "rikimaru",
@@ -23,36 +24,36 @@ const fallbackQuestions = [
         difficulty: "Medium"
     },
     {
-        question: "Which tool is essential for reaching high castle rooftops?",
-        options: ["Shuriken", "Grappling Hook", "Caltrops", "Smoke Bomb"],
+        question: "Which tool lets you scale castle walls silently?",
+        options: ["Grappling Hook", "Shuriken", "Smoke Bomb", "Poison Dart"],
         answer: "Grappling Hook",
         commentator: "ayame",
         category: "Tools",
         difficulty: "Easy"
     },
     {
-        question: "A guard is patrolling alone. He stops to investigate a noise. What is your move?",
-        options: ["Stealth Kill", "Wait in shadows", "Distract with stone", "Open Combat"],
-        answer: "Wait in shadows",
+        question: "You're trapped in a room with two guards facing each other. What do you do?",
+        options: ["Wait for patrol patterns", "Create a distraction", "Attack both", "Use smoke bomb"],
+        answer: "Wait for patrol patterns",
         commentator: "rikimaru",
         category: "Stealth",
-        difficulty: "Medium"
+        difficulty: "Hard"
     },
     {
-        question: "Is it honorable to kill a sleeping enemy to complete a mission?",
-        options: ["Yes", "No", "Depends", "Only if spotted"],
-        answer: "Yes",
-        commentator: "tatsumaru",
+        question: "Your target sleeps, but his family is nearby. Do you proceed?",
+        options: ["Wait for another chance", "Complete the mission", "Take family hostage", "Abandon mission"],
+        answer: "Wait for another chance",
+        commentator: "ayame",
         category: "Ethics",
         difficulty: "Hard"
     },
     {
-        question: "What is the primary law of the Azuma Shinobi?",
-        options: ["Serve in shadow", "Kill for gold", "Seek glory", "Rule the land"],
-        answer: "Serve in shadow",
+        question: "What is the Azuma clan's primary weapon against corruption?",
+        options: ["Stealth Assassination", "Open Warfare", "Diplomacy", "Bribery"],
+        answer: "Stealth Assassination",
         commentator: "rikimaru",
         category: "Lore",
-        difficulty: "Easy"
+        difficulty: "Medium"
     }
 ];
 
@@ -137,13 +138,17 @@ async function startGame() {
     score = 0;
     correctAnswers = 0;
     gameActive = true;
-    showAppreciationScreen = false;
+    playerAnswers = [];
+    showAppreciation = false;
     
     // Load questions
     await loadQuestions();
     
     // Show game screen
     showScreen('game');
+    
+    // Show question screen within game
+    showGameScreen('question');
     
     // Update player display
     document.getElementById('current-player').textContent = playerName.toUpperCase();
@@ -156,7 +161,43 @@ async function startGame() {
     // Load first question
     setTimeout(() => {
         loadQuestion();
-    }, 1000);
+    }, 500);
+}
+
+// Show specific screen within game
+function showGameScreen(screenType) {
+    const screens = ['question-screen', 'appreciation-screen', 'result-screen'];
+    
+    // Hide all game screens
+    screens.forEach(screenId => {
+        const screen = document.getElementById(screenId);
+        if (screen) {
+            screen.classList.remove('active');
+            screen.classList.add('hidden');
+        }
+    });
+    
+    // Show requested screen
+    let screenToShow;
+    switch(screenType) {
+        case 'question':
+            screenToShow = 'question-screen';
+            break;
+        case 'appreciation':
+            screenToShow = 'appreciation-screen';
+            break;
+        case 'results':
+            screenToShow = 'result-screen';
+            break;
+    }
+    
+    const screen = document.getElementById(screenToShow);
+    if (screen) {
+        screen.classList.remove('hidden');
+        setTimeout(() => {
+            screen.classList.add('active');
+        }, 50);
+    }
 }
 
 async function loadQuestions() {
@@ -178,15 +219,16 @@ async function loadQuestions() {
 function loadQuestion() {
     if (!gameActive) return;
     
-    // Check if game should show appreciation screen
-    if (showAppreciationScreen) {
-        showAppreciation();
-        return;
-    }
-    
-    // Check if game is over
+    // Check if all questions are answered
     if (currentQuestionIndex >= questions.length) {
-        showResults();
+        // Decide if we should show appreciation (40% chance)
+        showAppreciation = Math.random() < 0.4;
+        
+        if (showAppreciation && typeof supporters !== 'undefined' && supporters.length > 0) {
+            showAppreciationScreen();
+        } else {
+            showResults();
+        }
         return;
     }
     
@@ -196,6 +238,11 @@ function loadQuestion() {
     document.getElementById('question-text').textContent = question.question;
     document.getElementById('trial-number').textContent = currentQuestionIndex + 1;
     document.getElementById('current-trial').textContent = currentQuestionIndex + 1;
+    document.getElementById('progress-current').textContent = currentQuestionIndex + 1;
+    
+    // Update progress bar
+    const progressPercentage = (currentQuestionIndex / questions.length) * 100;
+    document.getElementById('progress-fill').style.width = `${progressPercentage}%`;
     
     // Update difficulty display
     const diffElement = document.querySelector('.diff-level');
@@ -215,7 +262,7 @@ function loadQuestion() {
             <span class="option-text">${option}</span>
         `;
         
-        // Add click handler with animation
+        // Add click handler
         button.onclick = () => {
             // Disable all buttons
             const allButtons = optionsDiv.querySelectorAll('button');
@@ -229,24 +276,27 @@ function loadQuestion() {
             button.style.borderColor = '#8b0000';
             button.style.transform = 'scale(0.98)';
             
-            // Check answer with delay for animation
-            setTimeout(() => {
-                checkAnswer(option, question.answer, question.commentator);
-            }, 500);
+            // Check answer
+            checkAnswer(option, question.answer, question.commentator);
         };
         
         optionsDiv.appendChild(button);
     });
     
     // Show question screen
-    document.getElementById('question-box').classList.remove('hidden');
-    document.getElementById('feedback-box').classList.add('hidden');
-    document.getElementById('appreciation-screen').classList.add('hidden');
-    document.getElementById('result-box').classList.add('hidden');
+    showGameScreen('question');
 }
 
 function checkAnswer(selected, correct, commentator) {
     const isCorrect = selected === correct;
+    
+    // Store player's answer for results feedback
+    playerAnswers.push({
+        selected: selected,
+        correct: correct,
+        isCorrect: isCorrect,
+        commentator: commentator
+    });
     
     if (isCorrect) {
         score += 100;
@@ -263,61 +313,16 @@ function checkAnswer(selected, correct, commentator) {
         }
     }
     
-    // Show feedback
-    showFeedback(isCorrect, commentator);
-}
-
-function showFeedback(isCorrect, commentator) {
-    let comment, characterName, portrait;
-    
-    // Get character feedback
-    if (typeof getCharacterComment === 'function') {
-        comment = getCharacterComment(commentator, isCorrect);
-    } else {
-        comment = isCorrect ? "Correct. The shadows approve." : "Incorrect. Study harder.";
-    }
-    
-    // Get character info
-    if (typeof getCharacterDisplayName === 'function') {
-        characterName = getCharacterDisplayName(commentator);
-    } else {
-        characterName = "Master";
-    }
-    
-    if (typeof getCharacterPortrait === 'function') {
-        portrait = getCharacterPortrait(commentator);
-    }
-    
-    // Update feedback display
-    document.getElementById('feedback-text').textContent = comment;
-    document.getElementById('feedback-name').textContent = characterName.toUpperCase();
-    
-    if (portrait) {
-        document.getElementById('feedback-portrait').style.backgroundImage = `url('${portrait}')`;
-    }
-    
-    // Show feedback screen
-    document.getElementById('question-box').classList.add('hidden');
-    document.getElementById('feedback-box').classList.remove('hidden');
-    
-    // Check if we should show appreciation screen after this question
-    if (currentQuestionIndex === Math.floor(questions.length / 2)) {
-        showAppreciationScreen = true;
-    }
-}
-
-function nextQuestion() {
-    currentQuestionIndex++;
-    
-    // Load next question
+    // Move to next question after a short delay
     setTimeout(() => {
+        currentQuestionIndex++;
         loadQuestion();
-    }, 300);
+    }, 800);
 }
 
 // ==================== APPRECIATION SCREEN ====================
 
-function showAppreciation() {
+function showAppreciationScreen() {
     if (typeof supporters === 'undefined' || supporters.length === 0) {
         // Skip to results if no supporters
         showResults();
@@ -346,11 +351,10 @@ function showAppreciation() {
     
     // Create appreciation message
     const messages = [
-        `The ${characterName} acknowledges your support.`,
+        `${characterName} acknowledges your support.`,
         `${characterName} honors those who stand with the Azuma.`,
         `From the shadows, ${characterName} gives thanks.`,
-        `${characterName} recognizes true allies of the clan.`,
-        `The way of the ninja values loyal supporters.`
+        `${characterName} recognizes true allies of the clan.`
     ];
     
     const randomMessage = messages[Math.floor(Math.random() * messages.length)];
@@ -365,10 +369,7 @@ function showAppreciation() {
     }
     
     // Show appreciation screen
-    document.getElementById('question-box').classList.add('hidden');
-    document.getElementById('feedback-box').classList.add('hidden');
-    document.getElementById('appreciation-screen').classList.remove('hidden');
-    document.getElementById('result-box').classList.add('hidden');
+    showGameScreen('appreciation');
     
     // Create VFX
     if (typeof createGameVFX === 'function') {
@@ -376,17 +377,6 @@ function showAppreciation() {
     }
     
     console.log(`Showing appreciation for supporter: ${supporter.name}`);
-}
-
-function continueFromAppreciation() {
-    showAppreciationScreen = false;
-    
-    // Continue to next question or results
-    if (currentQuestionIndex < questions.length) {
-        loadQuestion();
-    } else {
-        showResults();
-    }
 }
 
 // ==================== RESULTS SCREEN ====================
@@ -401,60 +391,66 @@ function showResults() {
     if (percentage >= 90) {
         rank = "GRAND MASTER";
         title = "Shadow of Perfection";
-        description = `${playerName}, your mastery is absolute. You move like a phantom, strike like lightning. The Azuma clan bows to your skill.`;
+        description = `${playerName}, your mastery is absolute.`;
         symbol = "👑";
     } else if (percentage >= 70) {
         rank = "MASTER";
         title = "Azure Shadow";
-        description = `${playerName}, you are a true ninja. Your skills honor the Azuma clan. Continue your path in darkness.`;
+        description = `${playerName}, you are a true ninja.`;
         symbol = "⚔️";
     } else if (percentage >= 50) {
         rank = "JOURNEYMAN";
         title = "Silent Blade";
-        description = `${playerName}, you show great potential. Train harder, and the shadows will welcome you fully.`;
+        description = `${playerName}, you show great potential.`;
         symbol = "🗡️";
     } else if (percentage >= 30) {
         rank = "INITIATE";
         title = "Whispering Leaf";
-        description = `${playerName}, you have taken your first steps. Study the scrolls, practice in silence.`;
+        description = `${playerName}, you have taken your first steps.`;
         symbol = "🍃";
     } else {
         rank = "FAILED";
         title = "Visible Target";
-        description = `${playerName}, the shadows reject you. Return to training or find another path.`;
+        description = `${playerName}, the shadows reject you.`;
         symbol = "💀";
     }
     
     // Update results display
     document.getElementById('result-rank').textContent = rank;
     document.getElementById('result-title').textContent = title;
-    document.getElementById('result-text').textContent = description;
-    document.getElementById('rank-symbol').textContent = symbol;
-    document.getElementById('correct-count').textContent = `${correctAnswers}/${totalQuestions}`;
+    document.getElementById('correct-count').textContent = `${correctAnswers}`;
+    document.getElementById('total-count').textContent = `${totalQuestions}`;
     document.getElementById('success-rate').textContent = `${Math.round(percentage)}%`;
+    document.getElementById('rank-symbol').textContent = symbol;
     
-    // Set character portrait based on rank
-    let character;
+    // Get character feedback based on performance
+    let feedbackCharacter;
+    let feedbackMessage = "";
+    
     if (percentage >= 70) {
-        character = 'rikimaru';
+        feedbackCharacter = 'rikimaru';
+        feedbackMessage = getFinalFeedback('rikimaru', percentage);
     } else if (percentage >= 50) {
-        character = 'ayame';
+        feedbackCharacter = 'ayame';
+        feedbackMessage = getFinalFeedback('ayame', percentage);
     } else {
-        character = 'tatsumaru';
+        feedbackCharacter = 'tatsumaru';
+        feedbackMessage = getFinalFeedback('tatsumaru', percentage);
     }
     
+    // Update feedback
+    document.getElementById('feedback-text').textContent = feedbackMessage;
+    
+    // Set character portrait
     if (typeof getCharacterPortrait === 'function') {
-        const portrait = getCharacterPortrait(character);
+        const portrait = getCharacterPortrait(feedbackCharacter);
         if (portrait) {
-            document.getElementById('result-portrait').style.backgroundImage = `url('${portrait}')`;
+            document.getElementById('feedback-portrait').style.backgroundImage = `url('${portrait}')`;
         }
     }
     
     // Show results screen
-    document.getElementById('question-box').classList.add('hidden');
-    document.getElementById('feedback-box').classList.add('hidden');
-    document.getElementById('appreciation-screen').classList.add('hidden');
-    document.getElementById('result-box').classList.remove('hidden');
+    showGameScreen('results');
     
     // Create VFX based on result
     if (typeof createGameVFX === 'function') {
@@ -466,6 +462,55 @@ function showResults() {
     }
     
     console.log(`Game completed. Score: ${correctAnswers}/${totalQuestions} (${percentage}%). Rank: ${rank}`);
+}
+
+// Get final character feedback based on performance
+function getFinalFeedback(character, percentage) {
+    if (!character || !percentage) {
+        return "Your journey ends here.";
+    }
+    
+    const characterName = typeof getCharacterDisplayName === 'function' 
+        ? getCharacterDisplayName(character) 
+        : "Master";
+    
+    if (character === 'rikimaru') {
+        if (percentage >= 90) {
+            return `${playerName}. Your discipline is flawless. You move without sound, strike without hesitation. The Azuma clan has found its new shadow.`;
+        } else if (percentage >= 70) {
+            return `${playerName}. You understand the way of the ninja. Your restraint is commendable, your judgment sound. Continue your training.`;
+        } else if (percentage >= 50) {
+            return `${playerName}. You show potential, but your mind is not yet sharp enough. Study the scrolls, meditate on your mistakes.`;
+        } else {
+            return `${playerName}. Your lack of discipline is concerning. The shadows do not welcome the careless. Return to basics or find another path.`;
+        }
+    }
+    
+    if (character === 'ayame') {
+        if (percentage >= 90) {
+            return `${playerName}! Your intuition is extraordinary! You move with the grace of falling cherry blossoms. The clan is honored by your skill!`;
+        } else if (percentage >= 70) {
+            return `${playerName}! Well done! Your cleverness serves you well. A true kunoichi thinks three steps ahead. Keep this mindset.`;
+        } else if (percentage >= 50) {
+            return `${playerName}. You have spirit, but need more subtlety. A ninja must be like water - adaptable, flowing, unstoppable.`;
+        } else {
+            return `${playerName}. Too direct, too obvious. The shadows demand elegance. Perhaps this path is not for you.`;
+        }
+    }
+    
+    if (character === 'tatsumaru') {
+        if (percentage >= 90) {
+            return `Hmph. ${playerName}. You understand true power. The weak perish, the strong rule. You could achieve greatness... if you embrace it fully.`;
+        } else if (percentage >= 70) {
+            return `${playerName}. You grasp that strength determines fate. Sentiment is a chain that binds the weak. Break yours.`;
+        } else if (percentage >= 50) {
+            return `${playerName}. You show glimpses of understanding, but still cling to false honor. Power cares not for morality.`;
+        } else {
+            return `${playerName}. Weak. Pathetic. The shadows have no place for sentimentality. Either grow stronger or be crushed.`;
+        }
+    }
+    
+    return "The trial is complete. Your fate is sealed.";
 }
 
 // ==================== INITIALIZATION ====================
@@ -497,6 +542,13 @@ window.addEventListener('load', function() {
         });
     }
     
+    // Handle mobile back button
+    window.addEventListener('popstate', function() {
+        if (currentScreen === 'game' && gameActive) {
+            backToMenu();
+        }
+    });
+    
     console.log('Game initialized successfully');
 });
 
@@ -507,5 +559,4 @@ window.showSupporters = showSupporters;
 window.backToMenu = backToMenu;
 window.setPlayerName = setPlayerName;
 window.startGame = startGame;
-window.nextQuestion = nextQuestion;
-window.continueFromAppreciation = continueFromAppreciation;
+window.showResults = showResults; // Make accessible from appreciation screen
