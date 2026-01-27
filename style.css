@@ -1,5 +1,5 @@
 /* ============================================================
-   TENCHU TEST - PREMIUM SHINOBI STYLING
+   TENCHU TEST - PREMIUM SHINOBI UI
    ============================================================ */
 
 @import url('https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@400;700&display=swap');
@@ -7,16 +7,16 @@
 :root {
   --blood-red: #8b0000;
   --bright-red: #ff3b3b;
-  --ink-black: #0b0b0b;
-  --deep-charcoal: #1a1a1a;
-  --parchment: #f0ead6;
   --gold: #d4af37;
-  --transition-speed: 0.4s;
+  --ink-black: #0b0b0b;
+  --parchment: #f0ead6;
+  --ui-bg: #121212;
 }
 
 /* ================== GLOBAL ================== */
 body {
   margin: 0;
+  padding: 0;
   font-family: 'Shippori Mincho B1', serif;
   background-color: var(--ink-black);
   color: var(--parchment);
@@ -24,24 +24,30 @@ body {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  overflow: hidden; /* Canvas handles scrolling visuals */
+  overflow: hidden;
 }
 
-/* ================== SCREEN CONTAINERS ================== */
+#vfx-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* ================== SCREENS ================== */
 .screen {
   position: relative;
-  text-align: center;
-  padding: 40px;
-  max-width: 500px;
-  width: 85%;
-  background: rgba(10, 10, 10, 0.9);
-  border: 1px solid #333;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.9), 
-              inset 0 0 40px rgba(139, 0, 0, 0.1);
-  backdrop-filter: blur(8px);
-  border-radius: 2px;
-  animation: slideIn var(--transition-speed) ease-out;
   z-index: 10;
+  width: 90%;
+  max-width: 550px;
+  background: var(--ui-bg);
+  border: 2px solid var(--blood-red);
+  padding: 40px;
+  box-sizing: border-box;
+  box-shadow: 0 0 50px rgba(0, 0, 0, 1), inset 0 0 20px rgba(139, 0, 0, 0.2);
+  text-align: center;
+  opacity: 1; /* Ensure full visibility */
 }
 
 .hidden {
@@ -50,179 +56,159 @@ body {
 
 /* ================== TYPOGRAPHY ================== */
 h1 {
-  font-size: 2.5rem;
-  margin: 0;
+  font-size: 2.8rem;
   color: var(--bright-red);
-  letter-spacing: 6px;
+  letter-spacing: 4px;
+  margin: 0 0 10px 0;
   text-transform: uppercase;
-  text-shadow: 0 0 15px rgba(255, 0, 0, 0.4);
+  text-shadow: 2px 2px 0px #000;
 }
 
 h2 {
-  font-size: 1.8rem;
   color: var(--gold);
+  font-size: 1.8rem;
+  margin-top: 0;
   border-bottom: 1px solid var(--blood-red);
-  display: inline-block;
-  padding-bottom: 5px;
-  margin-bottom: 25px;
+  padding-bottom: 10px;
+}
+
+h3 {
+  font-size: 1.4rem;
+  line-height: 1.4;
+  margin-bottom: 30px;
+  color: #fff;
 }
 
 p {
+  font-size: 1.1rem;
   line-height: 1.6;
-  font-size: 1.05rem;
   color: #ccc;
 }
 
 /* ================== BUTTONS ================== */
-/* The main action buttons */
-button, .btn-ninja {
+.btn-ninja {
   display: block;
   width: 100%;
-  background: none;
-  border: 1px solid var(--blood-red);
+  padding: 15px;
+  margin: 10px 0;
+  background: #1a1a1a;
+  border: 1px solid #444;
   color: var(--parchment);
-  padding: 14px 20px;
-  margin: 12px 0;
   font-family: inherit;
   font-size: 1.1rem;
   text-transform: uppercase;
   letter-spacing: 2px;
   cursor: pointer;
-  position: relative;
-  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  overflow: hidden;
+  transition: all 0.2s ease;
 }
 
-button::before {
-  content: '';
-  position: absolute;
-  top: 0; left: -100%;
-  width: 100%; height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
-  transition: 0.5s;
-}
-
-button:hover {
-  background-color: var(--blood-red);
+.btn-ninja:hover {
+  background: var(--blood-red);
+  border-color: var(--bright-red);
   color: #fff;
-  box-shadow: 0 0 20px rgba(139, 0, 0, 0.6);
-  transform: translateY(-2px);
+  transform: scale(1.02);
+  box-shadow: 0 0 15px var(--blood-red);
 }
 
-button:hover::before {
-  left: 100%;
-}
-
-button:active {
-  transform: translateY(1px);
+.btn-ninja:active {
+  transform: scale(0.98);
 }
 
 /* ================== INPUTS ================== */
 input[type="text"] {
-  background: var(--deep-charcoal);
-  border: 1px solid #444;
-  border-left: 4px solid var(--blood-red);
-  color: white;
-  padding: 15px;
   width: 100%;
+  padding: 15px;
+  background: #000;
+  border: 1px solid var(--blood-red);
+  color: #fff;
+  font-family: inherit;
+  font-size: 1.2rem;
+  text-align: center;
   box-sizing: border-box;
   margin-bottom: 20px;
-  font-family: inherit;
-  font-size: 1.1rem;
-  outline: none;
-  transition: border 0.3s;
 }
 
-input[type="text"]:focus {
-  border-color: var(--gold);
+/* ================== CHARACTER FEEDBACK ================== */
+#feedback-box, #supporter-box, #result-box {
+  margin-top: 20px;
+  background: #1a1a1a;
+  border-top: 3px solid var(--gold);
+  padding: 20px;
 }
 
-/* ================== GAMEPLAY UI ================== */
-#options {
-  margin-top: 30px;
-}
-
-/* Character Portrait Frame */
 .portrait-frame {
-  width: 120px;
-  height: 120px;
-  margin: 0 auto 15px;
-  border: 3px solid var(--blood-red);
+  width: 100px;
+  height: 100px;
+  margin: 0 auto 15px auto;
+  border: 2px solid var(--gold);
   border-radius: 50%;
-  background-color: #000;
   background-size: cover;
   background-position: center;
-  box-shadow: 0 0 25px rgba(139, 0, 0, 0.5);
+  background-color: #000;
 }
 
-/* Feedback/Results Box Styling */
-#feedback-box, #supporter-box, #result-box {
-  animation: fadeIn 0.6s ease;
+#feedback-name, #supporter-name {
+  color: var(--gold);
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+  letter-spacing: 1px;
 }
 
+#feedback-text {
+  font-style: italic;
+  font-size: 1.1rem;
+  color: #eee;
+}
+
+/* ================== RESULTS SCREEN ================== */
 .rank-text {
-  font-size: 2rem;
+  font-size: 2.2rem;
   font-weight: bold;
   color: var(--gold);
   margin: 10px 0;
-  text-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+  text-transform: uppercase;
 }
 
-/* ================== LISTS ================== */
+#result-title {
+  color: var(--bright-red);
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+}
+
+/* ================== SUPPORTERS LIST ================== */
 #supporters-list {
   list-style: none;
   padding: 0;
-  max-height: 250px;
+  max-height: 200px;
   overflow-y: auto;
-  border: 1px solid #222;
-  background: rgba(0,0,0,0.3);
+  text-align: left;
 }
 
 #supporters-list li {
-  padding: 12px;
-  border-bottom: 1px solid #222;
-  transition: background 0.2s;
+  padding: 10px;
+  border-bottom: 1px solid #333;
 }
 
-#supporters-list li:hover {
-  background: rgba(139, 0, 0, 0.2);
-}
-
-/* Custom Scrollbar for list */
-#supporters-list::-webkit-scrollbar {
-  width: 5px;
-}
-#supporters-list::-webkit-scrollbar-thumb {
-  background: var(--blood-red);
-}
-
-/* ================== ANIMATIONS ================== */
-@keyframes slideIn {
-  from { opacity: 0; transform: translateY(30px) scale(0.95); }
-  to { opacity: 1; transform: translateY(0) scale(1); }
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-/* Sword Slash VFX (Triggered via JS) */
+/* ================== VFX ================== */
 .slash-vfx {
   position: fixed;
-  background: white;
-  height: 2px;
-  box-shadow: 0 0 10px white, 0 0 20px var(--bright-red);
-  z-index: 100;
   pointer-events: none;
+  background: #fff;
+  box-shadow: 0 0 20px var(--bright-red);
+  animation: slash-fade 0.15s forwards;
+}
+
+@keyframes slash-fade {
+  0% { opacity: 1; height: 4px; }
+  100% { opacity: 0; height: 1px; }
 }
 
 /* ================== RESPONSIVE ================== */
 @media (max-width: 480px) {
   .screen {
     padding: 20px;
-    width: 90%;
   }
-  
-  h1 { font-size: 1.8rem; }
+  h1 {
+    font-size: 2rem;
+  }
 }
