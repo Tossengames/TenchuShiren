@@ -1,62 +1,82 @@
 [
   {
-    "question": "A figure stands in the moonlight with silver hair. Identify this shadow.",
+    "question": "A shadow moves with silver hair under the moonlight. Who is this?",
     "options": ["Rikimaru", "Onikage", "Tatsumaru", "Lord Gohda"],
     "answer": "Rikimaru",
-    "commentator": "rikimaru"
+    "commentator": "rikimaru",
+    "category": "Characters",
+    "difficulty": "Medium"
   },
   {
-    "question": "Which tool is essential for reaching high castle rooftops?",
-    "options": ["Shuriken", "Grappling Hook", "Caltrops", "Smoke Bomb"],
+    "question": "Which tool lets you scale castle walls silently?",
+    "options": ["Grappling Hook", "Shuriken", "Smoke Bomb", "Poison Dart"],
     "answer": "Grappling Hook",
-    "commentator": "ayame"
+    "commentator": "ayame",
+    "category": "Tools",
+    "difficulty": "Easy"
   },
   {
-    "question": "A guard is patrolling alone. He stops to investigate a noise. What is your move?",
-    "options": ["Stealth Kill", "Wait in shadows", "Distract with stone", "Open Combat"],
-    "answer": "Wait in shadows",
-    "commentator": "rikimaru"
+    "question": "You're trapped in a room with two guards facing each other. What do you do?",
+    "options": ["Wait for patrol patterns", "Create a distraction", "Attack both", "Use smoke bomb"],
+    "answer": "Wait for patrol patterns",
+    "commentator": "rikimaru",
+    "category": "Stealth",
+    "difficulty": "Hard"
   },
   {
-    "question": "Is it honorable to kill a sleeping enemy to complete a mission?",
-    "options": ["Yes", "No", "Depends", "Only if spotted"],
-    "answer": "Yes",
-    "commentator": "tatsumaru"
+    "question": "Your target sleeps, but his family is nearby. Do you proceed?",
+    "options": ["Wait for another chance", "Complete the mission", "Take family hostage", "Abandon mission"],
+    "answer": "Wait for another chance",
+    "commentator": "ayame",
+    "category": "Ethics",
+    "difficulty": "Hard"
   },
   {
-    "question": "What is the primary law of the Azuma Shinobi?",
-    "options": ["Serve in shadow", "Kill for gold", "Seek glory", "Rule the land"],
-    "answer": "Serve in shadow",
-    "commentator": "rikimaru"
+    "question": "What is the Azuma clan's primary weapon against corruption?",
+    "options": ["Stealth Assassination", "Open Warfare", "Diplomacy", "Bribery"],
+    "answer": "Stealth Assassination",
+    "commentator": "rikimaru",
+    "category": "Lore",
+    "difficulty": "Medium"
   },
   {
-    "question": "Which ninja is known as the 'Blue Lightning'?",
-    "options": ["Ayame", "Rikimaru", "Tatsumaru", "Onikage"],
-    "answer": "Ayame",
-    "commentator": "ayame"
+    "question": "Which poison works fastest on human targets?",
+    "options": ["Cobra Venom", "Spider Toxin", "Wolfsbane", "Hemlock"],
+    "answer": "Cobra Venom",
+    "commentator": "ayame",
+    "category": "Tools",
+    "difficulty": "Medium"
   },
   {
-    "question": "What tool allows walking on water?",
-    "options": ["Water Shoes", "Floating Log", "Lilly Pads", "Grappling Hook"],
-    "answer": "Water Shoes",
-    "commentator": "rikimaru"
+    "question": "You've been spotted. What's the first rule of escape?",
+    "options": ["Break line of sight", "Kill witnesses", "Surrender", "Fight to death"],
+    "answer": "Break line of sight",
+    "commentator": "rikimaru",
+    "category": "Stealth",
+    "difficulty": "Easy"
   },
   {
-    "question": "Two guards face each other. Your approach?",
-    "options": ["Wait for patterns", "Create distraction", "Kill both", "Smoke bomb"],
-    "answer": "Wait for patterns",
-    "commentator": "rikimaru"
-  },
-  {
-    "question": "What caused Tatsumaru's betrayal?",
-    "options": ["Sister's death", "Denied promotion", "Lord's betrayal", "Love"],
+    "question": "What caused Tatsumaru to betray the Azuma?",
+    "options": ["Sister's death", "Power hunger", "Love", "Madness"],
     "answer": "Sister's death",
-    "commentator": "tatsumaru"
+    "commentator": "tatsumaru",
+    "category": "Story",
+    "difficulty": "Medium"
   },
   {
-    "question": "Which item restores health instantly?",
-    "options": ["Sacred Medicine", "Rice Ball", "Healing Potion", "Green Herb"],
-    "answer": "Sacred Medicine",
-    "commentator": "ayame"
+    "question": "Which item makes you temporarily invisible?",
+    "options": ["Divine Water", "Magic Mirror", "Ghost Mantle", "Shadow Powder"],
+    "answer": "Divine Water",
+    "commentator": "ayame",
+    "category": "Items",
+    "difficulty": "Hard"
+  },
+  {
+    "question": "Is it acceptable to sacrifice civilians for a greater mission?",
+    "options": ["Never", "Sometimes", "Always", "If ordered"],
+    "answer": "Never",
+    "commentator": "rikimaru",
+    "category": "Morality",
+    "difficulty": "Hard"
   }
 ]
