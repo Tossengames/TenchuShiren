@@ -1,259 +1,245 @@
-/* ============================================================
-   TENCHU TEST - CORE GAME LOGIC
-   ============================================================ */
+// game.js - Updated for Tenchu Shiren
 
-let playerName = "Ninja";
+let playerName = "Unknown Shinobi";
 let currentQuestionIndex = 0;
 let score = 0;
-const questionsPerSession = 5;
+let totalQuestions = 5;
+let questions = [];
 
-// ======================= DATA =======================
+// DOM Elements
+const gameScreen = document.getElementById('game');
+const menuScreen = document.getElementById('menu');
+const playerNameScreen = document.getElementById('player-name-screen');
+const infoScreen = document.getElementById('info');
+const supportersScreen = document.getElementById('supporters-screen');
 
-const characters = [
-  {
-    name: "Rikimaru", 
-    comments: [
-      "Your choice shows the precision of the Azuma clan.",
-      "Stealth is not just a skill, it is a way of life.",
-      "You lack focus. The shadows do not forgive mistakes."
-    ]
-  },
-  {
-    name: "Ayame", 
-    comments: [
-      "Not bad. You might actually survive the night.",
-      "Speed is fine, but observation is better.",
-      "You're making too much noise. Try again."
-    ]
-  },
-  {
-    name: "Tatsumaru", 
-    comments: [
-      "Your reflexes are improving, but your mind is clouded.",
-      "A true shinobi strikes before the enemy even knows they exist.",
-      "Doubt is a sharper blade than any katana."
-    ]
-  }
-];
-
-// ======================= AMBIENT VFX =======================
-
-const canvas = document.getElementById("vfx-canvas");
-const ctx = canvas.getContext("2d");
-let particles = [];
-
-function initParticles() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-    particles = [];
-    for (let i = 0; i < 30; i++) {
-        particles.push({
-            x: Math.random() * canvas.width,
-            y: Math.random() * canvas.height,
-            speed: Math.random() * 0.4 + 0.1,
-            size: Math.random() * 2 + 1,
-            opacity: Math.random() * 0.5
-        });
+// Initialize game
+async function initGame() {
+    try {
+        const response = await fetch('questions.json');
+        questions = await response.json();
+        questions = questions.sort(() => Math.random() - 0.5).slice(0, totalQuestions);
+    } catch (error) {
+        console.log("Using fallback questions");
+        // Use the hardcoded questions from index.html
     }
 }
 
-function animate() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.fillStyle = "rgba(139, 0, 0, 0.5)"; 
-    particles.forEach(p => {
-        ctx.globalAlpha = p.opacity;
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-        ctx.fill();
-        p.y -= p.speed;
-        if (p.y < 0) p.y = canvas.height;
-    });
-    requestAnimationFrame(animate);
-}
-
-function triggerSlash() {
-    const slash = document.createElement("div");
-    slash.className = "slash-vfx";
-    slash.style.top = "50%";
-    slash.style.left = "-10%";
-    slash.style.width = "120%";
-    slash.style.height = "3px";
-    slash.style.background = "white";
-    slash.style.position = "fixed";
-    slash.style.boxShadow = "0 0 15px #ff0000";
-    slash.style.transform = `rotate(${Math.random() > 0.5 ? 20 : -20}deg)`;
-    slash.style.zIndex = "9999";
-    document.body.appendChild(slash);
-    setTimeout(() => slash.remove(), 150);
-}
-
-// ======================= ENGINE =======================
-
-function hideAllScreens() {
-    const screens = document.querySelectorAll('.screen');
-    screens.forEach(s => s.classList.add('hidden'));
-    // Also hide gameplay sub-boxes
-    document.getElementById("feedback-box").classList.add("hidden");
-    document.getElementById("result-box").classList.add("hidden");
-    document.getElementById("supporter-box").classList.add("hidden");
-    document.getElementById("question-box").classList.add("hidden");
-}
-
+// Show player name screen
 function showPlayerNameScreen() {
-    hideAllScreens();
-    document.getElementById("player-name-screen").classList.remove("hidden");
+    menuScreen.classList.add('hidden');
+    playerNameScreen.classList.remove('hidden');
+    document.getElementById('player-name-input').focus();
 }
 
+// Set player name
 function setPlayerName() {
-    const nameInput = document.getElementById("player-name-input").value.trim();
-    if (nameInput) playerName = nameInput;
+    const input = document.getElementById('player-name-input');
+    if (input.value.trim() !== '') {
+        playerName = input.value.trim();
+    }
     startGame();
 }
 
-function startGame() {
-    hideAllScreens();
+// Start the game
+async function startGame() {
+    await initGame();
+    
+    playerNameScreen.classList.add('hidden');
+    infoScreen.classList.add('hidden');
+    supportersScreen.classList.add('hidden');
+    gameScreen.classList.remove('hidden');
+    
     currentQuestionIndex = 0;
     score = 0;
-    document.getElementById("game").classList.remove("hidden");
-    document.getElementById("question-box").classList.remove("hidden");
-    showQuestion(0);
+    loadQuestion();
 }
 
-function showQuestion(index) {
-    const q = questions[index];
-    const questionText = document.getElementById("question-text");
-    const optionsDiv = document.getElementById("options");
-
-    questionText.textContent = q.question;
-    optionsDiv.innerHTML = "";
-
-    q.options.forEach(opt => {
-        let btn = document.createElement("button");
-        btn.className = "btn-ninja";
-        btn.textContent = opt;
-        btn.onclick = () => selectAnswer(opt, q.answer);
-        optionsDiv.appendChild(btn);
-    });
-}
-
-function selectAnswer(selected, correct) {
-    const isCorrect = selected === correct;
-    if (isCorrect) {
-        score++;
-        triggerSlash();
-    }
-    showCharacterFeedback(isCorrect);
-}
-
-function showCharacterFeedback(isCorrect) {
-    document.getElementById("question-box").classList.add("hidden");
-    const feedbackBox = document.getElementById("feedback-box");
-    
-    const char = characters[Math.floor(Math.random() * characters.length)];
-    const comment = char.comments[Math.floor(Math.random() * char.comments.length)];
-
-    document.getElementById("feedback-name").textContent = `${char.name} observes:`;
-    document.getElementById("feedback-text").innerHTML = `
-        <strong style="color: ${isCorrect ? '#4caf50' : '#ff3b3b'}">
-            ${isCorrect ? "CLEVER..." : "FOOLISH..."}
-        </strong><br><br>
-        "${comment}"
-    `;
-    
-    // Set portrait background if you have the images
-    const portrait = document.getElementById("feedback-portrait");
-    portrait.style.backgroundImage = `url('assets/portraits/${char.name.toLowerCase()}.png')`;
-    
-    feedbackBox.classList.remove("hidden");
-}
-
-function nextQuestion() {
-    document.getElementById("feedback-box").classList.add("hidden");
-    
-    // Supporter Shoutout Chance (20%)
-    if (Math.random() < 0.2 && typeof supporters !== 'undefined' && supporters.length > 0) {
-        showSupporterShoutout();
+// Load question
+function loadQuestion() {
+    if (currentQuestionIndex >= questions.length) {
+        showResults();
         return;
     }
-
-    proceed();
+    
+    const question = questions[currentQuestionIndex];
+    document.getElementById('question-text').textContent = `Trial ${currentQuestionIndex + 1}: ${question.question}`;
+    
+    const optionsDiv = document.getElementById('options');
+    optionsDiv.innerHTML = '';
+    
+    question.options.forEach((option, index) => {
+        const button = document.createElement('button');
+        button.className = 'btn-ninja';
+        button.textContent = option;
+        button.onclick = () => checkAnswer(option, question.answer, question.commentator || 'rikimaru');
+        optionsDiv.appendChild(button);
+    });
+    
+    document.getElementById('question-box').classList.remove('hidden');
+    document.getElementById('feedback-box').classList.add('hidden');
+    document.getElementById('result-box').classList.add('hidden');
+    document.getElementById('supporter-box').classList.add('hidden');
 }
 
-function proceed() {
-    currentQuestionIndex++;
-    if (currentQuestionIndex >= questionsPerSession) {
-        showResult();
+// Check answer
+function checkAnswer(selected, correct, commentator) {
+    const isCorrect = selected === correct;
+    
+    if (isCorrect) {
+        score++;
+        createVFX('correct');
     } else {
-        document.getElementById("question-box").classList.remove("hidden");
-        showQuestion(currentQuestionIndex);
+        createVFX('incorrect');
     }
-}
-
-function showSupporterShoutout() {
-    const supporterBox = document.getElementById("supporter-box");
-    const supporter = supporters[Math.floor(Math.random() * supporters.length)];
-    const char = characters[Math.floor(Math.random() * characters.length)];
-
-    document.getElementById("supporter-name").textContent = `${char.name} acknowledges:`;
-    document.getElementById("supporter-text").textContent = `Our shadow ally, ${supporter.name}, watches over this trial.`;
     
-    supporterBox.classList.remove("hidden");
+    // Show character feedback
+    showFeedback(isCorrect, commentator);
 }
 
+// Show feedback
+function showFeedback(isCorrect, commentator) {
+    const comment = getCharacterComment(commentator, isCorrect);
+    const portrait = getCharacterPortrait(commentator);
+    const name = getCharacterDisplayName(commentator);
+    
+    document.getElementById('feedback-text').textContent = comment;
+    document.getElementById('feedback-name').textContent = name + ":";
+    document.getElementById('feedback-portrait').style.backgroundImage = `url('${portrait}')`;
+    
+    // Hide question, show feedback
+    document.getElementById('question-box').classList.add('hidden');
+    document.getElementById('feedback-box').classList.remove('hidden');
+}
+
+// Next question
+function nextQuestion() {
+    currentQuestionIndex++;
+    
+    // Occasionally show supporter appreciation
+    if (currentQuestionIndex > 0 && currentQuestionIndex < questions.length) {
+        if (Math.random() < 0.25) { // 25% chance to show supporter
+            setTimeout(() => {
+                if (showRandomSupporter()) {
+                    setTimeout(() => {
+                        hideSupporterBox();
+                        loadQuestion();
+                    }, 3000);
+                    return;
+                }
+            }, 100);
+        }
+    }
+    
+    loadQuestion();
+}
+
+// Hide supporter box
 function hideSupporterBox() {
-    document.getElementById("supporter-box").classList.add("hidden");
-    proceed();
+    document.getElementById('supporter-box').classList.add('hidden');
 }
 
-function showResult() {
-    document.getElementById("question-box").classList.add("hidden");
-    const resultBox = document.getElementById("result-box");
+// Show results
+function showResults() {
+    const percentage = (score / questions.length) * 100;
+    let rank, title, description;
     
-    let rank = "", title = "", text = "";
-    const percent = (score / questionsPerSession) * 100;
-
-    if (percent === 100) { 
-        rank = "GRANDMASTER"; title = "Shadow Assassin"; 
-        text = `Unbelievable, ${playerName}. You are a true master of the Azuma Clan.`;
-    } else if (percent >= 80) { 
-        rank = "ELITE NINJA"; title = "Expert Infiltrator"; 
-        text = `Well done, ${playerName}. Lord Gohda will be pleased with your progress.`;
-    } else if (percent >= 40) { 
-        rank = "NOVICE"; title = "Hidden Footstep"; 
-        text = `You have passed the trial, ${playerName}, but your blade lacks discipline.`;
-    } else { 
-        rank = "THUG"; title = "Unseen Failure"; 
-        text = `You have much to learn, ${playerName}. Return to the shadows and train harder.`;
+    if (percentage >= 90) {
+        rank = "GRAND MASTER";
+        title = "Shadow of Perfection";
+        description = `${playerName}, your mastery of ninja arts is absolute. You walk as a true shadow, unseen and lethal. The Azuma clan honors you as our Grand Master.`;
+    } else if (percentage >= 70) {
+        rank = "MASTER";
+        title = "Azure Shadow";
+        description = `${playerName}, your skills are exceptional. You understand the balance of stealth and strike. The Azuma clan recognizes you as a Master.`;
+    } else if (percentage >= 50) {
+        rank = "JOURNEYMAN";
+        title = "Silent Blade";
+        description = `${playerName}, you show promise in the ninja arts. Continue your training to master the shadows.`;
+    } else if (percentage >= 30) {
+        rank = "INITIATE";
+        title = "Whispering Leaf";
+        description = `${playerName}, you have begun the path. Study the scrolls and learn from your mistakes.`;
+    } else {
+        rank = "FAILED";
+        title = "Visible Target";
+        description = `${playerName}, your understanding of ninja ways is lacking. Return to training or find another path.`;
     }
-
-    document.getElementById("result-rank").textContent = rank;
-    document.getElementById("result-title").textContent = title;
-    document.getElementById("result-text").textContent = text;
     
-    resultBox.classList.remove("hidden");
+    document.getElementById('result-rank').textContent = rank;
+    document.getElementById('result-title').textContent = title;
+    document.getElementById('result-text').textContent = description;
+    
+    // Set random character portrait for results
+    const characters = ['rikimaru', 'ayame', 'tatsumaru'];
+    const randomChar = characters[Math.floor(Math.random() * characters.length)];
+    document.getElementById('result-portrait').style.backgroundImage = `url('${getCharacterPortrait(randomChar)}')`;
+    
+    document.getElementById('feedback-box').classList.add('hidden');
+    document.getElementById('result-box').classList.remove('hidden');
 }
 
+// Visual Effects
+function createVFX(type) {
+    const canvas = document.getElementById('vfx-canvas');
+    if (!canvas) return;
+    
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    
+    if (type === 'correct') {
+        // Green slash for correct
+        drawSlash(ctx, 0, 0, canvas.width, canvas.height, '#00ff00');
+    } else {
+        // Red slash for incorrect
+        drawSlash(ctx, canvas.width, 0, 0, canvas.height, '#ff0000');
+    }
+    
+    setTimeout(() => {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }, 200);
+}
+
+function drawSlash(ctx, x1, y1, x2, y2, color) {
+    ctx.strokeStyle = color;
+    ctx.lineWidth = 3;
+    ctx.shadowBlur = 15;
+    ctx.shadowColor = color;
+    ctx.beginPath();
+    ctx.moveTo(x1, y1);
+    ctx.lineTo(x2, y2);
+    ctx.stroke();
+}
+
+// Navigation functions
 function showInfo() {
-    hideAllScreens();
-    document.getElementById("info").classList.remove("hidden");
+    menuScreen.classList.add('hidden');
+    infoScreen.classList.remove('hidden');
 }
 
 function showSupporters() {
-    hideAllScreens();
-    document.getElementById("supporters-screen").classList.remove("hidden");
+    menuScreen.classList.add('hidden');
+    supportersScreen.classList.remove('hidden');
 }
 
 function backToMenu() {
-    hideAllScreens();
-    document.getElementById("menu").classList.remove("hidden");
+    playerNameScreen.classList.add('hidden');
+    infoScreen.classList.add('hidden');
+    supportersScreen.classList.add('hidden');
+    gameScreen.classList.add('hidden');
+    menuScreen.classList.remove('hidden');
 }
 
-// ======================= INIT =======================
-
-window.addEventListener('resize', () => {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+// Initialize on load
+window.addEventListener('load', () => {
+    // Add canvas for VFX
+    const canvas = document.createElement('canvas');
+    canvas.id = 'vfx-canvas';
+    canvas.style.position = 'fixed';
+    canvas.style.top = '0';
+    canvas.style.left = '0';
+    canvas.style.zIndex = '1';
+    canvas.style.pointerEvents = 'none';
+    document.body.prepend(canvas);
 });
-
-initParticles();
-animate();
