@@ -1,70 +1,104 @@
-// ===========================================
-// TENCHU SHIREN - GAME ENGINE
-// ===========================================
+// game.js - Enhanced with supporter appreciation system
 
-// Global variables
+// Game state
 let playerName = "Shadow Warrior";
 let currentQuestionIndex = 0;
 let score = 0;
 let questions = [];
 let gameActive = false;
+let correctAnswers = 0;
+let showAppreciationScreen = false;
 
-// Fallback questions (in case JSON doesn't load)
+// Game elements
+let currentScreen = 'menu';
+
+// Fallback questions
 const fallbackQuestions = [
     {
         question: "A figure stands in the moonlight with silver hair. Identify this shadow.",
         options: ["Rikimaru", "Onikage", "Tatsumaru", "Lord Gohda"],
         answer: "Rikimaru",
-        commentator: "rikimaru"
+        commentator: "rikimaru",
+        category: "Characters",
+        difficulty: "Medium"
     },
     {
         question: "Which tool is essential for reaching high castle rooftops?",
         options: ["Shuriken", "Grappling Hook", "Caltrops", "Smoke Bomb"],
         answer: "Grappling Hook",
-        commentator: "ayame"
+        commentator: "ayame",
+        category: "Tools",
+        difficulty: "Easy"
     },
     {
         question: "A guard is patrolling alone. He stops to investigate a noise. What is your move?",
         options: ["Stealth Kill", "Wait in shadows", "Distract with stone", "Open Combat"],
         answer: "Wait in shadows",
-        commentator: "rikimaru"
+        commentator: "rikimaru",
+        category: "Stealth",
+        difficulty: "Medium"
     },
     {
         question: "Is it honorable to kill a sleeping enemy to complete a mission?",
         options: ["Yes", "No", "Depends", "Only if spotted"],
         answer: "Yes",
-        commentator: "tatsumaru"
+        commentator: "tatsumaru",
+        category: "Ethics",
+        difficulty: "Hard"
     },
     {
         question: "What is the primary law of the Azuma Shinobi?",
         options: ["Serve in shadow", "Kill for gold", "Seek glory", "Rule the land"],
         answer: "Serve in shadow",
-        commentator: "rikimaru"
+        commentator: "rikimaru",
+        category: "Lore",
+        difficulty: "Easy"
     }
 ];
 
-// ==================== SCREEN FUNCTIONS ====================
+// ==================== SCREEN MANAGEMENT ====================
 
-// Show player name screen
+// Show screen with animation
+function showScreen(screenId) {
+    // Hide all screens
+    const screens = document.querySelectorAll('.screen');
+    screens.forEach(screen => {
+        screen.classList.remove('active');
+        screen.classList.add('hidden');
+    });
+    
+    // Show requested screen
+    const screen = document.getElementById(screenId);
+    if (screen) {
+        screen.classList.remove('hidden');
+        setTimeout(() => {
+            screen.classList.add('active');
+        }, 50);
+        
+        // Update current screen
+        currentScreen = screenId;
+        
+        // Trigger VFX for screen change
+        if (typeof createGameVFX === 'function') {
+            createGameVFX('screenChange');
+        }
+        
+        console.log(`Showing screen: ${screenId}`);
+    }
+}
+
+// Menu functions
 function showPlayerNameScreen() {
-    console.log("showPlayerNameScreen called");
-    hideAllScreens();
-    document.getElementById('player-name-screen').classList.remove('hidden');
+    showScreen('player-name-screen');
     document.getElementById('player-name-input').focus();
 }
 
-// Show info screen
 function showInfo() {
-    console.log("showInfo called");
-    hideAllScreens();
-    document.getElementById('info').classList.remove('hidden');
+    showScreen('info');
 }
 
-// Show supporters screen
 function showSupporters() {
-    console.log("showSupporters called");
-    hideAllScreens();
-    document.getElementById('supporters-screen').classList.remove('hidden');
+    showScreen('supporters-screen');
     
     // Update supporter message
     const messageEl = document.getElementById('supporter-message');
@@ -73,77 +107,82 @@ function showSupporters() {
     }
 }
 
-// Return to main menu
 function backToMenu() {
-    console.log("backToMenu called");
-    hideAllScreens();
-    document.getElementById('menu').classList.remove('hidden');
+    showScreen('menu');
     gameActive = false;
-}
-
-// Hide all screens
-function hideAllScreens() {
-    const screens = ['menu', 'player-name-screen', 'info', 'supporters-screen', 'game'];
-    screens.forEach(screenId => {
-        const screen = document.getElementById(screenId);
-        if (screen) screen.classList.add('hidden');
-    });
+    
+    // Create menu VFX
+    if (typeof createGameVFX === 'function') {
+        createGameVFX('menuOpen');
+    }
 }
 
 // ==================== GAME FUNCTIONS ====================
 
-// Set player name and start game
 function setPlayerName() {
     const input = document.getElementById('player-name-input');
     if (input && input.value.trim() !== '') {
         playerName = input.value.trim();
-        console.log("Player name set to:", playerName);
+        console.log(`Player name: ${playerName}`);
     }
     
     startGame();
 }
 
-// Start the game
-function startGame() {
-    console.log("startGame called");
+async function startGame() {
+    console.log("Starting game...");
     
     // Reset game state
     currentQuestionIndex = 0;
     score = 0;
+    correctAnswers = 0;
     gameActive = true;
+    showAppreciationScreen = false;
     
     // Load questions
-    loadQuestions();
+    await loadQuestions();
     
     // Show game screen
-    hideAllScreens();
-    document.getElementById('game').classList.remove('hidden');
+    showScreen('game');
+    
+    // Update player display
+    document.getElementById('current-player').textContent = playerName.toUpperCase();
+    
+    // Create game start VFX
+    if (typeof createGameVFX === 'function') {
+        createGameVFX('gameStart');
+    }
     
     // Load first question
-    loadQuestion();
+    setTimeout(() => {
+        loadQuestion();
+    }, 1000);
 }
 
-// Load questions from JSON or use fallback
 async function loadQuestions() {
     try {
         const response = await fetch('questions.json');
         if (response.ok) {
             const data = await response.json();
-            // Randomly select 5 questions
             questions = data.sort(() => Math.random() - 0.5).slice(0, 5);
-            console.log("Loaded questions from JSON");
+            console.log(`Loaded ${questions.length} questions`);
         } else {
-            throw new Error('Failed to load questions.json');
+            throw new Error('Failed to load questions');
         }
     } catch (error) {
-        console.log("Using fallback questions:", error);
-        questions = [...fallbackQuestions]; // Copy fallback questions
+        console.log("Using fallback questions");
+        questions = [...fallbackQuestions];
     }
 }
 
-// Load current question
 function loadQuestion() {
     if (!gameActive) return;
+    
+    // Check if game should show appreciation screen
+    if (showAppreciationScreen) {
+        showAppreciation();
+        return;
+    }
     
     // Check if game is over
     if (currentQuestionIndex >= questions.length) {
@@ -153,168 +192,256 @@ function loadQuestion() {
     
     const question = questions[currentQuestionIndex];
     
-    // Update question text
-    document.getElementById('question-text').textContent = 
-        `Trial ${currentQuestionIndex + 1}: ${question.question}`;
+    // Update UI
+    document.getElementById('question-text').textContent = question.question;
+    document.getElementById('trial-number').textContent = currentQuestionIndex + 1;
+    document.getElementById('current-trial').textContent = currentQuestionIndex + 1;
     
-    // Clear and create options
+    // Update difficulty display
+    const diffElement = document.querySelector('.diff-level');
+    if (diffElement && question.difficulty) {
+        diffElement.textContent = question.difficulty;
+    }
+    
+    // Create options
     const optionsDiv = document.getElementById('options');
     optionsDiv.innerHTML = '';
     
     question.options.forEach((option, index) => {
         const button = document.createElement('button');
         button.className = 'btn-ninja';
-        button.textContent = option;
-        button.onclick = () => checkAnswer(option, question.answer, question.commentator);
+        button.innerHTML = `
+            <span class="option-letter">${String.fromCharCode(65 + index)}</span>
+            <span class="option-text">${option}</span>
+        `;
+        
+        // Add click handler with animation
+        button.onclick = () => {
+            // Disable all buttons
+            const allButtons = optionsDiv.querySelectorAll('button');
+            allButtons.forEach(btn => {
+                btn.disabled = true;
+                btn.style.pointerEvents = 'none';
+            });
+            
+            // Highlight selected button
+            button.style.background = 'linear-gradient(145deg, #2a1a1a, #1a1111)';
+            button.style.borderColor = '#8b0000';
+            button.style.transform = 'scale(0.98)';
+            
+            // Check answer with delay for animation
+            setTimeout(() => {
+                checkAnswer(option, question.answer, question.commentator);
+            }, 500);
+        };
+        
         optionsDiv.appendChild(button);
     });
     
-    // Show question box
+    // Show question screen
     document.getElementById('question-box').classList.remove('hidden');
     document.getElementById('feedback-box').classList.add('hidden');
-    document.getElementById('supporter-box').classList.add('hidden');
+    document.getElementById('appreciation-screen').classList.add('hidden');
     document.getElementById('result-box').classList.add('hidden');
 }
 
-// Check answer
 function checkAnswer(selected, correct, commentator) {
     const isCorrect = selected === correct;
     
     if (isCorrect) {
-        score++;
-        createVFX('correct');
+        score += 100;
+        correctAnswers++;
+        
+        // Create VFX
+        if (typeof createGameVFX === 'function') {
+            createGameVFX('correct');
+        }
     } else {
-        createVFX('incorrect');
+        // Create VFX
+        if (typeof createGameVFX === 'function') {
+            createGameVFX('incorrect');
+        }
     }
     
     // Show feedback
     showFeedback(isCorrect, commentator);
 }
 
-// Show feedback with character comment
 function showFeedback(isCorrect, commentator) {
     let comment, characterName, portrait;
     
-    // Get character comment
+    // Get character feedback
     if (typeof getCharacterComment === 'function') {
         comment = getCharacterComment(commentator, isCorrect);
     } else {
-        comment = isCorrect ? "Correct. Well done." : "Incorrect. Study the scrolls.";
+        comment = isCorrect ? "Correct. The shadows approve." : "Incorrect. Study harder.";
     }
     
-    // Get character name
+    // Get character info
     if (typeof getCharacterDisplayName === 'function') {
         characterName = getCharacterDisplayName(commentator);
     } else {
         characterName = "Master";
     }
     
-    // Get character portrait
     if (typeof getCharacterPortrait === 'function') {
         portrait = getCharacterPortrait(commentator);
     }
     
     // Update feedback display
     document.getElementById('feedback-text').textContent = comment;
-    document.getElementById('feedback-name').textContent = characterName + ":";
+    document.getElementById('feedback-name').textContent = characterName.toUpperCase();
     
     if (portrait) {
         document.getElementById('feedback-portrait').style.backgroundImage = `url('${portrait}')`;
     }
     
-    // Show feedback box
+    // Show feedback screen
     document.getElementById('question-box').classList.add('hidden');
     document.getElementById('feedback-box').classList.remove('hidden');
+    
+    // Check if we should show appreciation screen after this question
+    if (currentQuestionIndex === Math.floor(questions.length / 2)) {
+        showAppreciationScreen = true;
+    }
 }
 
-// Next question
 function nextQuestion() {
     currentQuestionIndex++;
     
-    // Check if we should show a supporter
-    if (currentQuestionIndex < questions.length && Math.random() < 0.3) {
-        showRandomSupporter();
+    // Load next question
+    setTimeout(() => {
+        loadQuestion();
+    }, 300);
+}
+
+// ==================== APPRECIATION SCREEN ====================
+
+function showAppreciation() {
+    if (typeof supporters === 'undefined' || supporters.length === 0) {
+        // Skip to results if no supporters
+        showResults();
         return;
     }
     
-    loadQuestion();
+    // Select random supporter
+    const randomIndex = Math.floor(Math.random() * supporters.length);
+    const supporter = supporters[randomIndex];
+    
+    // Select random Azuma character for appreciation
+    const characters = ['rikimaru', 'ayame', 'tatsumaru'];
+    const randomCharacter = characters[Math.floor(Math.random() * characters.length)];
+    
+    // Get character portrait
+    let portrait = '';
+    if (typeof getCharacterPortrait === 'function') {
+        portrait = getCharacterPortrait(randomCharacter);
+    }
+    
+    // Get character name
+    let characterName = "Azuma Master";
+    if (typeof getCharacterDisplayName === 'function') {
+        characterName = getCharacterDisplayName(randomCharacter);
+    }
+    
+    // Create appreciation message
+    const messages = [
+        `The ${characterName} acknowledges your support.`,
+        `${characterName} honors those who stand with the Azuma.`,
+        `From the shadows, ${characterName} gives thanks.`,
+        `${characterName} recognizes true allies of the clan.`,
+        `The way of the ninja values loyal supporters.`
+    ];
+    
+    const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+    
+    // Update appreciation screen
+    document.getElementById('appreciation-text').textContent = randomMessage;
+    document.getElementById('honored-name').textContent = supporter.name;
+    document.getElementById('honored-handle').textContent = supporter.handle || '';
+    
+    if (portrait) {
+        document.getElementById('appreciation-portrait').style.backgroundImage = `url('${portrait}')`;
+    }
+    
+    // Show appreciation screen
+    document.getElementById('question-box').classList.add('hidden');
+    document.getElementById('feedback-box').classList.add('hidden');
+    document.getElementById('appreciation-screen').classList.remove('hidden');
+    document.getElementById('result-box').classList.add('hidden');
+    
+    // Create VFX
+    if (typeof createGameVFX === 'function') {
+        createGameVFX('appreciation');
+    }
+    
+    console.log(`Showing appreciation for supporter: ${supporter.name}`);
 }
 
-// Show random supporter
-function showRandomSupporter() {
-    if (typeof supporters !== 'undefined' && supporters.length > 0) {
-        const randomIndex = Math.floor(Math.random() * supporters.length);
-        const supporter = supporters[randomIndex];
-        
-        let appreciation = "The Azuma clan honors its allies.";
-        if (typeof getSupporterAppreciation === 'function') {
-            appreciation = getSupporterAppreciation();
-        }
-        
-        document.getElementById('supporter-name').textContent = supporter.name;
-        document.getElementById('supporter-text').textContent = 
-            `${appreciation} ${supporter.name} stands with the Azuma.`;
-        
-        // Set random character portrait
-        const characters = ['rikimaru', 'ayame', 'tatsumaru'];
-        const randomChar = characters[Math.floor(Math.random() * characters.length)];
-        if (typeof getCharacterPortrait === 'function') {
-            const portrait = getCharacterPortrait(randomChar);
-            if (portrait) {
-                document.getElementById('supporter-portrait').style.backgroundImage = `url('${portrait}')`;
-            }
-        }
-        
-        document.getElementById('feedback-box').classList.add('hidden');
-        document.getElementById('supporter-box').classList.remove('hidden');
-    } else {
+function continueFromAppreciation() {
+    showAppreciationScreen = false;
+    
+    // Continue to next question or results
+    if (currentQuestionIndex < questions.length) {
         loadQuestion();
+    } else {
+        showResults();
     }
 }
 
-// Hide supporter box
-function hideSupporterBox() {
-    document.getElementById('supporter-box').classList.add('hidden');
-    loadQuestion();
-}
+// ==================== RESULTS SCREEN ====================
 
-// Show results
 function showResults() {
-    const percentage = (score / questions.length) * 100;
-    let rank, title, description;
+    const totalQuestions = questions.length;
+    const percentage = (correctAnswers / totalQuestions) * 100;
     
+    let rank, title, description, symbol;
+    
+    // Determine rank
     if (percentage >= 90) {
         rank = "GRAND MASTER";
         title = "Shadow of Perfection";
-        description = `${playerName}, your mastery is absolute. The Azuma clan honors you.`;
+        description = `${playerName}, your mastery is absolute. You move like a phantom, strike like lightning. The Azuma clan bows to your skill.`;
+        symbol = "👑";
     } else if (percentage >= 70) {
         rank = "MASTER";
         title = "Azure Shadow";
-        description = `${playerName}, your skills are exceptional.`;
+        description = `${playerName}, you are a true ninja. Your skills honor the Azuma clan. Continue your path in darkness.`;
+        symbol = "⚔️";
     } else if (percentage >= 50) {
         rank = "JOURNEYMAN";
         title = "Silent Blade";
-        description = `${playerName}, you show promise. Continue your training.`;
+        description = `${playerName}, you show great potential. Train harder, and the shadows will welcome you fully.`;
+        symbol = "🗡️";
     } else if (percentage >= 30) {
         rank = "INITIATE";
         title = "Whispering Leaf";
-        description = `${playerName}, you have begun the path. Study more.`;
+        description = `${playerName}, you have taken your first steps. Study the scrolls, practice in silence.`;
+        symbol = "🍃";
     } else {
         rank = "FAILED";
         title = "Visible Target";
-        description = `${playerName}, your understanding is lacking. Return to training.`;
+        description = `${playerName}, the shadows reject you. Return to training or find another path.`;
+        symbol = "💀";
     }
     
-    // Update result display
+    // Update results display
     document.getElementById('result-rank').textContent = rank;
     document.getElementById('result-title').textContent = title;
     document.getElementById('result-text').textContent = description;
+    document.getElementById('rank-symbol').textContent = symbol;
+    document.getElementById('correct-count').textContent = `${correctAnswers}/${totalQuestions}`;
+    document.getElementById('success-rate').textContent = `${Math.round(percentage)}%`;
     
     // Set character portrait based on rank
     let character;
-    if (percentage >= 70) character = 'rikimaru';
-    else if (percentage >= 50) character = 'ayame';
-    else character = 'tatsumaru';
+    if (percentage >= 70) {
+        character = 'rikimaru';
+    } else if (percentage >= 50) {
+        character = 'ayame';
+    } else {
+        character = 'tatsumaru';
+    }
     
     if (typeof getCharacterPortrait === 'function') {
         const portrait = getCharacterPortrait(character);
@@ -323,77 +450,62 @@ function showResults() {
         }
     }
     
-    // Show results
+    // Show results screen
     document.getElementById('question-box').classList.add('hidden');
     document.getElementById('feedback-box').classList.add('hidden');
-    document.getElementById('supporter-box').classList.add('hidden');
+    document.getElementById('appreciation-screen').classList.add('hidden');
     document.getElementById('result-box').classList.remove('hidden');
-}
-
-// Create VFX
-function createVFX(type) {
-    const canvas = document.getElementById('vfx-canvas');
-    if (!canvas) {
-        // Create canvas if it doesn't exist
-        const newCanvas = document.createElement('canvas');
-        newCanvas.id = 'vfx-canvas';
-        newCanvas.style.position = 'fixed';
-        newCanvas.style.top = '0';
-        newCanvas.style.left = '0';
-        newCanvas.style.zIndex = '1';
-        newCanvas.style.pointerEvents = 'none';
-        document.body.appendChild(newCanvas);
+    
+    // Create VFX based on result
+    if (typeof createGameVFX === 'function') {
+        if (percentage >= 50) {
+            createGameVFX('victory');
+        } else {
+            createGameVFX('defeat');
+        }
     }
     
-    const ctx = canvas.getContext('2d');
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-    
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    
-    if (type === 'correct') {
-        // Green slash
-        drawSlash(ctx, 0, 0, canvas.width, canvas.height, '#00ff00');
-    } else if (type === 'incorrect') {
-        // Red slash
-        drawSlash(ctx, canvas.width, 0, 0, canvas.height, '#ff0000');
-    }
-    
-    setTimeout(() => {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-    }, 300);
-}
-
-// Draw slash effect
-function drawSlash(ctx, x1, y1, x2, y2, color) {
-    ctx.strokeStyle = color;
-    ctx.lineWidth = 3;
-    ctx.shadowBlur = 20;
-    ctx.shadowColor = color;
-    ctx.beginPath();
-    ctx.moveTo(x1, y1);
-    ctx.lineTo(x2, y2);
-    ctx.stroke();
+    console.log(`Game completed. Score: ${correctAnswers}/${totalQuestions} (${percentage}%). Rank: ${rank}`);
 }
 
 // ==================== INITIALIZATION ====================
 
 // Initialize on page load
 window.addEventListener('load', function() {
-    console.log("Game initialized");
+    console.log('Tenchu Shiren - Enhanced Edition');
     
-    // Make sure menu is visible
-    backToMenu();
-    
-    // Add VFX canvas
-    if (!document.getElementById('vfx-canvas')) {
-        const canvas = document.createElement('canvas');
-        canvas.id = 'vfx-canvas';
-        canvas.style.position = 'fixed';
-        canvas.style.top = '0';
-        canvas.style.left = '0';
-        canvas.style.zIndex = '1';
-        canvas.style.pointerEvents = 'none';
-        document.body.appendChild(canvas);
+    // Initialize VFX
+    if (typeof initVFX === 'function') {
+        initVFX();
     }
+    
+    // Show main menu
+    showScreen('menu');
+    
+    // Initialize supporters list
+    if (typeof updateSupportersList === 'function') {
+        updateSupportersList();
+    }
+    
+    // Set up name input
+    const nameInput = document.getElementById('player-name-input');
+    if (nameInput) {
+        nameInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                setPlayerName();
+            }
+        });
+    }
+    
+    console.log('Game initialized successfully');
 });
+
+// Export functions for global access
+window.showPlayerNameScreen = showPlayerNameScreen;
+window.showInfo = showInfo;
+window.showSupporters = showSupporters;
+window.backToMenu = backToMenu;
+window.setPlayerName = setPlayerName;
+window.startGame = startGame;
+window.nextQuestion = nextQuestion;
+window.continueFromAppreciation = continueFromAppreciation;
