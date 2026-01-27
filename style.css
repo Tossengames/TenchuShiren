@@ -1,154 +1,228 @@
+/* ============================================================
+   TENCHU TEST - PREMIUM SHINOBI STYLING
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@400;700&display=swap');
+
+:root {
+  --blood-red: #8b0000;
+  --bright-red: #ff3b3b;
+  --ink-black: #0b0b0b;
+  --deep-charcoal: #1a1a1a;
+  --parchment: #f0ead6;
+  --gold: #d4af37;
+  --transition-speed: 0.4s;
+}
+
 /* ================== GLOBAL ================== */
 body {
   margin: 0;
-  font-family: "Segoe UI", Roboto, sans-serif;
-  background-color: #0b0b0b;
-  color: #e0e0e0;
+  font-family: 'Shippori Mincho B1', serif;
+  background-color: var(--ink-black);
+  color: var(--parchment);
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  overflow-x: hidden;
+  overflow: hidden; /* Canvas handles scrolling visuals */
 }
 
+/* ================== SCREEN CONTAINERS ================== */
 .screen {
+  position: relative;
   text-align: center;
-  padding: 20px;
-  max-width: 600px;
-  width: 90%;
-  transition: opacity 0.5s ease;
+  padding: 40px;
+  max-width: 500px;
+  width: 85%;
+  background: rgba(10, 10, 10, 0.9);
+  border: 1px solid #333;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.9), 
+              inset 0 0 40px rgba(139, 0, 0, 0.1);
+  backdrop-filter: blur(8px);
+  border-radius: 2px;
+  animation: slideIn var(--transition-speed) ease-out;
+  z-index: 10;
 }
 
 .hidden {
-  display: none;
+  display: none !important;
 }
 
-/* ================== HEADINGS ================== */
-h1, h2, h3, h4 {
-  margin: 10px 0;
-  font-family: "Segoe UI Black", sans-serif;
-  color: #ff3b3b;
-  text-shadow: 0 0 10px #ff0000, 0 0 20px #8b0000;
+/* ================== TYPOGRAPHY ================== */
+h1 {
+  font-size: 2.5rem;
+  margin: 0;
+  color: var(--bright-red);
+  letter-spacing: 6px;
+  text-transform: uppercase;
+  text-shadow: 0 0 15px rgba(255, 0, 0, 0.4);
+}
+
+h2 {
+  font-size: 1.8rem;
+  color: var(--gold);
+  border-bottom: 1px solid var(--blood-red);
+  display: inline-block;
+  padding-bottom: 5px;
+  margin-bottom: 25px;
+}
+
+p {
+  line-height: 1.6;
+  font-size: 1.05rem;
+  color: #ccc;
 }
 
 /* ================== BUTTONS ================== */
-button {
-  background-color: #1a1a1a;
-  border: 2px solid #ff3b3b;
-  color: #ff3b3b;
-  padding: 12px 25px;
-  margin: 10px 5px;
-  font-size: 16px;
+/* The main action buttons */
+button, .btn-ninja {
+  display: block;
+  width: 100%;
+  background: none;
+  border: 1px solid var(--blood-red);
+  color: var(--parchment);
+  padding: 14px 20px;
+  margin: 12px 0;
+  font-family: inherit;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
   cursor: pointer;
-  border-radius: 8px;
-  transition: all 0.3s ease;
+  position: relative;
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  overflow: hidden;
+}
+
+button::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+  transition: 0.5s;
 }
 
 button:hover {
-  background-color: #ff3b3b;
-  color: #0b0b0b;
-  transform: scale(1.05);
+  background-color: var(--blood-red);
+  color: #fff;
+  box-shadow: 0 0 20px rgba(139, 0, 0, 0.6);
+  transform: translateY(-2px);
 }
 
-button:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
+button:hover::before {
+  left: 100%;
 }
 
-/* ================== INPUT ================== */
+button:active {
+  transform: translateY(1px);
+}
+
+/* ================== INPUTS ================== */
 input[type="text"] {
-  padding: 10px;
-  font-size: 16px;
-  width: 80%;
-  border-radius: 8px;
-  border: 2px solid #ff3b3b;
-  margin-bottom: 15px;
-  background-color: #1a1a1a;
-  color: #e0e0e0;
-}
-
-/* ================== QUESTION BOX ================== */
-#question-box {
-  margin-top: 20px;
-}
-
-#options {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-#options button {
-  width: 80%;
-}
-
-/* ================== FEEDBACK ================== */
-#feedback-box, #supporter-box, #result-box {
-  background-color: #1a1a1a;
-  border: 2px solid #ff3b3b;
-  border-radius: 12px;
+  background: var(--deep-charcoal);
+  border: 1px solid #444;
+  border-left: 4px solid var(--blood-red);
+  color: white;
   padding: 15px;
-  margin-top: 15px;
-  box-shadow: 0 0 20px #ff0000;
-  animation: fadeIn 0.5s ease;
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 20px;
+  font-family: inherit;
+  font-size: 1.1rem;
+  outline: none;
+  transition: border 0.3s;
 }
 
-#feedback-box img, #supporter-box img, #result-box img {
-  width: 80px;
-  height: 80px;
+input[type="text"]:focus {
+  border-color: var(--gold);
+}
+
+/* ================== GAMEPLAY UI ================== */
+#options {
+  margin-top: 30px;
+}
+
+/* Character Portrait Frame */
+.portrait-frame {
+  width: 120px;
+  height: 120px;
+  margin: 0 auto 15px;
+  border: 3px solid var(--blood-red);
   border-radius: 50%;
-  margin-bottom: 10px;
+  background-color: #000;
+  background-size: cover;
+  background-position: center;
+  box-shadow: 0 0 25px rgba(139, 0, 0, 0.5);
 }
 
-/* ================== SUPPORTERS LIST ================== */
+/* Feedback/Results Box Styling */
+#feedback-box, #supporter-box, #result-box {
+  animation: fadeIn 0.6s ease;
+}
+
+.rank-text {
+  font-size: 2rem;
+  font-weight: bold;
+  color: var(--gold);
+  margin: 10px 0;
+  text-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+}
+
+/* ================== LISTS ================== */
 #supporters-list {
   list-style: none;
   padding: 0;
+  max-height: 250px;
+  overflow-y: auto;
+  border: 1px solid #222;
+  background: rgba(0,0,0,0.3);
 }
 
 #supporters-list li {
-  background-color: #1a1a1a;
-  border: 1px solid #ff3b3b;
-  margin: 5px 0;
-  padding: 8px;
-  border-radius: 8px;
-  text-align: center;
-  transition: all 0.3s ease;
+  padding: 12px;
+  border-bottom: 1px solid #222;
+  transition: background 0.2s;
 }
 
 #supporters-list li:hover {
-  background-color: #ff3b3b;
-  color: #0b0b0b;
+  background: rgba(139, 0, 0, 0.2);
 }
 
-/* ================== CANVAS ================== */
-#vfx-canvas {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 0;
-  pointer-events: none;
+/* Custom Scrollbar for list */
+#supporters-list::-webkit-scrollbar {
+  width: 5px;
+}
+#supporters-list::-webkit-scrollbar-thumb {
+  background: var(--blood-red);
 }
 
 /* ================== ANIMATIONS ================== */
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(30px) scale(0.95); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
 @keyframes fadeIn {
-  from {opacity:0;}
-  to {opacity:1;}
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Sword Slash VFX (Triggered via JS) */
+.slash-vfx {
+  position: fixed;
+  background: white;
+  height: 2px;
+  box-shadow: 0 0 10px white, 0 0 20px var(--bright-red);
+  z-index: 100;
+  pointer-events: none;
 }
 
 /* ================== RESPONSIVE ================== */
 @media (max-width: 480px) {
-  button {
-    width: 90%;
-    padding: 12px 0;
-  }
-
-  input[type="text"] {
+  .screen {
+    padding: 20px;
     width: 90%;
   }
-
-  #feedback-box img, #supporter-box img, #result-box img {
-    width: 60px;
-    height: 60px;
-  }
+  
+  h1 { font-size: 1.8rem; }
 }
