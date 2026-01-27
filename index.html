@@ -27,6 +27,7 @@
     <p>What name shall be written in the scrolls of the Azuma?</p>
     <input type="text" id="player-name-input" placeholder="Enter Ninja Name...">
     <button class="btn-ninja" onclick="setPlayerName()">CONFIRM IDENTITY</button>
+    <button class="btn-ninja" onclick="backToMenu()">RETURN TO MENU</button>
   </div>
 
   <div id="info" class="screen hidden">
@@ -47,7 +48,7 @@
       <p>• Their names and handles are recorded in our scrolls</p>
       <p>• Support helps maintain and expand this fan tribute</p>
       <p style="text-align: center; margin-top: 10px;">
-        <a href="https://ko-fi.com" style="color: #d4af37; text-decoration: none;" target="_blank">⚔️ Support on Ko-fi ⚔️</a>
+        <button class="btn-ninja" onclick="window.open('https://ko-fi.com', '_blank')" style="width: auto; display: inline-block; padding: 10px 20px;">⚔️ Support on Ko-fi ⚔️</button>
       </p>
     </div>
     
@@ -65,7 +66,7 @@
     
     <div style="margin-top: 20px; padding: 15px; background: rgba(139, 0, 0, 0.1);">
       <p>Want to join the honored allies?</p>
-      <a href="https://ko-fi.com" target="_blank" style="color: #d4af37; text-decoration: none;">Support on Ko-fi →</a>
+      <button class="btn-ninja" onclick="window.open('https://ko-fi.com', '_blank')" style="width: auto; display: inline-block; padding: 10px 20px;">Support on Ko-fi →</button>
     </div>
     
     <button class="btn-ninja" onclick="backToMenu()">RETURN TO MENU</button>
@@ -98,7 +99,7 @@
       <h3 id="result-title">TITLE</h3>
       <p id="result-text"></p>
       <button class="btn-ninja" onclick="startGame()">RE-ENTER THE SHADOWS</button>
-      <button class="btn-ninja" onclick="location.reload()">MAIN MENU</button>
+      <button class="btn-ninja" onclick="backToMenu()">MAIN MENU</button>
     </div>
 
   </div>
@@ -170,9 +171,9 @@
     
     // Show random supporter during gameplay occasionally
     function showRandomSupporter() {
-      if(Math.random() < 0.3 && typeof supporters !== 'undefined' && supporters.length > 0) {
+      if(typeof supporters !== 'undefined' && supporters.length > 0) {
         const randomSupporter = supporters[Math.floor(Math.random() * supporters.length)];
-        const appreciation = getSupporterAppreciation();
+        const appreciation = getSupporterAppreciation ? getSupporterAppreciation() : "The Azuma clan honors its allies.";
         
         document.getElementById('supporter-name').textContent = randomSupporter.name;
         document.getElementById('supporter-text').textContent = `${appreciation} ${randomSupporter.name} stands with the Azuma.`;
@@ -181,7 +182,10 @@
         // Set random character portrait for supporter box
         const characters = ['rikimaru', 'ayame', 'tatsumaru'];
         const randomChar = characters[Math.floor(Math.random() * characters.length)];
-        document.getElementById('supporter-portrait').style.backgroundImage = `url('${getCharacterPortrait(randomChar)}')`;
+        const portrait = getCharacterPortrait ? getCharacterPortrait(randomChar) : '';
+        if(portrait) {
+          document.getElementById('supporter-portrait').style.backgroundImage = `url('${portrait}')`;
+        }
         
         return true;
       }
