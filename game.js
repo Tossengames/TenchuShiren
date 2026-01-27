@@ -12,14 +12,29 @@ let supporters = [
 
 // Characters for feedback
 let characters = [
-  {name:"Rikimaru", comments:["Stay silent, stay deadly.","Excellent choice, ninja."]},
-  {name:"Ayame", comments:["Hmm, interesting move.","Don't get careless!"]},
-  {name:"Tatsumaru", comments:["You’re learning fast.","Watch your steps!"]},
-  {name:"Rin", comments:["Impressive!","Not bad for a beginner."]}
+  {name:"Rikimaru", comments:[
+    "Your choice shows precision.",
+    "Stealth is your ally, keep it.",
+    "You almost missed the mark, be careful."
+  ]},
+  {name:"Ayame", comments:[
+    "Good observation skills.",
+    "Remember, patience is key.",
+    "Bold, but think of consequences."
+  ]},
+  {name:"Tatsumaru", comments:[
+    "You’re learning fast.",
+    "Watch your steps!",
+    "Your reflexes are improving."
+  ]},
+  {name:"Rin", comments:[
+    "Impressive!",
+    "Not bad for a beginner.",
+    "Consider your surroundings carefully."
+  ]}
 ];
 
 // ======================= FUNCTIONS =======================
-
 function showPlayerNameScreen(){
   document.getElementById("menu").classList.add("hidden");
   document.getElementById("player-name-screen").classList.remove("hidden");
@@ -32,27 +47,44 @@ function setPlayerName(){
   startGame();
 }
 
-function startGame(){
-  document.getElementById("game").classList.remove("hidden");
-  currentQuestionIndex = 0;
-  score = 0;
-  nextQuestion();
-}
-
 function showInfo(){
   document.getElementById("menu").classList.add("hidden");
   document.getElementById("info").classList.remove("hidden");
 }
 
+function showSupporters(){
+  document.getElementById("menu").classList.add("hidden");
+  const list = document.getElementById("supporters-list");
+  list.innerHTML = "";
+  supporters.forEach(s => {
+    let li = document.createElement("li");
+    li.textContent = s.name + (s.handle ? " " + s.handle : "");
+    list.appendChild(li);
+  });
+  document.getElementById("supporters-screen").classList.remove("hidden");
+}
+
 function backToMenu(){
   document.getElementById("info").classList.add("hidden");
+  document.getElementById("supporters-screen").classList.add("hidden");
   document.getElementById("game").classList.add("hidden");
   document.getElementById("menu").classList.remove("hidden");
 }
 
+function startGame(){
+  document.getElementById("game").classList.remove("hidden");
+  currentQuestionIndex = 0;
+  score = 0;
+  showQuestion(currentQuestionIndex);
+}
+
+// ======================= QUESTIONS =======================
 function nextQuestion(){
-  const commentBox = document.getElementById("comment-box");
-  commentBox.classList.add("hidden");
+  document.getElementById("feedback-box").classList.add("hidden");
+  if(Math.random()<0.3 && supporters.length>0){
+    showSupporterShoutout();
+    return;
+  }
   currentQuestionIndex++;
   if(currentQuestionIndex >= questionsPerSession){
     showResult();
@@ -78,28 +110,45 @@ function showQuestion(index){
 
 function selectAnswer(selected, correct){
   if(selected === correct) score++;
-  showCharacterComment();
+  showCharacterFeedback(selected===correct);
   triggerVFX();
 }
 
-function showCharacterComment(){
-  const commentBox = document.getElementById("comment-box");
-  commentBox.classList.remove("hidden");
+// ======================= CHARACTER FEEDBACK =======================
+function showCharacterFeedback(correct){
+  const feedbackBox = document.getElementById("feedback-box");
+  feedbackBox.classList.remove("hidden");
 
   const char = characters[Math.floor(Math.random()*characters.length)];
   let comment = char.comments[Math.floor(Math.random()*char.comments.length)];
 
-  if(Math.random() < 0.3 && supporters.length>0){
-    const supporter = supporters[Math.floor(Math.random()*supporters.length)];
-    comment += ` Special thanks to ${supporter.name}${supporter.handle ? " " + supporter.handle : ""}!`;
-  }
+  comment = (correct ? "Correct! " : "Incorrect! ") + comment;
 
-  document.getElementById("comment-name").textContent = char.name;
-  document.getElementById("comment-text").textContent = comment;
-  document.getElementById("comment-portrait").src = "";
+  document.getElementById("feedback-name").textContent = char.name;
+  document.getElementById("feedback-text").textContent = comment;
+  document.getElementById("feedback-portrait").src = "";
 }
 
-// ===================== RESULTS =====================
+// ======================= SUPPORTER SHOUTOUT =======================
+function showSupporterShoutout(){
+  const supporterBox = document.getElementById("supporter-box");
+  supporterBox.classList.remove("hidden");
+
+  const char = characters[Math.floor(Math.random()*characters.length)];
+  const supporter = supporters[Math.floor(Math.random()*supporters.length)];
+
+  document.getElementById("supporter-name").textContent = char.name;
+  document.getElementById("supporter-text").textContent = 
+    `We honor ${supporter.name}${supporter.handle ? " " + supporter.handle : ""} for their support!`;
+  document.getElementById("supporter-portrait").src = "";
+}
+
+function hideSupporterBox(){
+  document.getElementById("supporter-box").classList.add("hidden");
+  nextQuestion();
+}
+
+// ======================= RESULTS =======================
 function showResult(){
   document.getElementById("question-box").innerHTML = "";
   const resultBox = document.getElementById("result-box");
@@ -119,14 +168,13 @@ function showResult(){
   document.getElementById("result-portrait").src = "";
 }
 
-// ===================== SIMPLE VFX =====================
+// ======================= SIMPLE VFX =======================
 const canvas = document.getElementById("vfx-canvas");
 const ctx = canvas.getContext("2d");
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
 function triggerVFX(){
-  // Simple red slash animation
   let x = Math.random()*canvas.width;
   let y = Math.random()*canvas.height;
   let length = 100 + Math.random()*100;
