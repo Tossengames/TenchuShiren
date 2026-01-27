@@ -1,214 +1,75 @@
-/* ============================================================
-   TENCHU TEST - PREMIUM SHINOBI UI
-   ============================================================ */
-
 @import url('https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@400;700&display=swap');
 
 :root {
-  --blood-red: #8b0000;
-  --bright-red: #ff3b3b;
-  --gold: #d4af37;
-  --ink-black: #0b0b0b;
-  --parchment: #f0ead6;
-  --ui-bg: #121212;
+    --red: #8b0000;
+    --gold: #d4af37;
+    --bg: #0a0a0a;
 }
 
-/* ================== GLOBAL ================== */
 body {
-  margin: 0;
-  padding: 0;
-  font-family: 'Shippori Mincho B1', serif;
-  background-color: var(--ink-black);
-  color: var(--parchment);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  overflow: hidden;
+    margin: 0;
+    background: var(--bg);
+    color: #f0ead6;
+    font-family: 'Shippori Mincho B1', serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
 }
 
-#vfx-canvas {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 1;
-  pointer-events: none;
-}
+#vfx-canvas { position: fixed; top: 0; left: 0; z-index: 1; pointer-events: none; }
 
-/* ================== SCREENS ================== */
 .screen {
-  position: relative;
-  z-index: 10;
-  width: 90%;
-  max-width: 550px;
-  background: var(--ui-bg);
-  border: 2px solid var(--blood-red);
-  padding: 40px;
-  box-sizing: border-box;
-  box-shadow: 0 0 50px rgba(0, 0, 0, 1), inset 0 0 20px rgba(139, 0, 0, 0.2);
-  text-align: center;
-  opacity: 1; /* Ensure full visibility */
+    position: relative;
+    z-index: 10;
+    background: #121212;
+    border: 2px solid var(--red);
+    padding: 30px;
+    width: 90%;
+    max-width: 500px;
+    text-align: center;
+    box-shadow: 0 0 40px #000;
 }
 
-.hidden {
-  display: none !important;
-}
+.hidden { display: none !important; }
 
-/* ================== TYPOGRAPHY ================== */
-h1 {
-  font-size: 2.8rem;
-  color: var(--bright-red);
-  letter-spacing: 4px;
-  margin: 0 0 10px 0;
-  text-transform: uppercase;
-  text-shadow: 2px 2px 0px #000;
-}
+h1 { color: #ff3b3b; letter-spacing: 5px; margin: 0; }
+.subtitle { color: var(--gold); font-size: 0.8rem; margin-bottom: 20px; }
 
-h2 {
-  color: var(--gold);
-  font-size: 1.8rem;
-  margin-top: 0;
-  border-bottom: 1px solid var(--blood-red);
-  padding-bottom: 10px;
-}
-
-h3 {
-  font-size: 1.4rem;
-  line-height: 1.4;
-  margin-bottom: 30px;
-  color: #fff;
-}
-
-p {
-  font-size: 1.1rem;
-  line-height: 1.6;
-  color: #ccc;
-}
-
-/* ================== BUTTONS ================== */
 .btn-ninja {
-  display: block;
-  width: 100%;
-  padding: 15px;
-  margin: 10px 0;
-  background: #1a1a1a;
-  border: 1px solid #444;
-  color: var(--parchment);
-  font-family: inherit;
-  font-size: 1.1rem;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  cursor: pointer;
-  transition: all 0.2s ease;
+    display: block;
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    background: #1a1a1a;
+    border: 1px solid var(--red);
+    color: #fff;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 1rem;
+    transition: 0.3s;
 }
 
-.btn-ninja:hover {
-  background: var(--blood-red);
-  border-color: var(--bright-red);
-  color: #fff;
-  transform: scale(1.02);
-  box-shadow: 0 0 15px var(--blood-red);
-}
+.btn-ninja:hover { background: var(--red); box-shadow: 0 0 10px var(--red); }
 
-.btn-ninja:active {
-  transform: scale(0.98);
-}
-
-/* ================== INPUTS ================== */
-input[type="text"] {
-  width: 100%;
-  padding: 15px;
-  background: #000;
-  border: 1px solid var(--blood-red);
-  color: #fff;
-  font-family: inherit;
-  font-size: 1.2rem;
-  text-align: center;
-  box-sizing: border-box;
-  margin-bottom: 20px;
-}
-
-/* ================== CHARACTER FEEDBACK ================== */
-#feedback-box, #supporter-box, #result-box {
-  margin-top: 20px;
-  background: #1a1a1a;
-  border-top: 3px solid var(--gold);
-  padding: 20px;
+input {
+    width: 100%;
+    padding: 12px;
+    background: #000;
+    border: 1px solid #444;
+    color: #fff;
+    box-sizing: border-box;
+    margin-bottom: 15px;
+    text-align: center;
 }
 
 .portrait-frame {
-  width: 100px;
-  height: 100px;
-  margin: 0 auto 15px auto;
-  border: 2px solid var(--gold);
-  border-radius: 50%;
-  background-size: cover;
-  background-position: center;
-  background-color: #000;
+    width: 80px; height: 80px;
+    border-radius: 50%;
+    border: 2px solid var(--gold);
+    margin: 0 auto 10px;
+    background-size: cover;
 }
 
-#feedback-name, #supporter-name {
-  color: var(--gold);
-  font-size: 1.2rem;
-  margin-bottom: 10px;
-  letter-spacing: 1px;
-}
-
-#feedback-text {
-  font-style: italic;
-  font-size: 1.1rem;
-  color: #eee;
-}
-
-/* ================== RESULTS SCREEN ================== */
-.rank-text {
-  font-size: 2.2rem;
-  font-weight: bold;
-  color: var(--gold);
-  margin: 10px 0;
-  text-transform: uppercase;
-}
-
-#result-title {
-  color: var(--bright-red);
-  font-size: 1.2rem;
-  margin-bottom: 20px;
-}
-
-/* ================== SUPPORTERS LIST ================== */
-#supporters-list {
-  list-style: none;
-  padding: 0;
-  max-height: 200px;
-  overflow-y: auto;
-  text-align: left;
-}
-
-#supporters-list li {
-  padding: 10px;
-  border-bottom: 1px solid #333;
-}
-
-/* ================== VFX ================== */
-.slash-vfx {
-  position: fixed;
-  pointer-events: none;
-  background: #fff;
-  box-shadow: 0 0 20px var(--bright-red);
-  animation: slash-fade 0.15s forwards;
-}
-
-@keyframes slash-fade {
-  0% { opacity: 1; height: 4px; }
-  100% { opacity: 0; height: 1px; }
-}
-
-/* ================== RESPONSIVE ================== */
-@media (max-width: 480px) {
-  .screen {
-    padding: 20px;
-  }
-  h1 {
-    font-size: 2rem;
-  }
-}
+.rank-text { font-size: 2rem; color: var(--gold); font-weight: bold; }
