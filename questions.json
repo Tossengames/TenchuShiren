@@ -1,48 +1,92 @@
 [
   {
-    "type": "multiple",
-    "category": "characters",
-    "question": "A figure stands in the moonlight, silver hair flowing, a single blade drawn. Identify this shadow.",
-    "image": "assets/characters/rikimaru.png",
-    "options": ["Rikimaru", "Tatsumaru", "Onikage", "Lord Gohda"],
-    "answer": "Rikimaru"
+    "type": "character",
+    "category": "lore",
+    "question": "Which Azuma ninja is known as the 'Blue Lightning' for their incredible speed?",
+    "image": "assets/characters/ayame.png",
+    "options": ["Ayame", "Rikimaru", "Tatsumaru", "Onikage"],
+    "answer": "Ayame",
+    "commentator": "ayame"
   },
   {
-    "type": "multiple",
+    "type": "item",
     "category": "tools",
-    "question": "You find yourself at the base of a high castle wall. Which tool is essential for your infiltration?",
-    "image": "assets/tools/grapple.png",
-    "options": ["Grappling Hook", "Shuriken", "Smoke Bomb", "Caltrops"],
-    "answer": "Grappling Hook"
+    "question": "What tool allows a ninja to walk on water for a short time?",
+    "image": "assets/tools/water_shoes.png",
+    "options": ["Water Walking Shoes", "Floating Log", "Water Lilly Pads", "Grappling Hook"],
+    "answer": "Water Walking Shoes",
+    "commentator": "rikimaru"
   },
   {
     "type": "situation",
-    "question": "A guard stops to yawn while patrolling. He is isolated from the others. What is your move?",
-    "options": ["Stealth Kill", "Wait for him to move", "Distract with a stone", "Engage in open combat"],
-    "answer": "Stealth Kill"
-  },
-  {
-    "type": "morality",
-    "question": "Your target is a corrupt official, but his innocent family is in the same room. How do you proceed?",
-    "options": ["Wait for him to be alone", "Kill everyone in the room", "Abandon the mission", "Create a fire to panic them"],
-    "answer": "Wait for him to be alone"
+    "category": "stealth",
+    "question": "You need to pass through a room with two guards facing each other. What is the best approach?",
+    "image": "assets/situations/guards.png",
+    "options": ["Wait for their patrol patterns to separate", "Create a distraction outside", "Quickly kill one then the other", "Use smoke bomb and rush through"],
+    "answer": "Wait for their patrol patterns to separate",
+    "commentator": "rikimaru"
   },
   {
     "type": "lore",
-    "question": "What is the primary law of the Azuma Shinobi clan?",
-    "options": ["Serve Lord Gohda in shadow", "Seek personal glory", "Kill for the highest bidder", "Conquer the neighboring lands"],
-    "answer": "Serve Lord Gohda in shadow"
+    "category": "story",
+    "question": "What tragic event caused Tatsumaru to betray the Azuma clan?",
+    "image": "assets/lore/tatsumaru_betrayal.png",
+    "options": ["The death of his sister Kiku", "Being denied promotion", "Lord Gohda's betrayal", "Love for Princess Kiku"],
+    "answer": "The death of his sister Kiku",
+    "commentator": "tatsumaru"
+  },
+  {
+    "type": "morality",
+    "category": "ethics",
+    "question": "Your mission requires killing a corrupt lord, but his innocent daughter is present. Do you proceed?",
+    "image": "assets/morality/daughter.png",
+    "options": ["Wait for another opportunity", "Complete the mission regardless", "Take the daughter hostage", "Abandon the mission"],
+    "answer": "Wait for another opportunity",
+    "commentator": "ayame"
   },
   {
     "type": "tools",
-    "question": "A dog is barking, threatening to alert the guards to your position. What tool calms the beast?",
-    "options": ["Colored Rice", "Poisonous Meat", "Shuriken", "Smoke Bomb"],
-    "answer": "Poisonous Meat"
+    "category": "items",
+    "question": "Which tool is used to silently kill from a distance without alerting others?",
+    "image": "assets/tools/blowgun.png",
+    "options": ["Blowgun with poison darts", "Throwing stars", "Longbow", "Kusarigama"],
+    "answer": "Blowgun with poison darts",
+    "commentator": "rikimaru"
   },
   {
     "type": "situation",
-    "question": "You have been spotted! The alarm is sounding. What is the ninja's first priority?",
-    "options": ["Break line of sight and hide", "Kill every guard in the area", "Surrender for questioning", "Stand your ground and fight"],
-    "answer": "Break line of sight and hide"
+    "category": "combat",
+    "question": "You've been discovered by a lone guard who hasn't raised alarm yet. How do you respond?",
+    "image": "assets/situations/discovered.png",
+    "options": ["Quick silent kill before he reacts", "Try to bribe him", "Run and hide", "Surrender"],
+    "answer": "Quick silent kill before he reacts",
+    "commentator": "tatsumaru"
+  },
+  {
+    "type": "lore",
+    "category": "knowledge",
+    "question": "What is the primary weapon of choice for Rikimaru?",
+    "image": "assets/weapons/ichimonji.png",
+    "options": ["Izayoi (his katana)", "Dual kodachi", "Kusarigama", "Nagamaki"],
+    "answer": "Izayoi (his katana)",
+    "commentator": "rikimaru"
+  },
+  {
+    "type": "item",
+    "category": "consumables",
+    "question": "What item reveals hidden enemies and traps to a ninja?",
+    "image": "assets/items/magic_mirror.png",
+    "options": ["Magic Mirror", "Divine Water", "Sacred Scroll", "Ghost Lantern"],
+    "answer": "Magic Mirror",
+    "commentator": "ayame"
+  },
+  {
+    "type": "morality",
+    "category": "ethics",
+    "question": "A fellow ninja is wounded and slowing you down during escape. What do you do?",
+    "image": "assets/morality/wounded.png",
+    "options": ["Carry them to safety", "Leave them to cover your escape", "Give them a quick death", "Hide them and return later"],
+    "answer": "Carry them to safety",
+    "commentator": "rikimaru"
   }
 ]
