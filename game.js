@@ -1,4 +1,4 @@
-// game.js - Fixed flow with character feedback only at results
+// game.js - Updated with authentic Tenchu ranks
 
 // Game state
 let playerName = "Shadow Warrior";
@@ -7,7 +7,7 @@ let score = 0;
 let questions = [];
 let gameActive = false;
 let correctAnswers = 0;
-let playerAnswers = []; // Store each answer for results feedback
+let playerAnswers = [];
 let showAppreciation = false;
 
 // Game elements
@@ -54,6 +54,59 @@ const fallbackQuestions = [
         commentator: "rikimaru",
         category: "Lore",
         difficulty: "Medium"
+    }
+];
+
+// ==================== TENCHU RANKS SYSTEM ====================
+const tenchuRanks = [
+    {
+        name: "GRAND MASTER",
+        title: "天誅忍",
+        symbol: "👑",
+        description: "Perfect execution. Moves like a phantom.",
+        minScore: 90
+    },
+    {
+        name: "MASTER NINJA",
+        title: "上忍",
+        symbol: "⚔️",
+        description: "Exceptional skill. A true shadow warrior.",
+        minScore: 80
+    },
+    {
+        name: "NINJA",
+        title: "中忍",
+        symbol: "🗡️",
+        description: "Skilled operative. Reliable and precise.",
+        minScore: 70
+    },
+    {
+        name: "ASSASSIN",
+        title: "殺し屋",
+        symbol: "🎯",
+        description: "Competent killer. Gets the job done.",
+        minScore: 60
+    },
+    {
+        name: "SHINOBI",
+        title: "忍び",
+        symbol: "🥷",
+        description: "Capable infiltrator. Still learning.",
+        minScore: 50
+    },
+    {
+        name: "APPRENTICE",
+        title: "見習い",
+        symbol: "🍃",
+        description: "Beginner ninja. Needs more training.",
+        minScore: 40
+    },
+    {
+        name: "FAILED",
+        title: "失敗",
+        symbol: "💀",
+        description: "The shadows reject you. Try again.",
+        minScore: 0
     }
 ];
 
@@ -385,43 +438,33 @@ function showResults() {
     const totalQuestions = questions.length;
     const percentage = (correctAnswers / totalQuestions) * 100;
     
-    let rank, title, description, symbol;
+    // Determine rank based on Tenchu system
+    let rank = tenchuRanks[tenchuRanks.length - 1]; // Default to FAILED
     
-    // Determine rank
-    if (percentage >= 90) {
-        rank = "GRAND MASTER";
-        title = "Shadow of Perfection";
-        description = `${playerName}, your mastery is absolute.`;
-        symbol = "👑";
-    } else if (percentage >= 70) {
-        rank = "MASTER";
-        title = "Azure Shadow";
-        description = `${playerName}, you are a true ninja.`;
-        symbol = "⚔️";
-    } else if (percentage >= 50) {
-        rank = "JOURNEYMAN";
-        title = "Silent Blade";
-        description = `${playerName}, you show great potential.`;
-        symbol = "🗡️";
-    } else if (percentage >= 30) {
-        rank = "INITIATE";
-        title = "Whispering Leaf";
-        description = `${playerName}, you have taken your first steps.`;
-        symbol = "🍃";
-    } else {
-        rank = "FAILED";
-        title = "Visible Target";
-        description = `${playerName}, the shadows reject you.`;
-        symbol = "💀";
+    for (let i = 0; i < tenchuRanks.length; i++) {
+        if (percentage >= tenchuRanks[i].minScore) {
+            rank = tenchuRanks[i];
+            break;
+        }
     }
     
-    // Update results display
-    document.getElementById('result-rank').textContent = rank;
-    document.getElementById('result-title').textContent = title;
-    document.getElementById('correct-count').textContent = `${correctAnswers}`;
-    document.getElementById('total-count').textContent = `${totalQuestions}`;
-    document.getElementById('success-rate').textContent = `${Math.round(percentage)}%`;
-    document.getElementById('rank-symbol').textContent = symbol;
+    // Update results display with Tenchu rank
+    document.getElementById('result-rank').textContent = rank.name;
+    document.getElementById('result-title').textContent = rank.title;
+    document.getElementById('rank-symbol').textContent = rank.symbol;
+    
+    // Add rank description
+    const rankDescription = document.createElement('div');
+    rankDescription.className = 'rank-description';
+    rankDescription.textContent = rank.description;
+    
+    const rankDisplay = document.querySelector('.rank-display');
+    // Remove existing description if any
+    const existingDesc = rankDisplay.querySelector('.rank-description');
+    if (existingDesc) {
+        existingDesc.remove();
+    }
+    rankDisplay.appendChild(rankDescription);
     
     // Get character feedback based on performance
     let feedbackCharacter;
@@ -429,13 +472,13 @@ function showResults() {
     
     if (percentage >= 70) {
         feedbackCharacter = 'rikimaru';
-        feedbackMessage = getFinalFeedback('rikimaru', percentage);
+        feedbackMessage = getFinalFeedback('rikimaru', percentage, rank.name);
     } else if (percentage >= 50) {
         feedbackCharacter = 'ayame';
-        feedbackMessage = getFinalFeedback('ayame', percentage);
+        feedbackMessage = getFinalFeedback('ayame', percentage, rank.name);
     } else {
         feedbackCharacter = 'tatsumaru';
-        feedbackMessage = getFinalFeedback('tatsumaru', percentage);
+        feedbackMessage = getFinalFeedback('tatsumaru', percentage, rank.name);
     }
     
     // Update feedback
@@ -461,12 +504,12 @@ function showResults() {
         }
     }
     
-    console.log(`Game completed. Score: ${correctAnswers}/${totalQuestions} (${percentage}%). Rank: ${rank}`);
+    console.log(`Game completed. Score: ${correctAnswers}/${totalQuestions} (${percentage}%). Rank: ${rank.name}`);
 }
 
 // Get final character feedback based on performance
-function getFinalFeedback(character, percentage) {
-    if (!character || !percentage) {
+function getFinalFeedback(character, percentage, rankName) {
+    if (!character || !percentage || !rankName) {
         return "Your journey ends here.";
     }
     
@@ -475,38 +518,38 @@ function getFinalFeedback(character, percentage) {
         : "Master";
     
     if (character === 'rikimaru') {
-        if (percentage >= 90) {
-            return `${playerName}. Your discipline is flawless. You move without sound, strike without hesitation. The Azuma clan has found its new shadow.`;
-        } else if (percentage >= 70) {
-            return `${playerName}. You understand the way of the ninja. Your restraint is commendable, your judgment sound. Continue your training.`;
-        } else if (percentage >= 50) {
-            return `${playerName}. You show potential, but your mind is not yet sharp enough. Study the scrolls, meditate on your mistakes.`;
+        if (rankName === "GRAND MASTER") {
+            return `${playerName}. Perfect. Your discipline is absolute. You have mastered the way of the shadow. The Azuma clan has found its new Grand Master.`;
+        } else if (rankName === "MASTER NINJA") {
+            return `${playerName}. Excellent. Your judgment is sound, your movements precise. You honor the Azuma way. Continue to master your craft.`;
+        } else if (rankName === "NINJA") {
+            return `${playerName}. Competent. You understand the basics, but true mastery requires more discipline. Study, train, improve.`;
         } else {
-            return `${playerName}. Your lack of discipline is concerning. The shadows do not welcome the careless. Return to basics or find another path.`;
+            return `${playerName}. You lack the focus required. The way of the ninja demands perfection. Return to training or find another path.`;
         }
     }
     
     if (character === 'ayame') {
-        if (percentage >= 90) {
-            return `${playerName}! Your intuition is extraordinary! You move with the grace of falling cherry blossoms. The clan is honored by your skill!`;
-        } else if (percentage >= 70) {
-            return `${playerName}! Well done! Your cleverness serves you well. A true kunoichi thinks three steps ahead. Keep this mindset.`;
-        } else if (percentage >= 50) {
-            return `${playerName}. You have spirit, but need more subtlety. A ninja must be like water - adaptable, flowing, unstoppable.`;
+        if (rankName === "GRAND MASTER") {
+            return `${playerName}! Absolutely brilliant! Your intuition is unmatched! You move with the grace of cherry blossoms in the wind. A true master kunoichi!`;
+        } else if (rankName === "MASTER NINJA") {
+            return `${playerName}! Well done! Your cleverness serves you well. A true ninja thinks three steps ahead. The clan is proud of your progress!`;
+        } else if (rankName === "NINJA") {
+            return `${playerName}. You show promise! With more training, you could become a true shadow. Remember: elegance and subtlety are our weapons.`;
         } else {
-            return `${playerName}. Too direct, too obvious. The shadows demand elegance. Perhaps this path is not for you.`;
+            return `${playerName}. Too direct, too obvious. The shadows demand elegance. Perhaps the way of the kunoichi is not for you.`;
         }
     }
     
     if (character === 'tatsumaru') {
-        if (percentage >= 90) {
-            return `Hmph. ${playerName}. You understand true power. The weak perish, the strong rule. You could achieve greatness... if you embrace it fully.`;
-        } else if (percentage >= 70) {
-            return `${playerName}. You grasp that strength determines fate. Sentiment is a chain that binds the weak. Break yours.`;
-        } else if (percentage >= 50) {
-            return `${playerName}. You show glimpses of understanding, but still cling to false honor. Power cares not for morality.`;
+        if (rankName === "GRAND MASTER") {
+            return `Hmph. ${playerName}. You understand true power. The weak perish, the strong rule. With that rank, you could reshape this world... if you dared.`;
+        } else if (rankName === "MASTER NINJA") {
+            return `${playerName}. Not bad. You grasp that strength determines fate. Sentiment is a chain that binds the weak. Break yours and you could achieve more.`;
+        } else if (rankName === "NINJA") {
+            return `${playerName}. Mediocre. You show glimpses of understanding, but still cling to false honor. Power cares not for morality. Remember that.`;
         } else {
-            return `${playerName}. Weak. Pathetic. The shadows have no place for sentimentality. Either grow stronger or be crushed.`;
+            return `${playerName}. Weak. Pathetic. The shadows have no place for the feeble. Either grow stronger or be crushed by those who will.`;
         }
     }
     
@@ -559,4 +602,4 @@ window.showSupporters = showSupporters;
 window.backToMenu = backToMenu;
 window.setPlayerName = setPlayerName;
 window.startGame = startGame;
-window.showResults = showResults; // Make accessible from appreciation screen
+window.showResults = showResults;
