@@ -1,104 +1,94 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Tenchu Shiren (天誅試練)</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tenchu Test - 天誅テスト</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-<!-- VFX overlay -->
-<canvas id="vfx-canvas"></canvas>
-
-<!-- ===================== MAIN MENU ===================== -->
-<div id="menu" class="screen">
-  <h1>TENCHU SHIREN</h1>
-  <h2 class="japanese">天誅試練</h2>
-  <p class="subtitle">
-    Face five trials of stealth, honor, and cunning.<br>
-    Will you rise as a true ninja… or falter in the shadows?
-  </p>
-  <button onclick="showPlayerNameScreen()">Begin Trial</button>
-  <button onclick="showInfo()">Info</button>
-  <button onclick="showSupporters()">Supporters</button>
-</div>
-
-<!-- ===================== PLAYER NAME INPUT ===================== -->
-<div id="player-name-screen" class="screen hidden">
-  <h2>Enter your Ninja Name</h2>
-  <input type="text" id="player-name-input" placeholder="Your Ninja Name">
-  <button onclick="setPlayerName()">Begin Trial</button>
-</div>
-
-<!-- ===================== INFO SCREEN ===================== -->
-<div id="info" class="screen hidden">
-  <h2>About Tenchu Shiren</h2>
-  <p>
-    Face five ninja trials to test your skills, morality, and stealth knowledge.<br>
-    Rikimaru, Ayame, Rin, and Tatsumaru will judge your decisions.<br>
-    This is a free fan-made game. Enjoy!
-  </p>
-  <h3>Support the Dojo</h3>
-  <p>
-    Support via Ko-fi to help keep this project free.<br>
-    Supporters can appear as honorary Shinobi in the game!
-  </p>
-  <button onclick="window.open('https://ko-fi.com/YOUR_KOFI_NAME','_blank')">
-    Become an Honorary Shinobi
-  </button>
-  <h3>Connect with Me</h3>
-  <button onclick="window.open('https://twitter.com/YOUR_TWITTER','_blank')">Twitter</button>
-  <button onclick="window.open('https://www.instagram.com/YOUR_IG','_blank')">Instagram</button>
-  <button onclick="backToMenu()">Back</button>
-</div>
-
-<!-- ===================== SUPPORTERS SCREEN ===================== -->
-<div id="supporters-screen" class="screen hidden">
-  <h2>Honorary Shinobi</h2>
-  <ul id="supporters-list"></ul>
-  <button onclick="backToMenu()">Back</button>
-</div>
-
-<!-- ===================== GAME SCREEN ===================== -->
-<div id="game" class="screen hidden">
-  <!-- Question Box -->
-  <div id="question-box">
-    <h2 id="question-text"></h2>
-    <div id="options"></div>
+  <!-- ================= MAIN MENU ================= -->
+  <div id="menu" class="screen">
+    <h1>Tenchu Test - 天誅テスト</h1>
+    <p>Prove your skills and earn your ninja rank in the Azuma clan.</p>
+    <button onclick="showPlayerNameScreen()">Start Test</button>
+    <button onclick="document.getElementById('info').classList.remove('hidden')">Info</button>
+    <button onclick="document.getElementById('supporters-screen').classList.remove('hidden')">Supporters</button>
   </div>
 
-  <!-- Character Feedback Box -->
-  <div id="feedback-box" class="hidden">
-    <img id="feedback-portrait" alt="Character">
-    <div>
-      <strong id="feedback-name"></strong>
-      <p id="feedback-text"></p>
-      <button onclick="nextQuestion()">Continue</button>
+  <!-- ================= INFO SCREEN ================= -->
+  <div id="info" class="screen hidden">
+    <h2>About Tenchu Test</h2>
+    <p>In this game, you will answer 5 questions per session about Tenchu games, ninja tools, situations, and morality.</p>
+    <p>Each question will be answered by the main characters with feedback. Random supporters may also get special shoutouts.</p>
+    <button onclick="backToMenu()">Back</button>
+  </div>
+
+  <!-- ================= SUPPORTERS SCREEN ================= -->
+  <div id="supporters-screen" class="screen hidden">
+    <h2>Supporters</h2>
+    <ul id="supporters-list">
+      <!-- JS will populate supporters -->
+    </ul>
+    <button onclick="backToMenu()">Back</button>
+  </div>
+
+  <!-- ================= PLAYER NAME SCREEN ================= -->
+  <div id="player-name-screen" class="screen hidden">
+    <h2>Enter Your Ninja Name</h2>
+    <input type="text" id="player-name-input" placeholder="Your Ninja Name">
+    <button onclick="setPlayerName()">Confirm</button>
+  </div>
+
+  <!-- ================= GAME SCREEN ================= -->
+  <div id="game" class="screen hidden">
+    <div id="question-box">
+      <h3 id="question-text">Question will appear here</h3>
+      <div id="options"></div>
     </div>
-  </div>
 
-  <!-- Supporter Shoutout Box -->
-  <div id="supporter-box" class="hidden">
-    <img id="supporter-portrait" alt="Character">
-    <div>
-      <strong id="supporter-name"></strong>
+    <!-- Character feedback -->
+    <div id="feedback-box" class="hidden">
+      <img id="feedback-portrait" src="" alt="Character Portrait">
+      <h4 id="feedback-name"></h4>
+      <p id="feedback-text"></p>
+      <button onclick="nextQuestion()">Next</button>
+    </div>
+
+    <!-- Supporter shoutout -->
+    <div id="supporter-box" class="hidden">
+      <img id="supporter-portrait" src="" alt="Character Portrait">
+      <h4 id="supporter-name"></h4>
       <p id="supporter-text"></p>
       <button onclick="hideSupporterBox()">Continue</button>
     </div>
+
+    <!-- Results -->
+    <div id="result-box" class="hidden">
+      <img id="result-portrait" src="" alt="Character Portrait">
+      <h2 id="result-rank"></h2>
+      <h3 id="result-title"></h3>
+      <p id="result-text"></p>
+      <button onclick="backToMenu()">Back to Menu</button>
+    </div>
   </div>
 
-  <!-- Result Box -->
-  <div id="result-box" class="hidden">
-    <img id="result-portrait" alt="Judge Portrait">
-    <h2 id="result-rank"></h2>
-    <h3 id="result-title"></h3>
-    <p id="result-text"></p>
-    <button onclick="backToMenu()">Return</button>
-  </div>
-</div>
+  <!-- Optional canvas for VFX -->
+  <canvas id="vfx-canvas"></canvas>
 
-<script src="questions.js"></script>
-<script src="game.js"></script>
+  <!-- ================= SCRIPTS ================= -->
+  <script src="supporters.js"></script>
+  <script src="game.js"></script>
+  <script>
+    // Populate supporters list dynamically
+    const list = document.getElementById("supporters-list");
+    if(list && supporters.length>0){
+      supporters.forEach(s=>{
+        const li = document.createElement("li");
+        li.textContent = `${s.name}${s.handle ? " (" + s.handle + ")" : ""}`;
+        list.appendChild(li);
+      });
+    }
+  </script>
 </body>
 </html>
