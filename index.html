@@ -3,92 +3,209 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tenchu Test - 天誅テスト</title>
+  <title>Tenchu Test | 天誅</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+    /* Premium Inline Styles for Immediate Impact */
+    @import url('https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@400;700&display=swap');
+
+    :root {
+      --blood-red: #8b0000;
+      --gold: #d4af37;
+      --ink-black: #0b0b0b;
+      --parchment: #f0ead6;
+    }
+
+    body {
+      margin: 0;
+      background-color: var(--ink-black);
+      font-family: 'Shippori Mincho B1', serif;
+      color: var(--parchment);
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    /* Screen Transitions */
+    .screen {
+      position: absolute;
+      width: 90%;
+      max-width: 500px;
+      padding: 30px;
+      background: rgba(15, 15, 15, 0.95);
+      border: 1px solid #333;
+      box-shadow: 0 10px 50px rgba(0,0,0,0.8);
+      border-radius: 2px;
+      text-align: center;
+      transition: all 0.5s ease-in-out;
+      backdrop-filter: blur(10px);
+    }
+
+    .hidden {
+      display: none !important;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    /* Headlines */
+    h1 {
+      font-size: 2.2rem;
+      color: var(--blood-red);
+      text-transform: uppercase;
+      letter-spacing: 5px;
+      margin-bottom: 5px;
+      text-shadow: 2px 2px 0px rgba(0,0,0,1);
+    }
+
+    .subtitle {
+      font-size: 0.9rem;
+      color: var(--gold);
+      letter-spacing: 2px;
+      margin-bottom: 30px;
+    }
+
+    /* Portrait Styling */
+    .portrait-frame {
+      width: 100px;
+      height: 100px;
+      margin: 0 auto 15px;
+      border: 2px solid var(--blood-red);
+      border-radius: 50%;
+      background-color: #222;
+      background-size: cover;
+      background-position: center;
+      box-shadow: 0 0 15px var(--blood-red);
+    }
+
+    /* Decorative Buttons */
+    .btn-ninja {
+      background: none;
+      border: 1px solid var(--blood-red);
+      color: var(--parchment);
+      padding: 12px 20px;
+      width: 100%;
+      margin: 10px 0;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 1rem;
+      position: relative;
+      transition: all 0.3s;
+      overflow: hidden;
+    }
+
+    .btn-ninja:hover {
+      background: var(--blood-red);
+      letter-spacing: 2px;
+      color: white;
+    }
+
+    input[type="text"] {
+      background: #1a1a1a;
+      border: 1px solid #444;
+      color: white;
+      padding: 12px;
+      width: 100%;
+      box-sizing: border-box;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    #vfx-canvas {
+      position: fixed;
+      top: 0; left: 0;
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    .rank-text {
+      font-size: 1.5rem;
+      color: var(--gold);
+      margin: 10px 0;
+    }
+  </style>
 </head>
 <body>
-  <!-- ================= MAIN MENU ================= -->
+
+  <canvas id="vfx-canvas"></canvas>
+
   <div id="menu" class="screen">
-    <h1>Tenchu Test - 天誅テスト</h1>
-    <p>Prove your skills and earn your ninja rank in the Azuma clan.</p>
-    <button onclick="showPlayerNameScreen()">Start Test</button>
-    <button onclick="document.getElementById('info').classList.remove('hidden')">Info</button>
-    <button onclick="document.getElementById('supporters-screen').classList.remove('hidden')">Supporters</button>
+    <h1>TENCHU TEST</h1>
+    <div class="subtitle">天誅 - THE STEALTH ASSASSIN</div>
+    <p>Prove your loyalty to the Azuma Clan.</p>
+    <button class="btn-ninja" onclick="showPlayerNameScreen()">ENTER THE SHADOWS</button>
+    <button class="btn-ninja" onclick="showInfo()">NINJA SCROLLS (INFO)</button>
+    <button class="btn-ninja" onclick="showSupporters()">CLAN SUPPORTERS</button>
   </div>
 
-  <!-- ================= INFO SCREEN ================= -->
-  <div id="info" class="screen hidden">
-    <h2>About Tenchu Test</h2>
-    <p>In this game, you will answer 5 questions per session about Tenchu games, ninja tools, situations, and morality.</p>
-    <p>Each question will be answered by the main characters with feedback. Random supporters may also get special shoutouts.</p>
-    <button onclick="backToMenu()">Back</button>
-  </div>
-
-  <!-- ================= SUPPORTERS SCREEN ================= -->
-  <div id="supporters-screen" class="screen hidden">
-    <h2>Supporters</h2>
-    <ul id="supporters-list">
-      <!-- JS will populate supporters -->
-    </ul>
-    <button onclick="backToMenu()">Back</button>
-  </div>
-
-  <!-- ================= PLAYER NAME SCREEN ================= -->
   <div id="player-name-screen" class="screen hidden">
-    <h2>Enter Your Ninja Name</h2>
-    <input type="text" id="player-name-input" placeholder="Your Ninja Name">
-    <button onclick="setPlayerName()">Confirm</button>
+    <h2>IDENTIFY YOURSELF</h2>
+    <p>What name shall be written in the scrolls?</p>
+    <input type="text" id="player-name-input" placeholder="e.g. Rikimaru">
+    <button class="btn-ninja" onclick="setPlayerName()">CONFIRM IDENTITY</button>
   </div>
 
-  <!-- ================= GAME SCREEN ================= -->
+  <div id="info" class="screen hidden">
+    <h2>NINJA SCROLLS</h2>
+    <p>A true master knows both the blade and the spirit. You will face 5 trials. Your choices define your rank.</p>
+    <button class="btn-ninja" onclick="backToMenu()">RETURN</button>
+  </div>
+
+  <div id="supporters-screen" class="screen hidden">
+    <h2>CLAN ALLIES</h2>
+    <ul id="supporters-list" style="list-style: none; padding: 0; max-height: 200px; overflow-y: auto;">
+      </ul>
+    <button class="btn-ninja" onclick="backToMenu()">RETURN</button>
+  </div>
+
   <div id="game" class="screen hidden">
     <div id="question-box">
-      <h3 id="question-text">Question will appear here</h3>
+      <h3 id="question-text">Trial...</h3>
       <div id="options"></div>
     </div>
 
-    <!-- Character feedback -->
     <div id="feedback-box" class="hidden">
-      <img id="feedback-portrait" src="" alt="Character Portrait">
-      <h4 id="feedback-name"></h4>
-      <p id="feedback-text"></p>
-      <button onclick="nextQuestion()">Next</button>
+      <div id="feedback-portrait" class="portrait-frame"></div>
+      <h4 id="feedback-name" style="color: var(--gold); margin: 0;">Character</h4>
+      <p id="feedback-text" style="font-style: italic; min-height: 50px;"></p>
+      <button class="btn-ninja" onclick="nextQuestion()">CONTINUE</button>
     </div>
 
-    <!-- Supporter shoutout -->
     <div id="supporter-box" class="hidden">
-      <img id="supporter-portrait" src="" alt="Character Portrait">
-      <h4 id="supporter-name"></h4>
+      <div id="supporter-portrait" class="portrait-frame"></div>
+      <h4 id="supporter-name" style="color: var(--gold);">Character</h4>
       <p id="supporter-text"></p>
-      <button onclick="hideSupporterBox()">Continue</button>
+      <button class="btn-ninja" onclick="hideSupporterBox()">HONOR RECEIVED</button>
     </div>
 
-    <!-- Results -->
     <div id="result-box" class="hidden">
-      <img id="result-portrait" src="" alt="Character Portrait">
-      <h2 id="result-rank"></h2>
-      <h3 id="result-title"></h3>
+      <div id="result-portrait" class="portrait-frame"></div>
+      <div id="result-rank" class="rank-text">RANK</div>
+      <h3 id="result-title" style="color: var(--blood-red);">TITLE</h3>
       <p id="result-text"></p>
-      <button onclick="backToMenu()">Back to Menu</button>
+      <button class="btn-ninja" onclick="location.reload()">RE-TRAIN</button>
     </div>
   </div>
 
-  <!-- Optional canvas for VFX -->
-  <canvas id="vfx-canvas"></canvas>
-
-  <!-- ================= SCRIPTS ================= -->
   <script src="supporters.js"></script>
   <script src="game.js"></script>
   <script>
-    // Populate supporters list dynamically
-    const list = document.getElementById("supporters-list");
-    if(list && supporters.length>0){
-      supporters.forEach(s=>{
-        const li = document.createElement("li");
-        li.textContent = `${s.name}${s.handle ? " (" + s.handle + ")" : ""}`;
-        list.appendChild(li);
-      });
+    // Initializing the supporters list for the UI
+    function updateSupporterList() {
+      const list = document.getElementById("supporters-list");
+      if(list && typeof supporters !== 'undefined'){
+        list.innerHTML = "";
+        supporters.forEach(s => {
+          const li = document.createElement("li");
+          li.style.padding = "10px";
+          li.style.borderBottom = "1px solid #222";
+          li.innerHTML = `<span style="color: #d4af37;">${s.name}</span> <small>${s.handle || ''}</small>`;
+          list.appendChild(li);
+        });
+      }
     }
+    window.onload = updateSupporterList;
   </script>
 </body>
 </html>
