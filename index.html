@@ -7,119 +7,67 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
   <canvas id="vfx-canvas"></canvas>
 
   <div id="menu" class="screen">
     <h1>TENCHU TEST</h1>
-    <div style="color: #d4af37; letter-spacing: 2px; margin-bottom: 20px;">天誅 - AZUMA CLAN TRIALS</div>
-    <p>Prove your skills in the art of stealth and earn your rank.</p>
-    <button class="btn-ninja" onclick="showPlayerNameScreen()">ENTER THE SHADOWS</button>
-    <button class="btn-ninja" onclick="showInfo()">NINJA SCROLLS (INFO)</button>
+    <div class="subtitle">天誅 - AZUMA CLAN TRIALS</div>
+    <p>The shadows await. Prove your mastery of the shinobi arts.</p>
+    <button class="btn-ninja" onclick="showPlayerNameScreen()">START TRIAL</button>
+    <button class="btn-ninja" onclick="showInfo()">NINJA SCROLLS</button>
     <button class="btn-ninja" onclick="showSupporters()">CLAN ALLIES</button>
   </div>
 
   <div id="player-name-screen" class="screen hidden">
     <h2>IDENTIFY YOURSELF</h2>
-    <p>What name shall be written in the scrolls of the Azuma?</p>
-    <input type="text" id="player-name-input" placeholder="Enter Ninja Name...">
+    <p>What name shall the masters record in the scrolls?</p>
+    <input type="text" id="player-name-input" placeholder="Ninja Name..." autocomplete="off">
     <button class="btn-ninja" onclick="setPlayerName()">CONFIRM IDENTITY</button>
   </div>
 
   <div id="info" class="screen hidden">
     <h2>NINJA SCROLLS</h2>
-    <p>You will face 5 trials regarding tools, lore, and stealth strategy. Every choice is observed by the masters.</p>
-    <button class="btn-ninja" onclick="backToMenu()">RETURN TO MENU</button>
+    <p>Complete 5 trials. Your choices reflect your honor and skill. A true master remains unseen.</p>
+    <button class="btn-ninja" onclick="backToMenu()">RETURN</button>
   </div>
 
   <div id="supporters-screen" class="screen hidden">
     <h2>CLAN ALLIES</h2>
-    <ul id="supporters-list" style="list-style: none; padding: 0; max-height: 200px; overflow-y: auto; text-align: left; background: rgba(0,0,0,0.3);">
-      </ul>
-    <button class="btn-ninja" onclick="backToMenu()">RETURN TO MENU</button>
+    <ul id="supporters-list"></ul>
+    <button class="btn-ninja" onclick="backToMenu()">RETURN</button>
   </div>
 
   <div id="game" class="screen hidden">
-    
     <div id="question-box">
-      <h3 id="question-text">Trial Loading...</h3>
+      <h3 id="question-text"></h3>
       <div id="options"></div>
     </div>
 
     <div id="feedback-box" class="hidden">
       <div id="feedback-portrait" class="portrait-frame"></div>
-      <h4 id="feedback-name">Master observes:</h4>
+      <h4 id="feedback-name"></h4>
       <p id="feedback-text"></p>
-      <button class="btn-ninja" onclick="nextQuestion()">CONTINUE MISSION</button>
+      <button class="btn-ninja" onclick="nextQuestion()">CONTINUE</button>
     </div>
 
     <div id="supporter-box" class="hidden">
       <div id="supporter-portrait" class="portrait-frame"></div>
-      <h4 id="supporter-name">Acknowledge Ally:</h4>
+      <h4 id="supporter-name"></h4>
       <p id="supporter-text"></p>
       <button class="btn-ninja" onclick="hideSupporterBox()">HONOR RECEIVED</button>
     </div>
 
     <div id="result-box" class="hidden">
       <div id="result-portrait" class="portrait-frame"></div>
-      <div id="result-rank" class="rank-text">RANK</div>
-      <h3 id="result-title">TITLE</h3>
+      <div id="result-rank" class="rank-text"></div>
+      <h3 id="result-title"></h3>
       <p id="result-text"></p>
-      <button class="btn-ninja" onclick="startGame()">RE-ENTER THE SHADOWS</button>
-      <button class="btn-ninja" onclick="location.reload()">MAIN MENU</button>
+      <button class="btn-ninja" onclick="startGame()">RE-TRAIN</button>
+      <button class="btn-ninja" onclick="location.reload()">MENU</button>
     </div>
-
   </div>
 
   <script src="supporters.js"></script>
-  <script>
-    // Hardcoded questions array fallback to ensure no "fetch" errors stop the game
-    var questions = [
-      {
-        "question": "A figure stands in the moonlight with silver hair. Identify this shadow.",
-        "options": ["Rikimaru", "Onikage", "Tatsumaru", "Lord Gohda"],
-        "answer": "Rikimaru"
-      },
-      {
-        "question": "Which tool is essential for reaching high castle rooftops?",
-        "options": ["Shuriken", "Grappling Hook", "Caltrops", "Smoke Bomb"],
-        "answer": "Grappling Hook"
-      },
-      {
-        "question": "A guard is patrolling alone. He stops to investigate a noise. What is your move?",
-        "options": ["Stealth Kill", "Wait in shadows", "Distract with stone", "Open Combat"],
-        "answer": "Wait in shadows"
-      },
-      {
-        "question": "Is it honorable to kill a sleeping enemy to complete a mission?",
-        "options": ["Yes", "No", "Depends", "Only if spotted"],
-        "answer": "Yes"
-      },
-      {
-        "question": "What is the primary law of the Azuma Shinobi?",
-        "options": ["Serve in shadow", "Kill for gold", "Seek glory", "Rule the land"],
-        "answer": "Serve in shadow"
-      }
-    ];
-  </script>
   <script src="game.js"></script>
-  
-  <script>
-    // Initialize supporters list UI
-    function initSupporterList() {
-      const list = document.getElementById("supporters-list");
-      if(list && typeof supporters !== 'undefined'){
-        list.innerHTML = "";
-        supporters.forEach(s => {
-          const li = document.createElement("li");
-          li.style.padding = "10px";
-          li.style.borderBottom = "1px solid #222";
-          li.innerHTML = `<span style="color: #d4af37;">${s.name}</span> <small style="color:#888;">${s.handle || ''}</small>`;
-          list.appendChild(li);
-        });
-      }
-    }
-    window.addEventListener('load', initSupporterList);
-  </script>
 </body>
 </html>
