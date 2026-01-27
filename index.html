@@ -1,73 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tenchu Test | 天誅</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8"><title>Tenchu Test - 天誅テスト</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <canvas id="vfx-canvas"></canvas>
+    <canvas id="vfx-canvas"></canvas>
 
-  <div id="menu" class="screen">
-    <h1>TENCHU TEST</h1>
-    <div class="subtitle">天誅 - AZUMA CLAN TRIALS</div>
-    <p>The shadows await. Prove your mastery of the shinobi arts.</p>
-    <button class="btn-ninja" onclick="showPlayerNameScreen()">START TRIAL</button>
-    <button class="btn-ninja" onclick="showInfo()">NINJA SCROLLS</button>
-    <button class="btn-ninja" onclick="showSupporters()">CLAN ALLIES</button>
-  </div>
-
-  <div id="player-name-screen" class="screen hidden">
-    <h2>IDENTIFY YOURSELF</h2>
-    <p>What name shall the masters record in the scrolls?</p>
-    <input type="text" id="player-name-input" placeholder="Ninja Name..." autocomplete="off">
-    <button class="btn-ninja" onclick="setPlayerName()">CONFIRM IDENTITY</button>
-  </div>
-
-  <div id="info" class="screen hidden">
-    <h2>NINJA SCROLLS</h2>
-    <p>Complete 5 trials. Your choices reflect your honor and skill. A true master remains unseen.</p>
-    <button class="btn-ninja" onclick="backToMenu()">RETURN</button>
-  </div>
-
-  <div id="supporters-screen" class="screen hidden">
-    <h2>CLAN ALLIES</h2>
-    <ul id="supporters-list"></ul>
-    <button class="btn-ninja" onclick="backToMenu()">RETURN</button>
-  </div>
-
-  <div id="game" class="screen hidden">
-    <div id="question-box">
-      <h3 id="question-text"></h3>
-      <div id="options"></div>
+    <div id="menu" class="screen">
+        <h1>Tenchu Test - 天誅テスト</h1>
+        <p>Prove your skills and earn your ninja rank in the Azuma clan.</p>
+        <button onclick="showPlayerNameScreen()">Start Test</button>
+        <button onclick="document.getElementById('info').classList.remove('hidden'); document.getElementById('menu').classList.add('hidden')">Info</button>
+        <button onclick="showSupporters()">Supporters</button>
     </div>
 
-    <div id="feedback-box" class="hidden">
-      <div id="feedback-portrait" class="portrait-frame"></div>
-      <h4 id="feedback-name"></h4>
-      <p id="feedback-text"></p>
-      <button class="btn-ninja" onclick="nextQuestion()">CONTINUE</button>
+    <div id="info" class="screen hidden">
+        <h2>About Tenchu Test</h2>
+        <p>Answer 5 questions about tools, situations, and morality. Character feedback and random supporter shoutouts included.</p>
+        <button onclick="backToMenu()">Back</button>
     </div>
 
-    <div id="supporter-box" class="hidden">
-      <div id="supporter-portrait" class="portrait-frame"></div>
-      <h4 id="supporter-name"></h4>
-      <p id="supporter-text"></p>
-      <button class="btn-ninja" onclick="hideSupporterBox()">HONOR RECEIVED</button>
+    <div id="player-name-screen" class="screen hidden">
+        <h2>Enter Your Ninja Name</h2>
+        <input type="text" id="player-name-input" placeholder="Your Ninja Name">
+        <button onclick="setPlayerName()">Confirm</button>
     </div>
 
-    <div id="result-box" class="hidden">
-      <div id="result-portrait" class="portrait-frame"></div>
-      <div id="result-rank" class="rank-text"></div>
-      <h3 id="result-title"></h3>
-      <p id="result-text"></p>
-      <button class="btn-ninja" onclick="startGame()">RE-TRAIN</button>
-      <button class="btn-ninja" onclick="location.reload()">MENU</button>
-    </div>
-  </div>
+    <div id="game" class="screen hidden">
+        <div id="question-box">
+            <h3 id="question-text"></h3>
+            <div id="options"></div>
+        </div>
 
-  <script src="supporters.js"></script>
-  <script src="game.js"></script>
+        <div id="feedback-box" class="hidden">
+            <h4 id="feedback-name" style="color:var(--gold);"></h4>
+            <p id="feedback-text"></p>
+            <button onclick="nextQuestion()">Next</button>
+        </div>
+
+        <div id="result-box" class="hidden">
+            <h2 class="results-header">TRIAL COMPLETE</h2>
+            <div class="rank-badge" id="result-rank"></div>
+            <p id="result-text"></p>
+            <button onclick="location.reload()">Back to Menu</button>
+        </div>
+    </div>
+
+    <script src="supporters.js"></script>
+    <script src="game.js"></script>
 </body>
 </html>
