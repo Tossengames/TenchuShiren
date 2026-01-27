@@ -5,194 +5,154 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tenchu Shiren | 天誅試練</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+    /* Fallback styles if CSS doesn't load */
+    body { margin: 0; padding: 20px; background: #000; color: #fff; font-family: Arial, sans-serif; }
+    .screen { display: block; max-width: 600px; margin: auto; padding: 30px; background: #111; border: 2px solid #8b0000; text-align: center; }
+    .hidden { display: none !important; }
+    button { display: block; width: 100%; padding: 15px; margin: 10px 0; background: #222; color: #fff; border: 1px solid #8b0000; cursor: pointer; }
+    button:hover { background: #8b0000; }
+  </style>
 </head>
 <body>
-
-  <canvas id="vfx-canvas"></canvas>
-
+  <!-- Main Menu -->
   <div id="menu" class="screen">
     <h1>TENCHU SHIREN</h1>
-    <div style="color: #d4af37; letter-spacing: 2px; margin-bottom: 20px;">天誅試練 - AZUMA CLAN TRIALS</div>
+    <div style="color: #d4af37; margin: 20px 0;">天誅試練 - AZUMA CLAN TRIALS</div>
     <p>Prove your skills in the art of stealth and earn your rank among the Azuma shadows.</p>
-    <button class="btn-ninja" onclick="showPlayerNameScreen()">ENTER THE SHADOWS</button>
-    <button class="btn-ninja" onclick="showInfo()">NINJA SCROLLS (INFO)</button>
-    <button class="btn-ninja" onclick="showSupporters()">CLAN ALLIES</button>
-    <div style="margin-top: 20px; color: #888; font-size: 0.9em;">
+    <button onclick="showPlayerNameScreen()">ENTER THE SHADOWS</button>
+    <button onclick="showInfo()">NINJA SCROLLS (INFO)</button>
+    <button onclick="showSupporters()">CLAN ALLIES</button>
+    <div style="margin-top: 30px; color: #666; font-size: 0.9em;">
       A fan tribute to the Tenchu series
     </div>
   </div>
 
+  <!-- Player Name Screen -->
   <div id="player-name-screen" class="screen hidden">
     <h2>IDENTIFY YOURSELF</h2>
     <p>What name shall be written in the scrolls of the Azuma?</p>
-    <input type="text" id="player-name-input" placeholder="Enter Ninja Name...">
-    <button class="btn-ninja" onclick="setPlayerName()">CONFIRM IDENTITY</button>
-    <button class="btn-ninja" onclick="backToMenu()">RETURN TO MENU</button>
+    <input type="text" id="player-name-input" placeholder="Enter Ninja Name..." style="width: 100%; padding: 15px; margin: 20px 0; font-size: 16px;">
+    <button onclick="setPlayerName()">CONFIRM IDENTITY</button>
+    <button onclick="backToMenu()">RETURN TO MENU</button>
   </div>
 
+  <!-- Info Screen -->
   <div id="info" class="screen hidden">
     <h2>NINJA SCROLLS</h2>
-    <p>Welcome to <strong>Tenchu Shiren</strong>, a fan-made tribute to the Tenchu series.</p>
+    <p>Welcome to <strong style="color: #d4af37;">Tenchu Shiren</strong>, a fan-made tribute to the Tenchu series.</p>
     
     <div style="text-align: left; margin: 20px 0; padding: 15px; background: rgba(0,0,0,0.3);">
-      <h4 style="color: #d4af37;">The Trial:</h4>
+      <h3 style="color: #d4af37;">The Trial:</h3>
       <p>• You will face 5 questions about stealth, tools, lore, and ninja ethics</p>
-      <p>• Each answer is evaluated by Azuma masters: Rikimaru, Ayame, or Tatsumaru</p>
+      <p>• Each answer is evaluated by Azuma masters</p>
       <p>• Your choices determine your final rank in the Azuma clan</p>
       <p>• Prove your worth to earn titles like "Shadow" or "Grand Master"</p>
     </div>
     
-    <div style="text-align: left; margin: 20px 0; padding: 15px; background: rgba(0,0,0,0.3);">
-      <h4 style="color: #d4af37;">Honoring Supporters:</h4>
+    <div style="text-align: left; margin: 20px 0; padding: 15px; background: rgba(139,0,0,0.1);">
+      <h3 style="color: #d4af37;">Honoring Supporters:</h3>
       <p>• Supporters who contribute via Ko-fi are honored in the Clan Allies section</p>
       <p>• Their names and handles are recorded in our scrolls</p>
-      <p>• Support helps maintain and expand this fan tribute</p>
-      <p style="text-align: center; margin-top: 10px;">
-        <button class="btn-ninja" onclick="window.open('https://ko-fi.com', '_blank')" style="width: auto; display: inline-block; padding: 10px 20px;">⚔️ Support on Ko-fi ⚔️</button>
-      </p>
+      <button onclick="window.open('https://ko-fi.com', '_blank')" style="background: #d4af37; color: #000; margin-top: 10px;">Support on Ko-fi</button>
     </div>
     
-    <button class="btn-ninja" onclick="backToMenu()">RETURN TO MENU</button>
+    <button onclick="backToMenu()">RETURN TO MENU</button>
   </div>
 
+  <!-- Supporters Screen -->
   <div id="supporters-screen" class="screen hidden">
     <h2>CLAN ALLIES</h2>
-    <p>Honoring those who support the Azuma clan and help preserve our traditions.</p>
+    <p>Honoring those who support the Azuma clan.</p>
     
-    <div id="supporter-message" style="color: #d4af37; font-style: italic; margin: 15px 0;"></div>
-    
-    <ul id="supporters-list" style="list-style: none; padding: 0; max-height: 200px; overflow-y: auto; text-align: left; background: rgba(0,0,0,0.3);">
-      </ul>
-    
-    <div style="margin-top: 20px; padding: 15px; background: rgba(139, 0, 0, 0.1);">
-      <p>Want to join the honored allies?</p>
-      <button class="btn-ninja" onclick="window.open('https://ko-fi.com', '_blank')" style="width: auto; display: inline-block; padding: 10px 20px;">Support on Ko-fi →</button>
+    <div id="supporter-message" style="color: #d4af37; margin: 15px 0; font-style: italic;">
+      The shadows remember their allies.
     </div>
     
-    <button class="btn-ninja" onclick="backToMenu()">RETURN TO MENU</button>
+    <ul id="supporters-list" style="list-style: none; padding: 0; max-height: 300px; overflow-y: auto; text-align: left; background: rgba(0,0,0,0.3); padding: 10px;">
+      <!-- Supporters will be added here by JavaScript -->
+    </ul>
+    
+    <div style="margin: 20px 0; padding: 15px; background: rgba(139,0,0,0.1);">
+      <p>Want to join the honored allies?</p>
+      <button onclick="window.open('https://ko-fi.com', '_blank')" style="background: #d4af37; color: #000;">Support on Ko-fi →</button>
+    </div>
+    
+    <button onclick="backToMenu()">RETURN TO MENU</button>
   </div>
 
+  <!-- Game Screen -->
   <div id="game" class="screen hidden">
-    
+    <!-- Question Box -->
     <div id="question-box">
       <h3 id="question-text">Trial Loading...</h3>
-      <div id="options"></div>
+      <div id="options">
+        <!-- Options will be added here by JavaScript -->
+      </div>
     </div>
 
+    <!-- Feedback Box -->
     <div id="feedback-box" class="hidden">
-      <div id="feedback-portrait" class="portrait-frame"></div>
-      <h4 id="feedback-name"></h4>
-      <p id="feedback-text"></p>
-      <button class="btn-ninja" onclick="nextQuestion()">CONTINUE MISSION</button>
+      <div id="feedback-portrait" style="width: 100px; height: 100px; margin: 20px auto; border: 2px solid #d4af37; border-radius: 50%; background: #000;"></div>
+      <h4 id="feedback-name">Master:</h4>
+      <p id="feedback-text">Feedback will appear here...</p>
+      <button onclick="nextQuestion()">CONTINUE MISSION</button>
     </div>
 
+    <!-- Supporter Box -->
     <div id="supporter-box" class="hidden">
-      <div id="supporter-portrait" class="portrait-frame"></div>
+      <div id="supporter-portrait" style="width: 100px; height: 100px; margin: 20px auto; border: 2px solid #d4af37; border-radius: 50%; background: #000;"></div>
       <h4 id="supporter-name">Clan Ally</h4>
-      <p id="supporter-text"></p>
-      <button class="btn-ninja" onclick="hideSupporterBox()">ACKNOWLEDGE</button>
+      <p id="supporter-text">Supporter message...</p>
+      <button onclick="hideSupporterBox()">ACKNOWLEDGE</button>
     </div>
 
+    <!-- Result Box -->
     <div id="result-box" class="hidden">
-      <div id="result-portrait" class="portrait-frame"></div>
-      <div id="result-rank" class="rank-text">RANK</div>
+      <div id="result-portrait" style="width: 100px; height: 100px; margin: 20px auto; border: 2px solid #d4af37; border-radius: 50%; background: #000;"></div>
+      <div id="result-rank" style="font-size: 2rem; color: #d4af37; margin: 10px 0;">RANK</div>
       <h3 id="result-title">TITLE</h3>
-      <p id="result-text"></p>
-      <button class="btn-ninja" onclick="startGame()">RE-ENTER THE SHADOWS</button>
-      <button class="btn-ninja" onclick="backToMenu()">MAIN MENU</button>
+      <p id="result-text">Result description...</p>
+      <button onclick="startGame()">RE-ENTER THE SHADOWS</button>
+      <button onclick="backToMenu()">MAIN MENU</button>
     </div>
-
   </div>
 
+  <!-- JavaScript Files -->
   <script src="supporters.js"></script>
   <script src="character-comments.js"></script>
-  <script>
-    // Hardcoded questions array fallback to ensure no "fetch" errors stop the game
-    var questions = [
-      {
-        "question": "A figure stands in the moonlight with silver hair. Identify this shadow.",
-        "options": ["Rikimaru", "Onikage", "Tatsumaru", "Lord Gohda"],
-        "answer": "Rikimaru",
-        "commentator": "rikimaru"
-      },
-      {
-        "question": "Which tool is essential for reaching high castle rooftops?",
-        "options": ["Shuriken", "Grappling Hook", "Caltrops", "Smoke Bomb"],
-        "answer": "Grappling Hook",
-        "commentator": "ayame"
-      },
-      {
-        "question": "A guard is patrolling alone. He stops to investigate a noise. What is your move?",
-        "options": ["Stealth Kill", "Wait in shadows", "Distract with stone", "Open Combat"],
-        "answer": "Wait in shadows",
-        "commentator": "rikimaru"
-      },
-      {
-        "question": "Is it honorable to kill a sleeping enemy to complete a mission?",
-        "options": ["Yes", "No", "Depends", "Only if spotted"],
-        "answer": "Yes",
-        "commentator": "tatsumaru"
-      },
-      {
-        "question": "What is the primary law of the Azuma Shinobi?",
-        "options": ["Serve in shadow", "Kill for gold", "Seek glory", "Rule the land"],
-        "answer": "Serve in shadow",
-        "commentator": "rikimaru"
-      }
-    ];
-  </script>
   <script src="game.js"></script>
-  
+
+  <!-- Initialize on load -->
   <script>
-    // Initialize supporters list UI with random appreciation message
-    function initSupporterList() {
-      const list = document.getElementById("supporters-list");
-      const message = document.getElementById("supporter-message");
+    // Make sure menu is visible on load
+    window.addEventListener('load', function() {
+      console.log('Page loaded - initializing...');
       
-      if(message && typeof getSupporterAppreciation !== 'undefined') {
-        message.textContent = getSupporterAppreciation();
+      // Hide all screens except menu
+      document.getElementById('player-name-screen').classList.add('hidden');
+      document.getElementById('info').classList.add('hidden');
+      document.getElementById('supporters-screen').classList.add('hidden');
+      document.getElementById('game').classList.add('hidden');
+      document.getElementById('menu').classList.remove('hidden');
+      
+      // Initialize supporters list
+      if (typeof updateSupportersList === 'function') {
+        updateSupportersList();
       }
       
-      if(list && typeof supporters !== 'undefined'){
-        list.innerHTML = "";
-        supporters.forEach(s => {
-          const li = document.createElement("li");
-          li.style.padding = "10px";
-          li.style.borderBottom = "1px solid #222";
-          li.innerHTML = `
-            <span style="color: #d4af37; font-weight: bold;">${s.name}</span>
-            ${s.handle ? `<br><small style="color:#aaa;">${s.handle}</small>` : ''}
-            ${s.role ? `<br><em style="color:#888; font-size:0.9em;">${s.role}</em>` : ''}
-          `;
-          list.appendChild(li);
+      // Add keyboard support for name input
+      const nameInput = document.getElementById('player-name-input');
+      if (nameInput) {
+        nameInput.addEventListener('keypress', function(e) {
+          if (e.key === 'Enter') {
+            setPlayerName();
+          }
         });
       }
-    }
-    
-    // Show random supporter during gameplay occasionally
-    function showRandomSupporter() {
-      if(typeof supporters !== 'undefined' && supporters.length > 0) {
-        const randomSupporter = supporters[Math.floor(Math.random() * supporters.length)];
-        const appreciation = getSupporterAppreciation ? getSupporterAppreciation() : "The Azuma clan honors its allies.";
-        
-        document.getElementById('supporter-name').textContent = randomSupporter.name;
-        document.getElementById('supporter-text').textContent = `${appreciation} ${randomSupporter.name} stands with the Azuma.`;
-        document.getElementById('supporter-box').classList.remove('hidden');
-        
-        // Set random character portrait for supporter box
-        const characters = ['rikimaru', 'ayame', 'tatsumaru'];
-        const randomChar = characters[Math.floor(Math.random() * characters.length)];
-        const portrait = getCharacterPortrait ? getCharacterPortrait(randomChar) : '';
-        if(portrait) {
-          document.getElementById('supporter-portrait').style.backgroundImage = `url('${portrait}')`;
-        }
-        
-        return true;
-      }
-      return false;
-    }
-    
-    window.addEventListener('load', initSupporterList);
+      
+      console.log('Initialization complete');
+    });
   </script>
 </body>
 </html>
