@@ -1,75 +1,52 @@
 @import url('https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@400;700&display=swap');
 
 :root {
-    --red: #8b0000;
-    --gold: #d4af37;
-    --bg: #0a0a0a;
+  --blood: #8b0000;
+  --gold: #d4af37;
+  --ink: #050505;
+  --text: #f0ead6;
 }
 
 body {
-    margin: 0;
-    background: var(--bg);
-    color: #f0ead6;
-    font-family: 'Shippori Mincho B1', serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    overflow: hidden;
+  margin: 0; background: var(--ink); color: var(--text);
+  font-family: 'Shippori Mincho B1', serif; overflow: hidden;
+  display: flex; justify-content: center; align-items: center; height: 100vh;
 }
 
-#vfx-canvas { position: fixed; top: 0; left: 0; z-index: 1; pointer-events: none; }
+#vfx-canvas { position: fixed; top: 0; left: 0; z-index: 0; pointer-events: none; }
 
 .screen {
-    position: relative;
-    z-index: 10;
-    background: #121212;
-    border: 2px solid var(--red);
-    padding: 30px;
-    width: 90%;
-    max-width: 500px;
-    text-align: center;
-    box-shadow: 0 0 40px #000;
+  position: relative; z-index: 10; width: 90%; max-width: 500px;
+  background: rgba(15, 15, 15, 0.95); border: 1px solid var(--blood);
+  padding: 40px; text-align: center; border-radius: 4px;
+  box-shadow: 0 0 50px rgba(0,0,0,1);
+  animation: fadeIn 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .hidden { display: none !important; }
 
-h1 { color: #ff3b3b; letter-spacing: 5px; margin: 0; }
-.subtitle { color: var(--gold); font-size: 0.8rem; margin-bottom: 20px; }
-
-.btn-ninja {
-    display: block;
-    width: 100%;
-    padding: 12px;
-    margin: 10px 0;
-    background: #1a1a1a;
-    border: 1px solid var(--red);
-    color: #fff;
-    cursor: pointer;
-    font-family: inherit;
-    font-size: 1rem;
-    transition: 0.3s;
+/* Interactive Buttons */
+button, .btn-ninja {
+  display: block; width: 100%; padding: 15px; margin: 12px 0;
+  background: #111; border: 1px solid #444; color: var(--text);
+  font-family: inherit; cursor: pointer; letter-spacing: 2px;
+  transition: all 0.3s; position: relative; overflow: hidden;
 }
 
-.btn-ninja:hover { background: var(--red); box-shadow: 0 0 10px var(--red); }
-
-input {
-    width: 100%;
-    padding: 12px;
-    background: #000;
-    border: 1px solid #444;
-    color: #fff;
-    box-sizing: border-box;
-    margin-bottom: 15px;
-    text-align: center;
+button:hover {
+  background: var(--blood); color: white; border-color: #ff3b3b;
+  box-shadow: 0 0 20px rgba(255, 0, 0, 0.4); transform: translateY(-2px);
 }
 
-.portrait-frame {
-    width: 80px; height: 80px;
-    border-radius: 50%;
-    border: 2px solid var(--gold);
-    margin: 0 auto 10px;
-    background-size: cover;
-}
+/* Animations */
+@keyframes fadeIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
 
-.rank-text { font-size: 2rem; color: var(--gold); font-weight: bold; }
+.slash {
+  position: fixed; background: white; height: 3px; z-index: 100;
+  box-shadow: 0 0 15px #ff0000; animation: slashAnim 0.3s forwards;
+}
+@keyframes slashAnim { 0% { width: 0; opacity: 1; } 100% { width: 100%; opacity: 0; } }
+
+/* Results Visuals */
+.results-header { color: var(--gold); font-size: 2.5rem; letter-spacing: 5px; margin-bottom: 0; }
+.rank-badge { font-size: 1.2rem; border: 1px solid var(--gold); display: inline-block; padding: 5px 15px; margin: 10px 0; color: var(--gold); }
