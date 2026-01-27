@@ -5,126 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tenchu Test | 天誅</title>
   <link rel="stylesheet" href="style.css">
-  <style>
-    /* Premium Inline Styles for Immediate Impact */
-    @import url('https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@400;700&display=swap');
-
-    :root {
-      --blood-red: #8b0000;
-      --gold: #d4af37;
-      --ink-black: #0b0b0b;
-      --parchment: #f0ead6;
-    }
-
-    body {
-      margin: 0;
-      background-color: var(--ink-black);
-      font-family: 'Shippori Mincho B1', serif;
-      color: var(--parchment);
-      overflow: hidden;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-    }
-
-    /* Screen Transitions */
-    .screen {
-      position: absolute;
-      width: 90%;
-      max-width: 500px;
-      padding: 30px;
-      background: rgba(15, 15, 15, 0.95);
-      border: 1px solid #333;
-      box-shadow: 0 10px 50px rgba(0,0,0,0.8);
-      border-radius: 2px;
-      text-align: center;
-      transition: all 0.5s ease-in-out;
-      backdrop-filter: blur(10px);
-    }
-
-    .hidden {
-      display: none !important;
-      opacity: 0;
-      transform: translateY(20px);
-    }
-
-    /* Headlines */
-    h1 {
-      font-size: 2.2rem;
-      color: var(--blood-red);
-      text-transform: uppercase;
-      letter-spacing: 5px;
-      margin-bottom: 5px;
-      text-shadow: 2px 2px 0px rgba(0,0,0,1);
-    }
-
-    .subtitle {
-      font-size: 0.9rem;
-      color: var(--gold);
-      letter-spacing: 2px;
-      margin-bottom: 30px;
-    }
-
-    /* Portrait Styling */
-    .portrait-frame {
-      width: 100px;
-      height: 100px;
-      margin: 0 auto 15px;
-      border: 2px solid var(--blood-red);
-      border-radius: 50%;
-      background-color: #222;
-      background-size: cover;
-      background-position: center;
-      box-shadow: 0 0 15px var(--blood-red);
-    }
-
-    /* Decorative Buttons */
-    .btn-ninja {
-      background: none;
-      border: 1px solid var(--blood-red);
-      color: var(--parchment);
-      padding: 12px 20px;
-      width: 100%;
-      margin: 10px 0;
-      cursor: pointer;
-      font-family: inherit;
-      font-size: 1rem;
-      position: relative;
-      transition: all 0.3s;
-      overflow: hidden;
-    }
-
-    .btn-ninja:hover {
-      background: var(--blood-red);
-      letter-spacing: 2px;
-      color: white;
-    }
-
-    input[type="text"] {
-      background: #1a1a1a;
-      border: 1px solid #444;
-      color: white;
-      padding: 12px;
-      width: 100%;
-      box-sizing: border-box;
-      margin-bottom: 20px;
-      text-align: center;
-    }
-
-    #vfx-canvas {
-      position: fixed;
-      top: 0; left: 0;
-      z-index: -1;
-      pointer-events: none;
-    }
-
-    .rank-text {
-      font-size: 1.5rem;
-      color: var(--gold);
-      margin: 10px 0;
-    }
-  </style>
 </head>
 <body>
 
@@ -132,49 +12,50 @@
 
   <div id="menu" class="screen">
     <h1>TENCHU TEST</h1>
-    <div class="subtitle">天誅 - THE STEALTH ASSASSIN</div>
-    <p>Prove your loyalty to the Azuma Clan.</p>
+    <div style="color: #d4af37; letter-spacing: 2px; margin-bottom: 20px;">天誅 - AZUMA CLAN TRIALS</div>
+    <p>Prove your skills in the art of stealth and earn your rank.</p>
     <button class="btn-ninja" onclick="showPlayerNameScreen()">ENTER THE SHADOWS</button>
     <button class="btn-ninja" onclick="showInfo()">NINJA SCROLLS (INFO)</button>
-    <button class="btn-ninja" onclick="showSupporters()">CLAN SUPPORTERS</button>
+    <button class="btn-ninja" onclick="showSupporters()">CLAN ALLIES</button>
   </div>
 
   <div id="player-name-screen" class="screen hidden">
     <h2>IDENTIFY YOURSELF</h2>
-    <p>What name shall be written in the scrolls?</p>
-    <input type="text" id="player-name-input" placeholder="e.g. Rikimaru">
+    <p>What name shall be written in the scrolls of the Azuma?</p>
+    <input type="text" id="player-name-input" placeholder="Enter Ninja Name...">
     <button class="btn-ninja" onclick="setPlayerName()">CONFIRM IDENTITY</button>
   </div>
 
   <div id="info" class="screen hidden">
     <h2>NINJA SCROLLS</h2>
-    <p>A true master knows both the blade and the spirit. You will face 5 trials. Your choices define your rank.</p>
-    <button class="btn-ninja" onclick="backToMenu()">RETURN</button>
+    <p>You will face 5 trials regarding tools, lore, and stealth strategy. Every choice is observed by the masters.</p>
+    <button class="btn-ninja" onclick="backToMenu()">RETURN TO MENU</button>
   </div>
 
   <div id="supporters-screen" class="screen hidden">
     <h2>CLAN ALLIES</h2>
-    <ul id="supporters-list" style="list-style: none; padding: 0; max-height: 200px; overflow-y: auto;">
+    <ul id="supporters-list" style="list-style: none; padding: 0; max-height: 200px; overflow-y: auto; text-align: left; background: rgba(0,0,0,0.3);">
       </ul>
-    <button class="btn-ninja" onclick="backToMenu()">RETURN</button>
+    <button class="btn-ninja" onclick="backToMenu()">RETURN TO MENU</button>
   </div>
 
   <div id="game" class="screen hidden">
+    
     <div id="question-box">
-      <h3 id="question-text">Trial...</h3>
+      <h3 id="question-text">Trial Loading...</h3>
       <div id="options"></div>
     </div>
 
     <div id="feedback-box" class="hidden">
       <div id="feedback-portrait" class="portrait-frame"></div>
-      <h4 id="feedback-name" style="color: var(--gold); margin: 0;">Character</h4>
-      <p id="feedback-text" style="font-style: italic; min-height: 50px;"></p>
-      <button class="btn-ninja" onclick="nextQuestion()">CONTINUE</button>
+      <h4 id="feedback-name">Master observes:</h4>
+      <p id="feedback-text"></p>
+      <button class="btn-ninja" onclick="nextQuestion()">CONTINUE MISSION</button>
     </div>
 
     <div id="supporter-box" class="hidden">
       <div id="supporter-portrait" class="portrait-frame"></div>
-      <h4 id="supporter-name" style="color: var(--gold);">Character</h4>
+      <h4 id="supporter-name">Acknowledge Ally:</h4>
       <p id="supporter-text"></p>
       <button class="btn-ninja" onclick="hideSupporterBox()">HONOR RECEIVED</button>
     </div>
@@ -182,17 +63,50 @@
     <div id="result-box" class="hidden">
       <div id="result-portrait" class="portrait-frame"></div>
       <div id="result-rank" class="rank-text">RANK</div>
-      <h3 id="result-title" style="color: var(--blood-red);">TITLE</h3>
+      <h3 id="result-title">TITLE</h3>
       <p id="result-text"></p>
-      <button class="btn-ninja" onclick="location.reload()">RE-TRAIN</button>
+      <button class="btn-ninja" onclick="startGame()">RE-ENTER THE SHADOWS</button>
+      <button class="btn-ninja" onclick="location.reload()">MAIN MENU</button>
     </div>
+
   </div>
 
   <script src="supporters.js"></script>
-  <script src="game.js"></script>
   <script>
-    // Initializing the supporters list for the UI
-    function updateSupporterList() {
+    // Hardcoded questions array fallback to ensure no "fetch" errors stop the game
+    var questions = [
+      {
+        "question": "A figure stands in the moonlight with silver hair. Identify this shadow.",
+        "options": ["Rikimaru", "Onikage", "Tatsumaru", "Lord Gohda"],
+        "answer": "Rikimaru"
+      },
+      {
+        "question": "Which tool is essential for reaching high castle rooftops?",
+        "options": ["Shuriken", "Grappling Hook", "Caltrops", "Smoke Bomb"],
+        "answer": "Grappling Hook"
+      },
+      {
+        "question": "A guard is patrolling alone. He stops to investigate a noise. What is your move?",
+        "options": ["Stealth Kill", "Wait in shadows", "Distract with stone", "Open Combat"],
+        "answer": "Wait in shadows"
+      },
+      {
+        "question": "Is it honorable to kill a sleeping enemy to complete a mission?",
+        "options": ["Yes", "No", "Depends", "Only if spotted"],
+        "answer": "Yes"
+      },
+      {
+        "question": "What is the primary law of the Azuma Shinobi?",
+        "options": ["Serve in shadow", "Kill for gold", "Seek glory", "Rule the land"],
+        "answer": "Serve in shadow"
+      }
+    ];
+  </script>
+  <script src="game.js"></script>
+  
+  <script>
+    // Initialize supporters list UI
+    function initSupporterList() {
       const list = document.getElementById("supporters-list");
       if(list && typeof supporters !== 'undefined'){
         list.innerHTML = "";
@@ -200,12 +114,12 @@
           const li = document.createElement("li");
           li.style.padding = "10px";
           li.style.borderBottom = "1px solid #222";
-          li.innerHTML = `<span style="color: #d4af37;">${s.name}</span> <small>${s.handle || ''}</small>`;
+          li.innerHTML = `<span style="color: #d4af37;">${s.name}</span> <small style="color:#888;">${s.handle || ''}</small>`;
           list.appendChild(li);
         });
       }
     }
-    window.onload = updateSupporterList;
+    window.addEventListener('load', initSupporterList);
   </script>
 </body>
 </html>
