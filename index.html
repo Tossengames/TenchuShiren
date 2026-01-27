@@ -8,8 +8,7 @@
 </head>
 <body>
 
-<!-- VFX overlays -->
-<div id="screen-flash"></div>
+<!-- VFX overlay -->
 <canvas id="vfx-canvas"></canvas>
 
 <!-- ===================== MAIN MENU ===================== -->
@@ -17,12 +16,12 @@
   <h1>TENCHU SHIREN</h1>
   <h2 class="japanese">天誅試練</h2>
   <p class="subtitle">
-    The Azuma Clan judges your heart and shadow.<br>
     Face five trials of stealth, honor, and cunning.<br>
     Will you rise as a true ninja… or falter in the shadows?
   </p>
   <button onclick="showPlayerNameScreen()">Begin Trial</button>
   <button onclick="showInfo()">Info</button>
+  <button onclick="showSupporters()">Supporters</button>
 </div>
 
 <!-- ===================== PLAYER NAME INPUT ===================== -->
@@ -36,27 +35,28 @@
 <div id="info" class="screen hidden">
   <h2>About Tenchu Shiren</h2>
   <p>
-    Welcome, warrior of the shadows. <br><br>
-    Tenchu Shiren is a <strong>fan-made project inspired by Tenchu</strong>. All rights belong to the original creators. This game is <strong>free to play</strong>.<br><br>
-    Face five situations. Each choice reflects your instinct, honor, and skill as an Azuma ninja.<br>
-    Rikimaru, Ayame, Rin, and Tatsumaru will observe your decisions. Praise or ridicule awaits.
+    Face five ninja trials to test your skills, morality, and stealth knowledge.<br>
+    Rikimaru, Ayame, Rin, and Tatsumaru will judge your decisions.<br>
+    This is a free fan-made game. Enjoy!
   </p>
-
   <h3>Support the Dojo</h3>
   <p>
-    Enjoyed your trials? Support via Ko-fi to help keep this free project alive.<br>
-    Supporters can have their <strong>names or social handles appear as honorary Shinobi</strong> in future updates!<br>
-    True Tenchu supporters gain a mark of respect in the shadows.
+    Support via Ko-fi to help keep this project free.<br>
+    Supporters can appear as honorary Shinobi in the game!
   </p>
   <button onclick="window.open('https://ko-fi.com/YOUR_KOFI_NAME','_blank')">
     Become an Honorary Shinobi
   </button>
-
   <h3>Connect with Me</h3>
-  <p>Follow for updates, new trials, and ninja content:</p>
   <button onclick="window.open('https://twitter.com/YOUR_TWITTER','_blank')">Twitter</button>
   <button onclick="window.open('https://www.instagram.com/YOUR_IG','_blank')">Instagram</button>
+  <button onclick="backToMenu()">Back</button>
+</div>
 
+<!-- ===================== SUPPORTERS SCREEN ===================== -->
+<div id="supporters-screen" class="screen hidden">
+  <h2>Honorary Shinobi</h2>
+  <ul id="supporters-list"></ul>
   <button onclick="backToMenu()">Back</button>
 </div>
 
@@ -68,13 +68,23 @@
     <div id="options"></div>
   </div>
 
-  <!-- Character Comment Box -->
-  <div id="comment-box" class="hidden">
-    <img id="comment-portrait" alt="Character">
+  <!-- Character Feedback Box -->
+  <div id="feedback-box" class="hidden">
+    <img id="feedback-portrait" alt="Character">
     <div>
-      <strong id="comment-name"></strong>
-      <p id="comment-text"></p>
+      <strong id="feedback-name"></strong>
+      <p id="feedback-text"></p>
       <button onclick="nextQuestion()">Continue</button>
+    </div>
+  </div>
+
+  <!-- Supporter Shoutout Box -->
+  <div id="supporter-box" class="hidden">
+    <img id="supporter-portrait" alt="Character">
+    <div>
+      <strong id="supporter-name"></strong>
+      <p id="supporter-text"></p>
+      <button onclick="hideSupporterBox()">Continue</button>
     </div>
   </div>
 
