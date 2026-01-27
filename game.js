@@ -2,39 +2,42 @@ let playerName = "Ninja";
 let currentQuestionIndex = 0;
 let score = 0;
 let questionsPerSession = 5;
-
-// Example supporters
-let supporters = [
-  {name: "ShadowTiger", handle: "@shadytiger"},
-  {name: "SilentBlade", handle: "@silentblade"},
-  {name: "CrimsonLotus", handle: "@crimsonlotus"}
-];
+let questions = [];
 
 // Characters for feedback
 let characters = [
   {name:"Rikimaru", comments:[
-    "Your choice shows precision.",
-    "Stealth is your ally, keep it.",
-    "You almost missed the mark, be careful."
+    "I see your mind is sharp, like a blade.",
+    "Careful movements. The shadows watch you.",
+    "Your stealth improves with each step."
   ]},
   {name:"Ayame", comments:[
-    "Good observation skills.",
-    "Remember, patience is key.",
-    "Bold, but think of consequences."
+    "Your choices reflect your training well.",
+    "Patience is a ninja’s greatest ally.",
+    "You observe the surroundings like a true shadow."
   ]},
   {name:"Tatsumaru", comments:[
-    "You’re learning fast.",
-    "Watch your steps!",
-    "Your reflexes are improving."
+    "Your instincts are improving.",
+    "Remember, a single mistake can cost dearly.",
+    "Your focus is impressive."
   ]},
   {name:"Rin", comments:[
-    "Impressive!",
-    "Not bad for a beginner.",
-    "Consider your surroundings carefully."
+    "Clever thinking!",
+    "You are beginning to understand the way of the ninja.",
+    "Think of the bigger picture, not just the moment."
   ]}
 ];
 
-// ======================= FUNCTIONS =======================
+// ======================= FETCH QUESTIONS =======================
+fetch("questions.json")
+  .then(res => res.json())
+  .then(data => { 
+    questions = data;
+    console.log("Questions loaded:", questions.length);
+  })
+  .catch(err => console.error("Failed to load questions.json:", err));
+
+// ======================= GAME FLOW =======================
 function showPlayerNameScreen(){
   document.getElementById("menu").classList.add("hidden");
   document.getElementById("player-name-screen").classList.remove("hidden");
@@ -47,23 +50,6 @@ function setPlayerName(){
   startGame();
 }
 
-function showInfo(){
-  document.getElementById("menu").classList.add("hidden");
-  document.getElementById("info").classList.remove("hidden");
-}
-
-function showSupporters(){
-  document.getElementById("menu").classList.add("hidden");
-  const list = document.getElementById("supporters-list");
-  list.innerHTML = "";
-  supporters.forEach(s => {
-    let li = document.createElement("li");
-    li.textContent = s.name + (s.handle ? " " + s.handle : "");
-    list.appendChild(li);
-  });
-  document.getElementById("supporters-screen").classList.remove("hidden");
-}
-
 function backToMenu(){
   document.getElementById("info").classList.add("hidden");
   document.getElementById("supporters-screen").classList.add("hidden");
@@ -72,6 +58,10 @@ function backToMenu(){
 }
 
 function startGame(){
+  if(questions.length === 0){
+    alert("Questions not loaded yet. Please wait a moment and refresh.");
+    return;
+  }
   document.getElementById("game").classList.remove("hidden");
   currentQuestionIndex = 0;
   score = 0;
@@ -94,24 +84,37 @@ function nextQuestion(){
 }
 
 function showQuestion(index){
-  const q = questions[index];
+  const q = questions[Math.floor(Math.random()*questions.length)];
   const questionText = document.getElementById("question-text");
   const optionsDiv = document.getElementById("options");
 
   questionText.textContent = q.question;
   optionsDiv.innerHTML = "";
+
+  // Image questions
+  if(q.image){
+    let img = document.createElement("img");
+    img.src = q.image;
+    img.alt = "Question Image";
+    img.style.maxWidth = "200px";
+    img.style.margin = "10px auto";
+    optionsDiv.appendChild(img);
+  }
+
   q.options.forEach(opt => {
     let btn = document.createElement("button");
     btn.textContent = opt;
-    btn.onclick = ()=>selectAnswer(opt,q.answer);
+    btn.onclick = ()=>selectAnswer(opt,q.answer, btn, optionsDiv);
     optionsDiv.appendChild(btn);
   });
 }
 
-function selectAnswer(selected, correct){
+function selectAnswer(selected, correct, clickedBtn, container){
+  // Disable all buttons after picking
+  Array.from(container.querySelectorAll("button")).forEach(b=>b.disabled=true);
+
   if(selected === correct) score++;
   showCharacterFeedback(selected===correct);
-  triggerVFX();
 }
 
 // ======================= CHARACTER FEEDBACK =======================
@@ -122,11 +125,14 @@ function showCharacterFeedback(correct){
   const char = characters[Math.floor(Math.random()*characters.length)];
   let comment = char.comments[Math.floor(Math.random()*char.comments.length)];
 
-  comment = (correct ? "Correct! " : "Incorrect! ") + comment;
+  // Make feedback natural and encouraging
+  comment = correct 
+    ? `${char.name} nods approvingly: "${comment} Well done, ${playerName}."`
+    : `${char.name} observes silently: "${comment} Take note for next time, ${playerName}."`;
 
   document.getElementById("feedback-name").textContent = char.name;
   document.getElementById("feedback-text").textContent = comment;
-  document.getElementById("feedback-portrait").src = "";
+  document.getElementById("feedback-portrait").src = ""; // Add portrait later
 }
 
 // ======================= SUPPORTER SHOUTOUT =======================
@@ -139,7 +145,7 @@ function showSupporterShoutout(){
 
   document.getElementById("supporter-name").textContent = char.name;
   document.getElementById("supporter-text").textContent = 
-    `We honor ${supporter.name}${supporter.handle ? " " + supporter.handle : ""} for their support!`;
+    `${char.name} says: "We honor ${supporter.name}${supporter.handle ? " " + supporter.handle : ""} for their support!"`;
   document.getElementById("supporter-portrait").src = "";
 }
 
@@ -157,32 +163,13 @@ function showResult(){
   let rank="", title="", text="";
   const percent = (score/questionsPerSession)*100;
 
-  if(percent===100){ rank="Master Ninja"; title="Shadow of the Clan"; text="Perfect, "+playerName+"! Azuma honors your stealth and skill.";}
-  else if(percent>=80){ rank="Elite Ninja"; title="Silent Blade"; text="Great work, "+playerName+". Feared in the shadows.";}
-  else if(percent>=50){ rank="Novice Ninja"; title="Hidden Footstep"; text="Not bad, "+playerName+". Keep training.";}
-  else{ rank="Apprentice"; title="Rookie Shadow"; text="You have much to learn, "+playerName+". Study the shadows carefully.";}
+  if(percent===100){ rank="Master Ninja"; title="Shadow of the Clan"; text=`Perfect, ${playerName}! Your mastery of stealth is unmatched.`; }
+  else if(percent>=80){ rank="Elite Ninja"; title="Silent Blade"; text=`Great work, ${playerName}. Your skills inspire fear and respect.`; }
+  else if(percent>=50){ rank="Novice Ninja"; title="Hidden Footstep"; text=`Not bad, ${playerName}. Continue your training in the shadows.`; }
+  else{ rank="Apprentice"; title="Rookie Shadow"; text=`You have much to learn, ${playerName}. Study the shadows carefully.`; }
 
   document.getElementById("result-rank").textContent = rank;
   document.getElementById("result-title").textContent = title;
   document.getElementById("result-text").textContent = text;
   document.getElementById("result-portrait").src = "";
-}
-
-// ======================= SIMPLE VFX =======================
-const canvas = document.getElementById("vfx-canvas");
-const ctx = canvas.getContext("2d");
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-
-function triggerVFX(){
-  let x = Math.random()*canvas.width;
-  let y = Math.random()*canvas.height;
-  let length = 100 + Math.random()*100;
-  ctx.strokeStyle = "rgba(255,0,0,0.7)";
-  ctx.lineWidth = 5;
-  ctx.beginPath();
-  ctx.moveTo(x,y);
-  ctx.lineTo(x+length, y+length*Math.random());
-  ctx.stroke();
-  setTimeout(()=>ctx.clearRect(0,0,canvas.width,canvas.height),200);
 }
