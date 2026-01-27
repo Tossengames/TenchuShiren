@@ -1,0 +1,36 @@
+[
+  {
+    "type": "multiple",
+    "category": "characters",
+    "question": "Identify this ninja",
+    "image": "assets/characters/rikimaru.png",
+    "options": ["rikimaru","ayame","tatsumaru","lord_gohda"],
+    "answer": "rikimaru"
+  },
+  {
+    "type": "multiple",
+    "category": "tools",
+    "question": "What is this tool used for?",
+    "image": "assets/tools/shuriken.png",
+    "options": ["shuriken","smoke_bomb","sword","grapple_hook"],
+    "answer": "shuriken"
+  },
+  {
+    "type": "situation",
+    "question": "You see a guard patrolling near your target. What do you do?",
+    "options": ["Attack quietly","Hide and wait","Distract","Retreat"],
+    "answer": "Hide and wait"
+  },
+  {
+    "type": "morality",
+    "question": "Is it honorable to attack an enemy while they are sleeping?",
+    "options": ["Yes","No","Depends","Ignore"],
+    "answer": "Depends"
+  },
+  {
+    "type": "quote",
+    "question": "Who said: 'Stealth is the soul of the ninja'?",
+    "options": ["Rikimaru","Ayame","Tatsumaru","Lord Gohda"],
+    "answer": "Rikimaru"
+  }
+]
