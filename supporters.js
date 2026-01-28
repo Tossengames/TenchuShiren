@@ -12,34 +12,6 @@ const supporters = [
     {
         name: "Kunoichi",
         handle: "@NightFlower"
-    },
-    {
-        name: "Ghost of Tsushima",
-        handle: "@JinSakai"
-    },
-    {
-        name: "Tenchu Veteran",
-        handle: "@OldSchoolNinja"
-    },
-    {
-        name: "Azure Ronin",
-        handle: "@RoninBlue"
-    },
-    {
-        name: "Crimson Shadow",
-        handle: "@BloodMoon"
-    },
-    {
-        name: "Whispering Wind",
-        handle: "@SilentWind"
-    },
-    {
-        name: "Night Stalker",
-        handle: "@DarkHunter"
-    },
-    {
-        name: "Stealth Artist",
-        handle: "@ShadowPaint"
     }
 ];
 
