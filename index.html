@@ -2,369 +2,277 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>TENCHU SHIREN | 天誅試練</title>
-    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>TENCHU SHIREN - Stealth Quiz</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        /* Prevent text selection on mobile */
-        * {
-            -webkit-tap-highlight-color: transparent;
-            -webkit-touch-callout: none;
-            -webkit-user-select: none;
-            user-select: none;
-        }
-        
-        /* Allow text selection in inputs */
-        input, textarea {
-            -webkit-user-select: text;
-            user-select: text;
-        }
-        
-        /* Prevent zoom on double tap */
-        button, .btn-ninja {
-            touch-action: manipulation;
-        }
-        
-        /* Hide scrollbars but keep functionality */
-        .scrollable {
-            -webkit-overflow-scrolling: touch;
-            scrollbar-width: none; /* Firefox */
-        }
-        
-        .scrollable::-webkit-scrollbar {
-            display: none; /* Chrome, Safari, Opera */
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- VFX Canvas -->
     <canvas id="vfx-canvas"></canvas>
-    
-    <!-- Blood Overlay -->
     <div id="blood-overlay"></div>
-    
-    <!-- Main Menu Screen -->
-    <div id="menu" class="screen menu-screen active">
-        <div class="screen-header">
-            <div class="japanese-title">天誅試練</div>
-            <h1 class="main-title">TENCHU<br>SHIREN</h1>
-            <div class="subtitle">AZUMA CLAN TRIALS</div>
-        </div>
-        
+
+    <div id="menu-screen" class="screen active">
         <div class="screen-content-container">
+            <header class="screen-header">
+                <div class="japanese-title">天誅</div>
+                <h1 class="main-title">TENCHU</h1>
+                <div class="subtitle">SHIREN • THE TRIALS</div>
+                <div class="header-line"></div>
+            </header>
+
             <div class="menu-content">
-                <p class="screen-description">Prove your worth in the shadows. Earn your place among the Azuma elite.</p>
+                <p class="screen-description">Test your knowledge of the shadows. Only the master of stealth shall survive the final trial.</p>
                 
                 <div class="menu-buttons">
-                    <button class="btn-ninja btn-menu" onclick="showPlayerNameScreen()">
-                        <i class="fas fa-mask"></i>
-                        <span>ENTER THE SHADOWS</span>
-                    </button>
-                    
-                    <button class="btn-ninja btn-menu" onclick="showInfo()">
+                    <button id="start-btn" class="btn-menu">
                         <i class="fas fa-scroll"></i>
-                        <span>NINJA SCROLLS</span>
+                        <span>BEGIN TRIALS</span>
                     </button>
-                    
-                    <button class="btn-ninja btn-menu" onclick="showSupporters()">
+                    <button id="info-btn" class="btn-menu">
+                        <i class="fas fa-info-circle"></i>
+                        <span>SCROLL OF TRUTH</span>
+                    </button>
+                    <button id="supporters-btn" class="btn-menu">
                         <i class="fas fa-users"></i>
-                        <span>CLAN ALLIES</span>
+                        <span>HONORED CLAN</span>
                     </button>
                 </div>
-                
+
                 <div class="menu-footer">
                     <div class="blood-drop"><i class="fas fa-tint"></i></div>
-                    <div class="footer-text">A Fan Tribute to Tenchu Series</div>
-                    <div class="footer-subtext">非公式ファンゲーム</div>
+                    <p class="footer-text">v1.0.4 • SHADOW EDITION</p>
+                    <p class="footer-subtext">ステルス・クイズ</p>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Player Name Screen -->
-    <div id="player-name-screen" class="screen hidden name-screen">
-        <div class="screen-header">
-            <h2><i class="fas fa-user-secret"></i> IDENTIFY YOURSELF</h2>
-            <div class="header-line"></div>
-        </div>
-        
+    <div id="name-screen" class="screen hidden">
         <div class="screen-content-container">
+            <header class="screen-header">
+                <div class="japanese-title">名前</div>
+                <h2 class="main-title">IDENTITY</h2>
+                <div class="header-line"></div>
+            </header>
+
             <div class="name-content">
-                <p class="instruction">What name shall be whispered in the shadows?</p>
+                <p class="instruction">Enter your name into the shadow archives...</p>
                 
                 <div class="input-container">
-                    <input type="text" id="player-name-input" placeholder="ENTER NINJA NAME..." maxlength="20" autocomplete="off">
+                    <input type="text" id="player-name-input" placeholder="SHINOBI NAME" maxlength="15">
                     <div class="input-border"></div>
-                    <div class="input-icon"><i class="fas fa-pen-nib"></i></div>
+                    <i class="fas fa-pen-nib input-icon"></i>
                 </div>
-                
+
                 <div class="button-group">
-                    <button class="btn-ninja btn-confirm" onclick="setPlayerName()">
-                        <i class="fas fa-check-circle"></i>
-                        <span>CONFIRM IDENTITY</span>
-                    </button>
-                    
-                    <button class="btn-ninja btn-back" onclick="backToMenu()">
+                    <button id="back-to-menu-btn" class="btn-back">
                         <i class="fas fa-arrow-left"></i>
-                        <span>RETURN TO SHADOWS</span>
+                        <span>RETRACE</span>
+                    </button>
+                    <button id="confirm-name-btn" class="btn-confirm">
+                        <i class="fas fa-check"></i>
+                        <span>CONFIRM</span>
                     </button>
                 </div>
-                
+
                 <div class="name-footer">
-                    <div class="shuriken"><i class="fas fa-star"></i></div>
-                    <p>Your name will be recorded in the Azuma scrolls</p>
+                    <div class="shuriken"><i class="fas fa-dharmachakra"></i></div>
+                    <p>A name carries the weight of one's blade.</p>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Info Screen -->
-    <div id="info" class="screen hidden info-screen">
-        <div class="screen-header">
-            <h2><i class="fas fa-book-dead"></i> NINJA SCROLLS</h2>
-            <div class="header-line"></div>
-        </div>
-        
+    <div id="info-screen" class="screen hidden">
         <div class="screen-content-container">
+            <header class="screen-header">
+                <div class="japanese-title">情報</div>
+                <h2 class="main-title">KNOWLEDGE</h2>
+                <div class="header-line"></div>
+            </header>
+
             <div class="info-content">
                 <div class="info-section">
-                    <h3><i class="fas fa-crosshairs"></i> THE SHINOBI TRIAL</h3>
-                    <p class="info-text">
-                        This is a fan-made tribute to the Tenchu series. Not an encyclopedia, but a test of your inner ninja.
-                    </p>
+                    <h3><i class="fas fa-dragon"></i> THE MISSION</h3>
+                    <p class="info-text">You will face series of trials testing your Tenchu lore. Answer correctly to maintain your honor. Failure will result in your name being forgotten in the shadows.</p>
+                </div>
+
+                <div class="info-section">
+                    <h3><i class="fas fa-skull"></i> THE RULES</h3>
                     <ul class="info-list">
-                        <li><i class="fas fa-skull-crossbones"></i> 5 trials of stealth, tools, and ninja ethics</li>
-                        <li><i class="fas fa-user-ninja"></i> Judged by Azuma masters Rikimaru, Ayame, and Tatsumaru</li>
-                        <li><i class="fas fa-crown"></i> Your answers reveal your true Shinobi spirit</li>
-                        <li><i class="fas fa-ghost"></i> Discover your rank in the Azuma clan hierarchy</li>
+                        <li>Each trial has only one true path (answer).</li>
+                        <li>Speed and accuracy determine your final rank.</li>
+                        <li>Master of Stealth rank is reserved for the elite.</li>
                     </ul>
                 </div>
-                
-                <div class="info-section">
-                    <h3><i class="fas fa-handshake"></i> HONORED ALLIES</h3>
-                    <div class="honor-box">
-                        <p>Supporters of this fan tribute are immortalized in our clan scrolls as honored allies.</p>
-                        <button class="btn-support" onclick="window.open('https://ko-fi.com', '_blank')">
-                            <i class="fas fa-coins"></i>
-                            <span>SUPPORT THIS TRIBUTE</span>
-                        </button>
-                    </div>
+
+                <div class="honor-box">
+                    <p>Support the development of more trials and keep the ninja spirit alive.</p>
+                    <button class="btn-support" onclick="window.open('https://ko-fi.com/tenchushiren', '_blank')">
+                        <i class="fas fa-coffee"></i> BUY ME A SAKE
+                    </button>
                 </div>
-                
-                <button class="btn-ninja btn-return" onclick="backToMenu()">
-                    <i class="fas fa-door-closed"></i>
-                    <span>RETURN TO MENU</span>
+
+                <button id="info-back-btn" class="btn-return">
+                    <i class="fas fa-reply"></i> <span>RETURN</span>
                 </button>
             </div>
         </div>
     </div>
 
-    <!-- Supporters Screen -->
-    <div id="supporters-screen" class="screen hidden supporters-screen">
-        <div class="screen-header">
-            <h2><i class="fas fa-users"></i> CLAN ALLIES</h2>
-            <div class="header-line"></div>
-            <p class="subtitle">Those who stand with the Azuma</p>
-        </div>
-        
+    <div id="supporters-screen" class="screen hidden">
         <div class="screen-content-container">
+            <header class="screen-header">
+                <div class="japanese-title">一族</div>
+                <h2 class="main-title">THE CLAN</h2>
+                <div class="header-line"></div>
+            </header>
+
             <div class="supporters-content">
                 <div class="appreciation-box">
-                    <i class="fas fa-heart blood-icon"></i>
-                    <p id="supporter-message">The shadows remember their allies.</p>
+                    <i class="fas fa-tint blood-icon"></i>
+                    <p>Those who have spilled gold to keep our blades sharp. We honor your sacrifice.</p>
                 </div>
-                
+
                 <div class="supporters-list-container">
-                    <h3><i class="fas fa-scroll"></i> HONORED ALLIES</h3>
+                    <h3><i class="fas fa-crown"></i> ELITE SHINOBI</h3>
                     <div class="supporters-scroll">
                         <ul id="supporters-list" class="supporters-list">
-                            <!-- Supporters will be added by JavaScript -->
+                            <li>
+                                <span class="supporter-name">Rikimaru_Fan_99</span>
+                                <span class="supporter-handle">@shadow_walker</span>
+                            </li>
+                            <li>
+                                <span class="supporter-name">Ayame_Blade</span>
+                                <span class="supporter-handle">@night_widow</span>
+                            </li>
+                            <li>
+                                <span class="supporter-name">Tatsumaru_Revive</span>
+                                <span class="supporter-handle">@lost_brother</span>
+                            </li>
                         </ul>
                     </div>
                 </div>
-                
+
                 <div class="become-supporter">
-                    <h3><i class="fas fa-plus-circle"></i> JOIN THE SHADOWS</h3>
-                    <p>Become an honored ally and have your name recorded in our scrolls</p>
-                    <button class="btn-ninja btn-join" onclick="window.open('https://ko-fi.com', '_blank')">
-                        <i class="fas fa-fist-raised"></i>
-                        <span>BECOME A SUPPORTER</span>
+                    <h3>JOIN THE ARCHIVES</h3>
+                    <p>Become a supporter to see your name etched here forever.</p>
+                    <button class="btn-join" onclick="window.open('https://ko-fi.com/tenchushiren', '_blank')">
+                        <i class="fab fa-patreon"></i> <span>BECOME AN ALLY</span>
                     </button>
                 </div>
-                
-                <div class="supporters-footer">
-                    <button class="btn-ninja btn-back" onclick="backToMenu()">
-                        <i class="fas fa-arrow-left"></i>
-                        <span>RETURN TO MENU</span>
-                    </button>
-                </div>
+
+                <button id="supporters-back-btn" class="btn-return">
+                    <i class="fas fa-reply"></i> <span>RETURN</span>
+                </button>
             </div>
         </div>
     </div>
 
-    <!-- Game Screen -->
-    <div id="game" class="screen hidden game-screen">
-        <!-- Question Screen -->
-        <div id="question-screen" class="game-content active">
-            <div class="game-header">
-                <div class="game-title">AZUMA TRIALS</div>
-                <div class="game-info">
-                    <span class="player-display" id="current-player">SHADOW WARRIOR</span>
-                    <span class="score-display">TRIAL <span id="current-trial">1</span>/5</span>
-                </div>
-            </div>
-            
-            <div class="question-container scrollable">
-                <div class="question-header">
-                    <div class="trial-number">TRIAL <span id="trial-number">1</span></div>
-                    <div class="difficulty">難易度: <span class="diff-level">中等</span></div>
-                </div>
-                
-                <div class="question-text-container">
-                    <div class="quote-left"><i class="fas fa-quote-left"></i></div>
-                    <h3 id="question-text">A shadow moves in the darkness...</h3>
-                    <div class="quote-right"><i class="fas fa-quote-right"></i></div>
-                </div>
-                
-                <div id="options" class="options-grid">
-                    <!-- Options will be added by JavaScript -->
-                </div>
-                
-                <div class="game-progress">
-                    <div class="progress-bar">
-                        <div class="progress-fill" id="progress-fill"></div>
+    <div id="game-screen" class="screen hidden">
+        <div class="screen-content-container">
+            <div id="appreciation-screen" class="game-content hidden">
+                <div class="appreciation-container">
+                    <div class="appreciation-header">
+                        <h2>TRIAL SPONSORED BY</h2>
+                        <div class="header-line"></div>
                     </div>
-                    <div class="progress-text">Trial <span id="progress-current">1</span> of 5</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Appreciation Screen (shown after 5th question) -->
-        <div id="appreciation-screen" class="game-content hidden">
-            <div class="appreciation-container scrollable">
-                <div class="appreciation-header">
-                    <h2><i class="fas fa-award"></i> CLAN APPRECIATION</h2>
-                    <div class="header-line"></div>
-                </div>
-                
-                <div class="appreciation-content">
-                    <div class="character-portrait-large" id="appreciation-portrait"></div>
                     
-                    <div class="appreciation-message">
-                        <p id="appreciation-text">The Azuma clan honors its allies...</p>
-                        <div class="honored-supporter">
-                            <h3 id="honored-name">SUPPORTER NAME</h3>
-                            <p id="honored-handle">@shadow_walker</p>
-                            <div class="supporter-rank">
-                                <i class="fas fa-shield-alt"></i>
-                                <span>HONORED ALLY</span>
+                    <div class="appreciation-content">
+                        <div id="supporter-portrait" class="character-portrait-large"></div>
+                        <div class="appreciation-message">
+                            <p id="appreciation-text">"The shadows are my only home. May your blade find its mark, student."</p>
+                            <div class="honored-supporter">
+                                <h3 id="honored-name">SHADOW MASTER</h3>
+                                <p id="honored-handle">@master_of_clans</p>
+                                <div class="supporter-rank">
+                                    <i class="fas fa-medal"></i> DAIMYO RANK
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    
-                    <div class="appreciation-action">
-                        <button class="btn-ninja btn-acknowledge" onclick="showResults()">
-                            <i class="fas fa-forward"></i>
-                            <span>SEE YOUR RESULTS</span>
+                        <button id="start-question-btn" class="btn-acknowledge">
+                            <span>I AM READY</span> <i class="fas fa-chevron-right"></i>
                         </button>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <!-- Results Screen -->
-        <div id="result-screen" class="game-content hidden">
-            <div class="results-container scrollable">
-                <div class="results-header">
-                    <div class="results-title">MISSION COMPLETE</div>
-                    <div class="results-subtitle">Your fate is sealed</div>
-                </div>
-                
-                <div class="results-content">
-                    <div class="rank-display">
-                        <div class="rank-symbol" id="rank-symbol">⚔️</div>
-                        <div class="rank-title" id="result-rank">SHADOW</div>
-                        <div class="rank-name" id="result-title">Silent Assassin</div>
+            <div id="quiz-content" class="game-content">
+                <header class="game-header">
+                    <div class="game-title">TRIAL</div>
+                    <div class="game-info">
+                        <span id="player-name-display" class="player-display">SHINOBI</span>
+                        <span id="score-display" class="score-display">HONOR: 0</span>
                     </div>
-                    
-                    <div class="character-feedback">
-                        <div class="feedback-portrait" id="feedback-portrait"></div>
-                        <div class="feedback-message">
-                            <p id="feedback-text">Your journey in the shadows has been observed...</p>
+                </header>
+
+                <div class="question-container">
+                    <div class="question-header">
+                        <span id="question-number" class="trial-number">TRIAL #1</span>
+                        <span class="difficulty">LEVEL: <span id="difficulty-level" class="diff-level">GENIN</span></span>
+                    </div>
+
+                    <div class="question-text-container">
+                        <i class="fas fa-quote-left quote-left"></i>
+                        <div id="question-text">Queston text goes here?</div>
+                        <i class="fas fa-quote-right quote-right"></i>
+                    </div>
+
+                    <div id="options-container" class="options-grid">
                         </div>
-                    </div>
                     
-                    <div class="results-actions">
-                        <button class="btn-ninja btn-retry" onclick="startGame()">
-                            <i class="fas fa-redo"></i>
-                            <span>RE-ENTER SHADOWS</span>
-                        </button>
-                        
-                        <button class="btn-ninja btn-menu-result" onclick="backToMenu()">
-                            <i class="fas fa-home"></i>
-                            <span>MAIN MENU</span>
-                        </button>
+                    <div class="game-progress">
+                        <div class="progress-bar">
+                            <div id="progress-fill" class="progress-fill"></div>
+                        </div>
+                        <div id="progress-text" class="progress-text">Path 1 of 10</div>
                     </div>
-                </div>
-                
-                <div class="results-footer">
-                    <p>Your name has been recorded in the Azuma scrolls</p>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Scripts -->
-    <script src="supporters.js"></script>
-    <script src="character-comments.js"></script>
-    <script src="game.js"></script>
-    <script src="vfx.js"></script>
-    
-    <script>
-        // Initialize on load
-        window.addEventListener('load', function() {
-            console.log('Tenchu Shiren Initializing...');
-            
-            // Initialize VFX system
-            if (typeof initVFX === 'function') {
-                initVFX();
-            }
-            
-            // Initialize supporters
-            if (typeof updateSupportersList === 'function') {
-                updateSupportersList();
-            }
-            
-            // Set up name input listener
-            const nameInput = document.getElementById('player-name-input');
-            if (nameInput) {
-                nameInput.addEventListener('keypress', function(e) {
-                    if (e.key === 'Enter') {
-                        setPlayerName();
-                    }
-                });
-            }
-            
-            // Handle mobile viewport height
-            function setVH() {
-                let vh = window.innerHeight * 0.01;
-                document.documentElement.style.setProperty('--vh', `${vh}px`);
-            }
-            
-            setVH();
-            window.addEventListener('resize', setVH);
-            window.addEventListener('orientationchange', setVH);
-            
-            console.log('Game initialized successfully');
-        });
-        
-        // Prevent pull-to-refresh on mobile
-        document.addEventListener('touchmove', function(e) {
-            if (e.scale !== 1) {
-                e.preventDefault();
-            }
-        }, { passive: false });
-    </script>
+    <div id="results-screen" class="screen hidden">
+        <div class="screen-content-container">
+            <div class="results-container">
+                <header class="results-header">
+                    <h2 class="results-title">TRIAL COMPLETE</h2>
+                    <p class="results-subtitle">THE SHADOWS HAVE SPOKEN</p>
+                    <div class="header-line"></div>
+                </header>
+
+                <div class="results-content">
+                    <div class="rank-display">
+                        <div id="rank-symbol" class="rank-symbol">忍</div>
+                        <h1 id="rank-title" class="rank-title">GRAND MASTER</h1>
+                        <h3 id="rank-name" class="rank-name">GOD OF STEALTH</h3>
+                        <p id="rank-description" class="rank-description">Your knowledge of the Azuma clan is absolute. You move through history like a ghost in the night.</p>
+                    </div>
+
+                    <div class="character-feedback">
+                        <div id="feedback-portrait" class="feedback-portrait"></div>
+                        <div class="feedback-message">
+                            <p id="feedback-text">"Impressive. Your training has served you well. Lord Gohda would be proud."</p>
+                        </div>
+                    </div>
+
+                    <div class="results-actions">
+                        <button id="retry-btn" class="btn-retry">
+                            <i class="fas fa-redo"></i> <span>NEW TRIAL</span>
+                        </button>
+                        <button id="back-to-menu-result-btn" class="btn-menu-result">
+                            <i class="fas fa-home"></i> <span>CLAN HUB</span>
+                        </button>
+                    </div>
+
+                    <div class="results-footer">
+                        <p>Your deeds have been recorded in the scroll of history.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
 </body>
 </html>
