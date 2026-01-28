@@ -1,122 +1,1325 @@
 [
   {
-    "question": "Before a night infiltration, a ninja must check the direction of which natural element to remain downwind and silent?",
-    "options": ["The Moon", "The Wind", "Flowing Water", "Crickets"],
-    "answer": "The Wind",
+    "question": "Which sacred blade, passed down through the Azuma lineage, is currently wielded by Rikimaru?",
+    "options": ["Natsume", "Izayoi", "Shichishito", "Muramasa"],
+    "answer": "Izayoi",
+    "commentator": "rikimaru",
+    "category": "Characters",
+    "difficulty": "Easy"
+  },
+  {
+    "question": "When a guard is suspicious but has not seen you, what symbol appears on your Ki meter to represent their state?",
+    "options": ["!", "!!", "?", "!?"],
+    "answer": "?",
     "commentator": "rikimaru",
     "category": "Stealth",
     "difficulty": "Easy"
   },
   {
-    "question": "If confronted by two guards at a gate, and stealth is compromised, what is the Azuma principle for engagement?",
-    "options": ["Stand your ground and fight honorably.", "Create a distraction to separate them, then dispatch each silently.", "Use a smoke bomb and flee to return another night.", "Challenge their leader to single combat."],
-    "answer": "Create a distraction to separate them, then dispatch each silently.",
+    "question": "A master of the Azuma Clan must know their history. Who was the former leader and mentor to Rikimaru and Ayame?",
+    "options": ["Lord Gohda", "Tatsumaru", "Azuma Shiunsai", "Onikage"],
+    "answer": "Azuma Shiunsai",
+    "commentator": "rikimaru",
+    "category": "Lore",
+    "difficulty": "Easy"
+  },
+  {
+    "question": "Which tool is best used to distract a guard by making them leave their post to investigate a snack?",
+    "options": ["Caltrops", "Poison Rice", "Smoke Bomb", "Decoy Whistle"],
+    "answer": "Poison Rice",
+    "commentator": "rikimaru",
+    "category": "Tools",
+    "difficulty": "Easy"
+  },
+  {
+    "question": "In the Azuma code, what is the literal meaning of the word 'Tenchu'?",
+    "options": ["Silent Shadow", "Heaven's Punishment", "The Hidden Blade", "Vengeance of the Clan"],
+    "answer": "Heaven's Punishment",
+    "commentator": "rikimaru",
+    "category": "Ethics",
+    "difficulty": "Medium"
+  },
+  {
+    "question": "Which of these Azuma ninjas uses a unique style involving two shorter daggers instead of a single katana?",
+    "options": ["Rikimaru", "Tatsumaru", "Ayame", "Tesshu"],
+    "answer": "Ayame",
+    "commentator": "rikimaru",
+    "category": "Characters",
+    "difficulty": "Easy"
+  },
+  {
+    "question": "To achieve the rank of 'Grand Master', what must a ninja prioritize above all else during a mission?",
+    "options": ["Killing every guard", "Remaining undetected", "Collecting all items", "Finishing quickly"],
+    "answer": "Remaining undetected",
+    "commentator": "rikimaru",
+    "category": "Stealth",
+    "difficulty": "Medium"
+  },
+  {
+    "question": "Which item allows a ninja to safely drop from extreme heights or move quickly across gaps?",
+    "options": ["Grappling Hook", "Lightfoot Scroll", "Chameleon Spell", "Ninja Armor"],
+    "answer": "Grappling Hook",
+    "commentator": "rikimaru",
+    "category": "Tools",
+    "difficulty": "Easy"
+  },
+  {
+    "question": "The Azuma Clan serves which benevolent provincial lord?",
+    "options": ["Lord Toda", "Lord Gohda Matsunoshin", "Lord Mei-Oh", "Lord Hamada"],
+    "answer": "Lord Gohda Matsunoshin",
+    "commentator": "rikimaru",
+    "category": "Lore",
+    "difficulty": "Easy"
+  },
+  {
+    "question": "Which technique, forbidden due to its high risk, was used by Rikimaru to survive the collapse of Mei-Oh's castle?",
+    "options": ["Shadow Decoy", "Birth Shadow", "Fire Eater", "Whirlwind Slash"],
+    "answer": "Birth Shadow",
+    "commentator": "rikimaru",
+    "category": "Lore",
+    "difficulty": "Hard"
+  },
+  {
+    "question": "Who is the recurring demonic antagonist that serves as the 'Dark Reflection' of Rikimaru?",
+    "options": ["Suzaku", "Genbu", "Onikage", "Byakko"],
+    "answer": "Onikage",
+    "commentator": "rikimaru",
+    "category": "Characters",
+    "difficulty": "Medium"
+  },
+  {
+    "question": "If you are spotted and the guard draws their sword, what symbol is shown on the Ki meter?",
+    "options": ["!", "!!", "?!", "X"],
+    "answer": "!!",
+    "commentator": "rikimaru",
+    "category": "Stealth",
+    "difficulty": "Easy"
+  },
+  {
+    "question": "What is the primary function of the 'Caltrops' (Tetsubishi) item during a pursuit?",
+    "options": ["Instant death", "Blinding the enemy", "Slowing down pursuers", "Luring enemies"],
+    "answer": "Slowing down pursuers",
+    "commentator": "rikimaru",
+    "category": "Tools",
+    "difficulty": "Medium"
+  },
+  {
+    "question": "Which Azuma ninja was chosen as the successor to Shiunsai but ultimately betrayed the clan due to amnesia?",
+    "options": ["Rikimaru", "Ayame", "Tatsumaru", "Rin"],
+    "answer": "Tatsumaru",
+    "commentator": "rikimaru",
+    "category": "Lore",
+    "difficulty": "Medium"
+  },
+  {
+    "question": "The 'Wrath of Heaven' refers to the ninja acting as the hand of their Lord. This aligns with which concept?",
+    "options": ["Personal Vengeance", "Divine Justice", "Mercenary Profit", "Political Ambition"],
+    "answer": "Divine Justice",
+    "commentator": "rikimaru",
+    "category": "Ethics",
+    "difficulty": "Hard"
+  },
+  {
+    "question": "What is the name of the militant ninja group that seeks to bring ninja out of the shadows in Tenchu 2?",
+    "options": ["The Manji Clan", "The Burning Dawn", "The Lords of Darkness", "The Black Lotus"],
+    "answer": "The Burning Dawn",
+    "commentator": "rikimaru",
+    "category": "Lore",
+    "difficulty": "Medium"
+  },
+  {
+    "question": "Which item is essential for recovering health after a grueling battle?",
+    "options": ["Smoke Bomb", "Healing Potion", "Protection Amulet", "Resurrection Leaf"],
+    "answer": "Healing Potion",
+    "commentator": "rikimaru",
+    "category": "Tools",
+    "difficulty": "Easy"
+  },
+  {
+    "question": "When performing a 'Stealth Kill' from the ceiling, what is the primary advantage?",
+    "options": ["It gives more points", "It is impossible to be spotted", "The body is hidden from others", "It uses no stamina"],
+    "answer": "The body is hidden from others",
+    "commentator": "rikimaru",
+    "category": "Stealth",
+    "difficulty": "Medium"
+  },
+  {
+    "question": "Which character is a doctor by day but an assassin by night, occasionally assisting the Azuma?",
+    "options": ["Tatsumaru", "Tesshu Fujioka", "Lord Gohda", "Jinnai"],
+    "answer": "Tesshu Fujioka",
+    "commentator": "rikimaru",
+    "category": "Characters",
+    "difficulty": "Hard"
+  },
+  {
+    "question": "What color is Rikimaru’s hair, a distinctive trait since his youth?",
+    "options": ["Black", "Silver/White", "Crimson", "Blue"],
+    "answer": "Silver/White",
+    "commentator": "rikimaru",
+    "category": "Characters",
+    "difficulty": "Easy"
+  },
+  {
+    "question": "The 'Colored Rice' item is used by a ninja primarily for what purpose?",
+    "options": ["Feeding animals", "Marking a path", "Poisoning water", "Healing"],
+    "answer": "Marking a path",
+    "commentator": "rikimaru",
+    "category": "Tools",
+    "difficulty": "Hard"
+  },
+  {
+    "question": "Princess Kiku shares a sisterly bond with which Azuma ninja?",
+    "options": ["Rikimaru", "Ayame", "Rin", "Kagame"],
+    "answer": "Ayame",
+    "commentator": "rikimaru",
+    "category": "Lore",
+    "difficulty": "Medium"
+  },
+  {
+    "question": "What is the result of killing an 'Innocent' (civilian) during a mission?",
+    "options": ["Bonus points", "Mission failure", "Point penalty", "No effect"],
+    "answer": "Point penalty",
+    "commentator": "rikimaru",
+    "category": "Ethics",
+    "difficulty": "Easy"
+  },
+  {
+    "question": "Which of these is NOT a traditional Azuma tool?",
+    "options": ["Shuriken", "Kunai", "Grenade", "Katana"],
+    "answer": "Grenade",
+    "commentator": "rikimaru",
+    "category": "Tools",
+    "difficulty": "Medium"
+  },
+  {
+    "question": "How did Rikimaru receive the scar over his right eye?",
+    "options": ["A training accident", "A fight with Onikage", "A battle with Tatsumaru", "Protecting Lord Gohda"],
+    "answer": "A battle with Tatsumaru",
+    "commentator": "rikimaru",
+    "category": "Lore",
+    "difficulty": "Hard"
+  },
+  {
+    "question": "Which item allows you to vanish instantly and reappear behind an enemy?",
+    "options": ["Smoke Bomb", "Shadow Decoy", "Chameleon Spell", "None of the above"],
+    "answer": "Shadow Decoy",
+    "commentator": "rikimaru",
+    "category": "Tools",
+    "difficulty": "Medium"
+  },
+  {
+    "question": "What is the most effective way to dispose of a guard's body to prevent detection?",
+    "options": ["Leave it in the open", "Throw it in water or off a cliff", "Cover it with rice", "Hide it in a box"],
+    "answer": "Throw it in water or off a cliff",
     "commentator": "rikimaru",
     "category": "Tactics",
     "difficulty": "Medium"
   },
   {
-    "question": "What is the primary, non-lethal purpose of a simple tool like a *Metsubishi* (blinding powder)?",
-    "options": ["To poison a water supply.", "To mark a trail for other ninja.", "To create a momentary diversion for escape or repositioning.", "To disable a guard permanently."],
-    "answer": "To create a momentary diversion for escape or repositioning.",
-    "commentator": "ayame",
-    "category": "Tools",
-    "difficulty": "Easy"
-  },
-  {
-    "question": "You discover a fellow clan member is taking bribes from a local merchant. According to Azuma code, what is your first duty?",
-    "options": ["Confront them publicly to shame them.", "Report your suspicion directly and privately to the clan leader.", "Ignore it; clan matters are not your concern.", "Take a larger bribe from the merchant's rival to balance the scales."],
-    "answer": "Report your suspicion directly and privately to the clan leader.",
+    "question": "In the Azuma code, what must a ninja do if they are captured to protect the clan's secrets?",
+    "options": ["Escape at all costs", "Take their own life", "Bribe the guards", "Join the enemy temporarily"],
+    "answer": "Take their own life",
     "commentator": "rikimaru",
     "category": "Ethics",
     "difficulty": "Hard"
   },
   {
-    "question": "Which of these is the truest representation of 'Shinobi' (忍) in the Azuma way?",
-    "options": ["Mastery of a hundred killing techniques.", "The strength to endure any hardship for the mission's success.", "The ability to move completely unseen at all times.", "Owning the finest and sharpest blades."],
-    "answer": "The strength to endure any hardship for the mission's success.",
+    "question": "Which female ninja seeks revenge for the destruction of her village in Tenchu: Fatal Shadows?",
+    "options": ["Ayame", "Rin", "Kagame", "Kagura"],
+    "answer": "Rin",
     "commentator": "rikimaru",
-    "category": "Principles",
+    "category": "Characters",
     "difficulty": "Medium"
   },
   {
-    "question": "When using a *Kaginawa* (grappling hook) on a rotten wooden ledge, what technique minimizes noise?",
-    "options": ["A swift, powerful throw to ensure it bites deeply.", "Wrapping the rope with cloth to dampen the sound.", "Tapping the ledge first with a kunai to test its strength.", "A gentle, controlled toss so the hook settles into place."],
-    "answer": "A gentle, controlled toss so the hook settles into place.",
-    "commentator": "ayame",
-    "category": "Tools",
-    "difficulty": "Medium"
-  },
-  {
-    "question": "A mission to protect your lord fails, and he is dishonored. What does the Azuma code demand of you?",
-    "options": ["Go into exile to atone for your shame.", "Seek immediate revenge on those responsible, regardless of orders.", "Offer your life in ritual seppuku to restore honor.", "Live with the failure, and let your future service be your atonement."],
-    "answer": "Live with the failure, and let your future service be your atonement.",
+    "question": "The 'Ki' meter reflects a ninja's sixth sense. What does a high number on the meter indicate?",
+    "options": ["Enemy is far away", "Enemy is very close", "Ninja is out of health", "Ninja is detected"],
+    "answer": "Enemy is very close",
     "commentator": "rikimaru",
-    "category": "Ethics",
-    "difficulty": "Hard"
-  },
-  {
-    "question": "What is the most critical factor when choosing a hiding spot in a garden?",
-    "options": ["Its proximity to the target.", "How completely it breaks your silhouette against the environment.", "That it has a clear escape route.", "That it is comfortable for a long wait."],
-    "answer": "How completely it breaks your silhouette against the environment.",
-    "commentator": "ayame",
     "category": "Stealth",
     "difficulty": "Easy"
   },
   {
-    "question": "The legendary sword Izayoi, carried by Rikimaru, symbolizes what Azuma ideal?",
-    "options": ["The cutting truth of justice.", "A tool that is only drawn when stealth is impossible.", "The enduring will that outlasts the night.", "A weapon that seeks the blood of demons."],
-    "answer": "The enduring will that outlasts the night.",
+    "question": "Which elusive item allows a ninja to breathe underwater indefinitely, essential for infiltrating Lord Toda's docks?",
+    "options": ["Bamboo Pipe", "Lung of the Sea", "Water Scroll", "Diving Mask"],
+    "answer": "Bamboo Pipe",
     "commentator": "rikimaru",
-    "category": "Lore",
+    "category": "Tools",
+    "difficulty": "Easy"
+  },
+  {
+    "question": "A shinobi must be swift. What is the name of the technique used to run on walls for a short duration?",
+    "options": ["Shadow Dash", "Wall Run", "Spider Walk", "Leap of Faith"],
+    "answer": "Wall Run",
+    "commentator": "rikimaru",
+    "category": "Stealth",
+    "difficulty": "Easy"
+  },
+  {
+    "question": "Which of these is the primary code name used by the leader of the Burning Dawn, who fell in love with Tatsumaru?",
+    "options": ["Kagame", "Lady Kei", "Miyabi", "Yurei"],
+    "answer": "Kagame",
+    "commentator": "rikimaru",
+    "category": "Characters",
     "difficulty": "Medium"
   },
   {
-    "question": "You are ordered to assassinate a corrupt official who is guarded by innocent, conscripted farmers. What is the proper course?",
-    "options": ["Complete the mission; the guards' lives are forfeit to their position.", "Abort the mission and return for new instructions.", "Disable the farmers non-lethally to reach your target.", "Reveal yourself and demand the official face you alone."],
-    "answer": "Disable the farmers non-lethally to reach your target.",
-    "commentator": "ayame",
-    "category": "Ethics",
+    "question": "What happens if a ninja attempts to use a 'Resurrection Leaf' after they have already used one in the same mission?",
+    "options": ["It heals half health", "It does nothing", "It kills the user", "It summons a decoy"],
+    "answer": "It does nothing",
+    "commentator": "rikimaru",
+    "category": "Tools",
     "difficulty": "Hard"
   },
   {
-    "question": "What does the stealth principle 'Like a leaf on the wind' primarily refer to?",
-    "options": ["Moving with unpredictable speed.", "Allowing natural sounds to cover your movement.", "Using a glider for aerial insertion.", "Having no attachment to a single plan, adapting fluidly."],
-    "answer": "Allowing natural sounds to cover your movement.",
-    "commentator": "ayame",
-    "category": "Stealth",
-    "difficulty": "Medium"
-  },
-  {
-    "question": "In Azuma lore, what was the tragic flaw of the ninja Tatsumaru that led to his fall?",
-    "options": ["An insatiable thirst for personal power.", "A compassionate heart that was manipulated by evil.", "A lack of faith in his own skills.", "The betrayal of his closest friend."],
-    "answer": "A compassionate heart that was manipulated by evil.",
+    "question": "A master of the Azuma Clan knows their enemies. Which beast-like warrior guards the gate to the underworld?",
+    "options": ["Gozoh", "Byakko", "Onikage", "Sekiya"],
+    "answer": "Byakko",
     "commentator": "rikimaru",
     "category": "Lore",
     "difficulty": "Hard"
   },
   {
-    "question": "What is the correct way to carry a *shuriken* to prevent injury and ensure a smooth draw?",
-    "options": ["In a tight fist, points outward.", "In a belt pouch, loosely mixed with caltrops.", "In a dedicated pouch or cloth wrap, with edges separated.", "Tied to a wrist band with the points facing your arm."],
-    "answer": "In a dedicated pouch or cloth wrap, with edges separated.",
-    "commentator": "ayame",
+    "question": "If you are hiding against a wall and a guard passes by, what is the safest method to take them down without being seen?",
+    "options": ["Frontal Assault", "Corner Stealth Kill", "Jump Attack", "Wait for them to leave"],
+    "answer": "Corner Stealth Kill",
+    "commentator": "rikimaru",
+    "category": "Stealth",
+    "difficulty": "Medium"
+  },
+  {
+    "question": "Who is the Lord of the Burning Dawn's elite 'Four Lords' that represents the 'Red Sparrow'?",
+    "options": ["Suzaku", "Genbu", "Byakko", "Seiryu"],
+    "answer": "Suzaku",
+    "commentator": "rikimaru",
+    "category": "Lore",
+    "difficulty": "Medium"
+  },
+  {
+    "question": "Which tool is best used to quietly eliminate a guard from a distance without alerting others nearby?",
+    "options": ["Grenade", "Blowgun", "Caltrops", "Mines"],
+    "answer": "Blowgun",
+    "commentator": "rikimaru",
+    "category": "Tools",
+    "difficulty": "Medium"
+  },
+  {
+    "question": "In 'Tenchu: Wrath of Heaven', who is the sorcerer responsible for trying to resurrect the dead and seeking the Three Jewels?",
+    "options": ["Mei-Oh", "Tenrai", "Onikage", "Hamada"],
+    "answer": "Tenrai",
+    "commentator": "rikimaru",
+    "category": "Lore",
+    "difficulty": "Medium"
+  },
+  {
+    "question": "What is the primary motive behind the Azuma Clan's actions in every conflict?",
+    "options": ["Acquiring gold", "Serving the will of their Lord", "Conquering Japan", "Eliminating all other ninja"],
+    "answer": "Serving the will of their Lord",
+    "commentator": "rikimaru",
+    "category": "Ethics",
+    "difficulty": "Easy"
+  },
+  {
+    "question": "Which move allows a ninja to quickly turn 180 degrees while in a crouched position?",
+    "options": ["Quick Turn", "Shadow Flip", "Moon Somersault", "Blade Spin"],
+    "answer": "Quick Turn",
+    "commentator": "rikimaru",
+    "category": "Stealth",
+    "difficulty": "Medium"
+  },
+  {
+    "question": "The 'Ninja Armor' provides protection, but what is its main drawback for a stealthy warrior?",
+    "options": ["Makes you slower", "Makes more noise", "Reduces health", "Occupies an item slot"],
+    "answer": "Occupies an item slot",
+    "commentator": "rikimaru",
+    "category": "Tools",
+    "difficulty": "Hard"
+  },
+  {
+    "question": "How did Ayame first come to join the Azuma Clan?",
+    "options": ["She was born into it", "She was found as an orphan by Shiunsai", "She was a gift from Lord Gohda", "She won a tournament"],
+    "answer": "She was found as an orphan by Shiunsai",
+    "commentator": "rikimaru",
+    "category": "Characters",
+    "difficulty": "Medium"
+  },
+  {
+    "question": "What is the unique ability of the 'Chameleon Spell' item?",
+    "options": ["Become invisible", "Disguise as an enemy guard", "Walk through walls", "Heal over time"],
+    "answer": "Disguise as an enemy guard",
+    "commentator": "rikimaru",
+    "category": "Tools",
+    "difficulty": "Medium"
+  },
+  {
+    "question": "When facing a boss, what is the most important rule regarding your weapon?",
+    "options": ["Never block", "Always keep it sheathed", "Never engage without a plan", "Use only your bare hands"],
+    "answer": "Never engage without a plan",
+    "commentator": "rikimaru",
+    "category": "Tactics",
+    "difficulty": "Easy"
+  },
+  {
+    "question": "What is the name of Lord Gohda’s daughter, whom Rikimaru and Ayame have protected since her infancy?",
+    "options": ["Princess Kiku", "Lady Kei", "Princess Rin", "Lady Naomi"],
+    "answer": "Princess Kiku",
+    "commentator": "rikimaru",
+    "category": "Characters",
+    "difficulty": "Easy"
+  },
+  {
+    "question": "Rikimaru is the leader of the Azuma Ninja, but what physical trait was he born with that is rare for his lineage?",
+    "options": ["Red eyes", "White hair", "Six fingers", "No heartbeat"],
+    "answer": "White hair",
+    "commentator": "rikimaru",
+    "category": "Characters",
+    "difficulty": "Easy"
+  },
+  {
+    "question": "Who is the demonic sorcerer from the underworld who serves as the main antagonist in the first Tenchu?",
+    "options": ["Tenrai", "Lord Mei-Oh", "Onikage", "Tatsumaru"],
+    "answer": "Lord Mei-Oh",
+    "commentator": "rikimaru",
+    "category": "Characters",
+    "difficulty": "Medium"
+  },
+  {
+    "question": "Which character uses a 'Steel Bone' (a deceptive umbrella) and wires as her primary weapons in Tenchu: Fatal Shadows?",
+    "options": ["Ayame", "Rin", "Kagura", "Sayome"],
+    "answer": "Rin",
+    "commentator": "rikimaru",
+    "category": "Characters",
+    "difficulty": "Medium"
+  },
+  {
+    "question": "Tesshu Fujioka, the physician who appears in 'Wrath of Heaven', belongs to which secret organization?",
+    "options": ["Azuma Clan", "Muzen", "The Burning Dawn", "Kuroya"],
+    "answer": "Muzen",
+    "commentator": "rikimaru",
+    "category": "Characters",
+    "difficulty": "Medium"
+  },
+  {
+    "question": "Onikage is known for his signature fighting style. What is his preferred method of combat?",
+    "options": ["Dual katanas", "Powerful kicks", "Hidden projectiles", "Magic spells"],
+    "answer": "Powerful kicks",
+    "commentator": "rikimaru",
+    "category": "Characters",
+    "difficulty": "Easy"
+  },
+  {
+    "question": "What was the name of the woman who led the Burning Dawn and was the lover of the corrupted Tatsumaru?",
+    "options": ["Lady Kagame", "Kiku", "Shino", "Miyabi"],
+    "answer": "Lady Kagame",
+    "commentator": "rikimaru",
+    "category": "Characters",
+    "difficulty": "Medium"
+  },
+  {
+    "question": "Before becoming a villain, Tatsumaru held what position within the Azuma Clan?",
+    "options": ["The youngest student", "The chosen successor", "The clan cook", "The master of tools"],
+    "answer": "The chosen successor",
+    "commentator": "rikimaru",
+    "category": "Characters",
+    "difficulty": "Medium"
+  },
+  {
+    "question": "Which character serves as Lord Gohda’s loyal right-hand man and general, often appearing in mission briefings?",
+    "options": ["Sekiya Naotada", "Lord Toda", "Kanbei", "Jinnai"],
+    "answer": "Sekiya Naotada",
+    "commentator": "rikimaru",
+    "category": "Characters",
+    "difficulty": "Easy"
+  },
+  {
+    "question": "In Tenchu 2, who was the third student of Azuma Shiunsai alongside Rikimaru and Ayame?",
+    "options": ["Tesshu", "Tatsumaru", "Onikage", "Rin"],
+    "answer": "Tatsumaru",
+    "commentator": "rikimaru",
+    "category": "Characters",
+    "difficulty": "Easy"
+  },
+  {
+    "question": "The antagonist Tenrai, appearing in 'Wrath of Heaven', sought to assemble three powerful artifacts. What were they called?",
+    "options": ["The Three Jewels", "The Three Blades", "The Three Scrolls", "The Three Mirrors"],
+    "answer": "The Three Jewels",
+    "commentator": "rikimaru",
+    "category": "Characters",
+    "difficulty": "Medium"
+  },
+  {
+    "question": "Which boss is a giant, armored warrior who guards the entrance to the 'Caverns' and is known for his immense strength?",
+    "options": ["Gozoh", "Byakko", "Kumon", "Gandora"],
+    "answer": "Gozoh",
+    "commentator": "rikimaru",
+    "category": "Characters",
+    "difficulty": "Hard"
+  },
+  {
+    "question": "What is the relationship between Rikimaru and Ayame?",
+    "options": ["Husband and Wife", "Father and Daughter", "Fellow disciples/Siblings-in-arms", "Master and Servant"],
+    "answer": "Fellow disciples/Siblings-in-arms",
+    "commentator": "rikimaru",
+    "category": "Characters",
+    "difficulty": "Easy"
+  },
+  {
+    "question": "Which villain is a traitorous vassal of Lord Gohda who eventually aligns with Lord Toda?",
+    "options": ["Hamada", "Sekiya", "Motonari", "Nasu"],
+    "answer": "Hamada",
+    "commentator": "rikimaru",
+    "category": "Characters",
+    "difficulty": "Medium"
+  },
+  {
+    "question": "Who is the master of the Hagakure village who was murdered, sparking Rin's quest for vengeance?",
+    "options": ["Shiunsai", "Hanbe", "Gendo", "Zensuke"],
+    "answer": "Hanbe",
+    "commentator": "rikimaru",
+    "category": "Characters",
+    "difficulty": "Hard"
+  },
+  {
+    "question": "What is the name of the corrupt merchant who is often the target of the first mission in multiple Tenchu games?",
+    "options": ["Echigoya", "Nasu", "Toda", "Mei-Oh"],
+    "answer": "Echigoya",
+    "commentator": "rikimaru",
+    "category": "Characters",
+    "difficulty": "Easy"
+  },
+  {
+    "question": "Which character loses their memory after falling into the sea, leading them to join the Burning Dawn?",
+    "options": ["Rikimaru", "Tatsumaru", "Ayame", "Kiku"],
+    "answer": "Tatsumaru",
+    "commentator": "rikimaru",
+    "category": "Characters",
+    "difficulty": "Medium"
+  },
+  {
+    "question": "In 'Tenchu: Shadow Assassins', which character's betrayal is a central plot point regarding the Azuma Clan?",
+    "options": ["Onikage", "Lord Gohda", "Sekiya", "Tatsumaru"],
+    "answer": "Onikage",
+    "commentator": "rikimaru",
+    "category": "Characters",
+    "difficulty": "Medium"
+  },
+  {
+    "question": "Which female ninja is known for her 'Kodachi' fighting style and her aggressive, foul-mouthed personality?",
+    "options": ["Ayame", "Rin", "Kagame", "Kiku"],
+    "answer": "Ayame",
+    "commentator": "rikimaru",
+    "category": "Characters",
+    "difficulty": "Easy"
+  },
+  {
+    "question": "Who is the 'Lord of the White Tiger' among Tenrai's Dark Lords?",
+    "options": ["Byakko", "Suzaku", "Genbu", "Seiryu"],
+    "answer": "Byakko",
+    "commentator": "rikimaru",
+    "category": "Characters",
+    "difficulty": "Medium"
+  },
+  {
+    "question": "The mysterious ninja 'Semimaru' appears in which game to challenge the protagonist?",
+    "options": ["Tenchu 1", "Tenchu 2", "Tenchu 3", "Tenchu Z"],
+    "answer": "Tenchu 2",
+    "commentator": "rikimaru",
+    "category": "Characters",
+    "difficulty": "Hard"
+  },
+  {
+    "question": "Which character is the master of the 'Kuroya' assassins and the main target for Rin in Fatal Shadows?",
+    "options": ["Jyuzou", "Futaba", "Hitoha", "Onikage"],
+    "answer": "Jyuzou",
+    "commentator": "rikimaru",
+    "category": "Characters",
+    "difficulty": "Hard"
+  },
+  {
+    "question": "What color is the scarf worn by Rikimaru in most of the series?",
+    "options": ["Red", "Black", "Blue", "White"],
+    "answer": "Black",
+    "commentator": "rikimaru",
+    "category": "Characters",
+    "difficulty": "Easy"
+  },
+  {
+    "question": "Who is the small, mechanical-using boss that serves Tenrai in Wrath of Heaven?",
+    "options": ["Dr. Kimaira", "Gendo", "Mugen", "Tesshu"],
+    "answer": "Dr. Kimaira",
+    "commentator": "rikimaru",
+    "category": "Characters",
+    "difficulty": "Medium"
+  },
+  {
+    "question": "Which lord is the primary rival of Lord Gohda in the first game?",
+    "options": ["Lord Toda", "Lord Mei-Oh", "Lord Hamada", "Lord Nasu"],
+    "answer": "Lord Toda",
+    "commentator": "rikimaru",
+    "category": "Characters",
+    "difficulty": "Medium"
+  },
+  {
+    "question": "What is the name of the female ninja who leads the 'Ben屋' (Ben-ya) and serves as an informant?",
+    "options": ["Kagame", "Misato", "Shino", "O-Kei"],
+    "answer": "O-Kei",
+    "commentator": "rikimaru",
+    "category": "Characters",
+    "difficulty": "Hard"
+  },
+  {
+    "question": "In Tenchu Z, the protagonist is a custom ninja. Who is their commander and mentor?",
+    "options": ["Rikimaru", "Ayame", "Shiunsai", "Tesshu"],
+    "answer": "Rikimaru",
+    "commentator": "rikimaru",
+    "category": "Characters",
+    "difficulty": "Easy"
+  },
+  {
+    "question": "Which character famously says 'I shall show you the power of the shadow'?",
+    "options": ["Rikimaru", "Onikage", "Tatsumaru", "Tenrai"],
+    "answer": "Rikimaru",
+    "commentator": "rikimaru",
+    "category": "Characters",
+    "difficulty": "Easy"
+  },
+  {
+    "question": "Who is the ninja who wears a red mask and fights with a giant fan?",
+    "options": ["Suzaku", "Kagura", "Yurei", "Genbu"],
+    "answer": "Suzaku",
+    "commentator": "rikimaru",
+    "category": "Characters",
+    "difficulty": "Medium"
+  },
+  {
+    "question": "Which character is known for his signature move 'The Bonebreaker'?",
+    "options": ["Tesshu", "Rikimaru", "Onikage", "Gozoh"],
+    "answer": "Tesshu",
+    "commentator": "rikimaru",
+    "category": "Characters",
+    "difficulty": "Medium"
+  }
+]
+@@@@@@@@@@@
+[
+  {
+    "question": "The Azuma Ninja do not seek fame. What is the symbolic meaning of the 'Shadow' in the clan's teachings?",
+    "options": ["To be forgotten by history", "To strike without being seen", "To exist only to serve the light", "To embrace the darkness of the soul"],
+    "answer": "To exist only to serve the light",
+    "commentator": "rikimaru",
+    "category": "Ethics",
+    "difficulty": "Medium"
+  },
+  {
+    "question": "Which sacred mountain serves as the hidden home and training ground for the Azuma Ninja?",
+    "options": ["Mount Hagakure", "Mount Fuji", "Mount Kofujiyama", "Mount Akagi"],
+    "answer": "Mount Kofujiyama",
+    "commentator": "rikimaru",
+    "category": "Lore",
+    "difficulty": "Hard"
+  },
+  {
+    "question": "In the 'Gohda Castle' stage, what is the most strategically vital path for a ninja to remain undetected?",
+    "options": ["The main gate", "The rooftops", "The servant quarters", "The underground dungeons"],
+    "answer": "The rooftops",
+    "commentator": "rikimaru",
+    "category": "Stealth",
+    "difficulty": "Easy"
+  },
+  {
+    "question": "When a ninja faces a 'Deadly Trap' in a temple, what is the first principle taught by the Azuma masters?",
+    "options": ["Speed is safety", "Observe the pattern", "Disarm with a kunai", "Sacrifice a tool"],
+    "answer": "Observe the pattern",
+    "commentator": "rikimaru",
+    "category": "Knowledge of Ninja Ways",
+    "difficulty": "Medium"
+  },
+  {
+    "question": "Which of these levels requires a ninja to navigate through a blizzard, testing their ability to track heat and sound?",
+    "options": ["The Bamboo Forest", "The Snowbound Village", "The Limestone Cavern", "The Great Gate"],
+    "answer": "The Snowbound Village",
+    "commentator": "rikimaru",
+    "category": "Stages of Games",
+    "difficulty": "Medium"
+  },
+  {
+    "question": "According to the Azuma code, if a ninja kills for pleasure rather than duty, they become what?",
+    "options": ["A Ronin", "A Shura", "A Ghost", "A Mercenary"],
+    "answer": "A Shura",
+    "commentator": "rikimaru",
+    "category": "Ethics",
+    "difficulty": "Hard"
+  },
+  {
+    "question": "What is the primary danger of the 'Manji Cult' temple stage found in the first Tenchu?",
+    "options": ["Bottomless pits", "Confusing illusions", "High-speed projectiles", "Mechanical puppets"],
+    "answer": "Confusing illusions",
+    "commentator": "rikimaru",
+    "category": "Stages of Games",
+    "difficulty": "Medium"
+  },
+  {
+    "question": "To the Azuma, the 'Short Blade' represents which of the following virtues?",
+    "options": ["Mercy", "Efficiency", "Truth", "Silence"],
+    "answer": "Efficiency",
+    "commentator": "rikimaru",
+    "category": "Ethics",
+    "difficulty": "Medium"
+  },
+  {
+    "question": "Which stage is famous for its verticality, requiring constant use of the grappling hook to navigate a dense forest?",
+    "options": ["The Great Forest", "The Bamboo Creek", "The Secret Valley", "The Hidden Village"],
+    "answer": "The Bamboo Creek",
+    "commentator": "rikimaru",
+    "category": "Stages of Games",
+    "difficulty": "Easy"
+  },
+  {
+    "question": "The 'Whirlwind' technique is best used in which tactical situation?",
+    "options": ["When surrounded by multiple foes", "When sneaking behind a lord", "When jumping across a gap", "When hiding in bushes"],
+    "answer": "When surrounded by multiple foes",
+    "commentator": "rikimaru",
+    "category": "Tactics and Strategies",
+    "difficulty": "Medium"
+  },
+  {
+    "question": "What is the 'Principle of the Moon' in Azuma stealth tactics?",
+    "options": ["Always move at night", "Use shadows to blend with light", "Keep your back to the darkness", "The cycle of strike and fade"],
+    "answer": "Keep your back to the darkness",
+    "commentator": "rikimaru",
+    "category": "Stealth",
+    "difficulty": "Hard"
+  },
+  {
+    "question": "Which stage features the 'Limestone Caverns', a labyrinth where sound echoes, making it easier for guards to hear you?",
+    "options": ["Tenchu 1", "Tenchu 2", "Tenchu 3", "Tenchu Z"],
+    "answer": "Tenchu 1",
+    "commentator": "rikimaru",
+    "category": "Stages of Games",
+    "difficulty": "Medium"
+  },
+  {
+    "question": "Why does an Azuma ninja carry 'Colored Rice' even if they are not hungry?",
+    "options": ["To mark a safe path in a maze", "To feed stray dogs", "To signal to their Lord", "To blind an attacker"],
+    "answer": "To mark a safe path in a maze",
+    "commentator": "rikimaru",
+    "category": "Knowledge of Ninja Ways",
+    "difficulty": "Easy"
+  },
+  {
+    "question": "In the 'Ronin Village' stage, what is the best way to bypass the dogs without killing them?",
+    "options": ["Throw poisoned rice", "Use a smoke bomb", "Jump over them using a tree", "Bark back at them"],
+    "answer": "Throw poisoned rice",
+    "commentator": "rikimaru",
+    "category": "Tactics and Strategies",
+    "difficulty": "Medium"
+  },
+  {
+    "question": "What is the final spiritual lesson an Azuma ninja learns before being considered a master?",
+    "options": ["The blade is an extension of the soul", "There is no such thing as a fair fight", "Life is as fleeting as the morning dew", "Trust no one but your master"],
+    "answer": "Life is as fleeting as the morning dew",
+    "commentator": "rikimaru",
+    "category": "Knowledge of Ninja Ways",
+    "difficulty": "Hard"
+  },
+  {
+    "question": "Which stage requires the ninja to infiltrate a giant ship, the 'Burning Dawn' flagship?",
+    "options": ["The Iron Ship", "The Dragon Boat", "The Ghost Ship", "The Fire Vessel"],
+    "answer": "The Iron Ship",
+    "commentator": "rikimaru",
+    "category": "Stages of Games",
+    "difficulty": "Medium"
+  },
+  {
+    "question": "What is the tactical purpose of the 'Wall Hang' position?",
+    "options": ["To regain health", "To peer over ledges safely", "To taunt the enemy", "To jump higher"],
+    "answer": "To peer over ledges safely",
+    "commentator": "rikimaru",
+    "category": "Stealth",
+    "difficulty": "Easy"
+  },
+  {
+    "question": "In the Azuma Clan, what does 'Shinobi-Iri' refer to?",
+    "options": ["The art of disguise", "The art of infiltration", "The art of sword fighting", "The art of escape"],
+    "answer": "The art of infiltration",
+    "commentator": "rikimaru",
+    "category": "Knowledge of Ninja Ways",
+    "difficulty": "Medium"
+  },
+  {
+    "question": "Which item, when placed correctly on a floor, can instantly incapacitate a guard without making a sound?",
+    "options": ["Caltrops", "Land Mine", "Sleeping Gas Trap", "Poison Rice"],
+    "answer": "Sleeping Gas Trap",
+    "commentator": "rikimaru",
+    "category": "Tools",
+    "difficulty": "Medium"
+  },
+  {
+    "question": "What is the primary rule for an Azuma Ninja when Lord Gohda's life is at risk?",
+    "options": ["Retreat and regroup", "The Lord's safety above your own", "Kill the assassin immediately", "Hide the Lord and flee"],
+    "answer": "The Lord's safety above your own",
+    "commentator": "rikimaru",
+    "category": "Ethics",
+    "difficulty": "Easy"
+  },
+  {
+    "question": "The 'Grappling Hook' is more than a tool; it is considered the ninja's what?",
+    "options": ["Life line", "Hand of the mountain", "Reach of the soul", "Claw of the hawk"],
+    "answer": "Life line",
+    "commentator": "rikimaru",
+    "category": "Knowledge of Ninja Ways",
+    "difficulty": "Medium"
+  },
+  {
+    "question": "In the 'Cemetery' stage of Wrath of Heaven, what unique enemy type must the ninja deal with?",
+    "options": ["Undead warriors", "Mechanical spiders", "Ninja monks", "Invisible ghosts"],
+    "answer": "Undead warriors",
+    "commentator": "rikimaru",
+    "category": "Stages of Games",
+    "difficulty": "Medium"
+  },
+  {
+    "question": "What is the meaning of the 'Kuji-Kiri' hand signs used by ninjas during meditation?",
+    "options": ["To summon demons", "To focus the mind and channel Ki", "To communicate silently", "To cast fireballs"],
+    "answer": "To focus the mind and channel Ki",
+    "commentator": "rikimaru",
+    "category": "Knowledge of Ninja Ways",
+    "difficulty": "Hard"
+  },
+  {
+    "question": "Which stage is notorious for its many 'False Walls' that lead to secret rooms or shortcuts?",
+    "options": ["The Minister's Mansion", "The Ninja House", "The Castle Keep", "The Merchant's Storehouse"],
+    "answer": "The Ninja House",
+    "commentator": "rikimaru",
+    "category": "Stages of Games",
+    "difficulty": "Medium"
+  },
+  {
+    "question": "What is the best way to handle a 'Suspicious' guard who is walking toward your hiding spot?",
+    "options": ["Attack immediately", "Use a smoke bomb to blind them", "Move to a different shadow quietly", "Stay perfectly still and pray"],
+    "answer": "Move to a different shadow quietly",
+    "commentator": "rikimaru",
+    "category": "Tactics and Strategies",
+    "difficulty": "Medium"
+  },
+  {
+    "question": "To the Azuma, the wind is a teacher. What does it teach the ninja about movement?",
+    "options": ["Move fast and loud", "Move with the rhythm of nature", "Wait for the wind to strike", "The wind hides all tracks"],
+    "answer": "Move with the rhythm of nature",
+    "commentator": "rikimaru",
+    "category": "Ethics",
+    "difficulty": "Hard"
+  },
+  {
+    "question": "Which character’s theme music is most associated with the 'Execution' stages?",
+    "options": ["Rikimaru", "Ayame", "Tatsumaru", "Onikage"],
+    "answer": "Rikimaru",
+    "commentator": "rikimaru",
+    "category": "Lore",
+    "difficulty": "Medium"
+  },
+  {
+    "question": "In the 'Catacombs', what environmental hazard must a ninja watch for above all else?",
+    "options": ["Lava", "Falling rocks", "Poison gas", "Collapsing floors"],
+    "answer": "Collapsing floors",
+    "commentator": "rikimaru",
+    "category": "Stages of Games",
+    "difficulty": "Hard"
+  },
+  {
+    "question": "What does 'Metsubushi' (Blinding Powder) allow a ninja to do effectively?",
+    "options": ["Kill an enemy", "Escape a losing fight", "Distract a dog", "See in the dark"],
+    "answer": "Escape a losing fight",
+    "commentator": "rikimaru",
     "category": "Tools",
     "difficulty": "Easy"
   },
   {
-    "question": "The final test for an Azuma initiate often involves spending a night in a haunted location. What is the true purpose?",
-    "options": ["To conquer one's fear of death.", "To prove one can remain perfectly still and silent for hours.", "To learn the difference between real threats and distracting illusions.", "To commune with the spirits that protect our clan."],
-    "answer": "To learn the difference between real threats and distracting illusions.",
+    "question": "The final test of the Azuma is the 'Trial of the Blade'. What is its core purpose?",
+    "options": ["To kill the master", "To prove one's mastery of self-control", "To forge a new sword", "To defeat 100 guards"],
+    "answer": "To prove one's mastery of self-control",
     "commentator": "rikimaru",
-    "category": "Principles",
+    "category": "Knowledge of Ninja Ways",
+    "difficulty": "Hard"
+  },
+  {
+    "question": "In the iconic first mission of Tenchu: Stealth Assassins, what is the primary objective regarding the merchant Echigoya?",
+    "options": ["Bribe him", "Deliver a message", "Execute him for corruption", "Protect him from assassins"],
+    "answer": "Execute him for corruption",
+    "commentator": "rikimaru",
+    "category": "Lore",
+    "difficulty": "Easy"
+  },
+  {
+    "question": "Which enemy type is known for using a high-pitched whistle to alert all nearby guards to your presence?",
+    "options": ["Spear Guard", "Archer", "Watchman", "Samurai Lord"],
+    "answer": "Watchman",
+    "commentator": "rikimaru",
+    "category": "Stealth",
     "difficulty": "Medium"
   },
   {
-    "question": "If captured and tortured for information, what is the only weapon an Azuma ninja always has left?",
-    "options": ["A hidden poison tooth.", "The strength to endure until death.", "The will to deceive their captors with false information.", "The hope of a rescue by their clan."],
-    "answer": "The strength to endure until death.",
+    "question": "In Tenchu 2, which stage requires the ninja to infiltrate a giant training camp hidden within a forest?",
+    "options": ["The Demon Mountain", "The Secret Harbor", "The Ninja Village", "The Bamboo Labyrinth"],
+    "answer": "The Ninja Village",
+    "commentator": "rikimaru",
+    "category": "Stages of Games",
+    "difficulty": "Medium"
+  },
+  {
+    "question": "Which of these environmental hazards in the 'Limestone Cavern' can be used to your advantage to hide from enemies?",
+    "options": ["Stalagmites", "Deep Water", "Dark Recesses", "All of the above"],
+    "answer": "All of the above",
+    "commentator": "rikimaru",
+    "category": "Tactics and Strategies",
+    "difficulty": "Easy"
+  },
+  {
+    "question": "The 'Stone Golem' is a rare and powerful enemy found in which specific type of stage?",
+    "options": ["Castle Keep", "Underworld/Caverns", "Merchant Row", "Forest Path"],
+    "answer": "Underworld/Caverns",
+    "commentator": "rikimaru",
+    "category": "Lore",
+    "difficulty": "Hard"
+  },
+  {
+    "question": "In 'Wrath of Heaven', which mission involves infiltrating a graveyard to stop the resurrection of an army?",
+    "options": ["The Ghost Village", "The Cemetery of the Damned", "The Temple of Dreams", "The Abandoned Mine"],
+    "answer": "The Cemetery of the Damned",
+    "commentator": "rikimaru",
+    "category": "Stages of Games",
+    "difficulty": "Medium"
+  },
+  {
+    "question": "What is the primary visual difference between a 'Standard Guard' and a 'Guard Captain' in most Tenchu games?",
+    "options": ["Captains wear red armor", "Captains have no helmets", "Captains carry two swords", "Captains are taller"],
+    "answer": "Captains wear red armor",
+    "commentator": "rikimaru",
+    "category": "Stealth",
+    "difficulty": "Easy"
+  },
+  {
+    "question": "Which mission objective is most common when the Azuma are tasked with protecting Princess Kiku?",
+    "options": ["Assassination", "Escort/Protection", "Theft", "Arson"],
+    "answer": "Escort/Protection",
+    "commentator": "rikimaru",
+    "category": "Knowledge of Ninja Ways",
+    "difficulty": "Easy"
+  },
+  {
+    "question": "In the 'Great Gate' stage, what is the most dangerous projectile used by defenders on the walls?",
+    "options": ["Arrows", "Large Stones", "Fire Bombs", "Shuriken"],
+    "answer": "Large Stones",
+    "commentator": "rikimaru",
+    "category": "Tactics and Strategies",
+    "difficulty": "Medium"
+  },
+  {
+    "question": "Which enemy is known for being 'blind' but having an incredibly high sensitivity to the sound of your footsteps?",
+    "options": ["The Straw-Hat Assassin", "The Blind Monk", "The Cave Bat", "The Shadow Ninja"],
+    "answer": "The Blind Monk",
+    "commentator": "rikimaru",
+    "category": "Lore",
+    "difficulty": "Hard"
+  },
+  {
+    "question": "What happens in a mission if the 'Innocent' count (civilians killed) exceeds a certain number?",
+    "options": ["Instant failure", "You lose your Grand Master rank", "Enemy guards become stronger", "Nothing happens"],
+    "answer": "You lose your Grand Master rank",
     "commentator": "rikimaru",
     "category": "Ethics",
+    "difficulty": "Medium"
+  },
+  {
+    "question": "In the 'Executioner' stage, what unique boss mechanic must you navigate to defeat the giant axe-wielder?",
+    "options": ["He is invincible from the front", "He heals when standing in blood", "He destroys the floor over time", "He reflects all projectiles"],
+    "answer": "He is invincible from the front",
+    "commentator": "rikimaru",
+    "category": "Tactics and Strategies",
     "difficulty": "Hard"
+  },
+  {
+    "question": "Which Tenchu title features 'Mission Editors' that allow players to create their own stages and enemy layouts?",
+    "options": ["Tenchu 1 (Shinobi Gaisen)", "Tenchu 2", "Tenchu 3", "Tenchu Z"],
+    "answer": "Tenchu 1 (Shinobi Gaisen)",
+    "commentator": "rikimaru",
+    "category": "Stages of Games",
+    "difficulty": "Medium"
+  },
+  {
+    "question": "When infiltrating the 'Minister's Mansion', what is the most effective way to cross the open courtyard undetected?",
+    "options": ["Using the rafters", "Using the 'Chameleon' spell", "Killing every guard", "Running as fast as possible"],
+    "answer": "Using the rafters",
+    "commentator": "rikimaru",
+    "category": "Stealth",
+    "difficulty": "Easy"
+  },
+  {
+    "question": "Which enemy type is exclusively female and often uses poisoned needles or fans?",
+    "options": ["Kunoichi", "Geisha Spy", "Maid", "Onna-Bugeisha"],
+    "answer": "Kunoichi",
+    "commentator": "rikimaru",
+    "category": "Characters",
+    "difficulty": "Easy"
+  },
+  {
+    "question": "The 'Manji Cult' levels often feature enemies that do what when they lose a certain amount of health?",
+    "options": ["Surrender", "Self-destruct/Explode", "Turn invisible", "Call for backup"],
+    "answer": "Self-destruct/Explode",
+    "commentator": "rikimaru",
+    "category": "Lore",
+    "difficulty": "Medium"
+  },
+  {
+    "question": "In 'Tenchu: Fatal Shadows', which stage is characterized by a rainy dockyard filled with enemy boats?",
+    "options": ["The Harbor of Betrayal", "The Rainy Wharf", "The Sea of Silence", "The Iron Ship"],
+    "answer": "The Harbor of Betrayal",
+    "commentator": "rikimaru",
+    "category": "Stages of Games",
+    "difficulty": "Medium"
+  },
+  {
+    "question": "Which boss enemy is known for retreating behind a line of riflemen, forcing you to use cover?",
+    "options": ["Lord Toda", "General Kanbei", "Lord Hamada", "Kataoka"],
+    "answer": "Lord Toda",
+    "commentator": "rikimaru",
+    "category": "Tactics and Strategies",
+    "difficulty": "Medium"
+  },
+  {
+    "question": "The 'Mountain Pass' stage often features which environmental obstacle that can result in an 'Instant Death'?",
+    "options": ["Bears", "Bottomless Pits/Cliffs", "Poisonous Fog", "Quick Sand"],
+    "answer": "Bottomless Pits/Cliffs",
+    "commentator": "rikimaru",
+    "category": "Stages of Games",
+    "difficulty": "Easy"
+  },
+  {
+    "question": "In Tenchu Z, what determines how many 'Enemy Ninjas' appear in a stage?",
+    "options": ["The difficulty setting", "The chosen character", "The time of day", "The amount of gold spent"],
+    "answer": "The difficulty setting",
+    "commentator": "rikimaru",
+    "category": "Stealth",
+    "difficulty": "Medium"
+  },
+  {
+    "question": "Which enemy weapon has the longest reach, making frontal combat extremely difficult for a ninja?",
+    "options": ["Katana", "Yari (Spear)", "Nagimaki", "Tetsubo (Club)"],
+    "answer": "Yari (Spear)",
+    "commentator": "rikimaru",
+    "category": "Tactics and Strategies",
+    "difficulty": "Easy"
+  },
+  {
+    "question": "What is the name of the final stage in 'Tenchu: Stealth Assassins' where you face Lord Mei-Oh?",
+    "options": ["The Underworld", "The Burning Castle", "The Temple of Darkness", "The Demon's Lair"],
+    "answer": "The Underworld",
+    "commentator": "rikimaru",
+    "category": "Stages of Games",
+    "difficulty": "Hard"
+  },
+  {
+    "question": "In 'Wrath of Heaven', which mission requires the protagonist to solve a 'mirror puzzle' to progress?",
+    "options": ["The Bamboo Forest", "The Buddhist Temple", "The Mirror Mansion", "The Limestone Cavern"],
+    "answer": "The Buddhist Temple",
+    "commentator": "rikimaru",
+    "category": "Stages of Games",
+    "difficulty": "Hard"
+  },
+  {
+    "question": "Which of these enemies is immune to 'Poison Rice'?",
+    "options": ["Guard Dogs", "Zombies/Undead", "Standard Guards", "Archers"],
+    "answer": "Zombies/Undead",
+    "commentator": "rikimaru",
+    "category": "Tactics and Strategies",
+    "difficulty": "Medium"
+  },
+  {
+    "question": "The mission 'Recover the Secret Documents' usually involves which secondary objective?",
+    "options": ["Kill no one", "Burn the building after", "Escape within a time limit", "Find a hidden key"],
+    "answer": "Escape within a time limit",
+    "commentator": "rikimaru",
+    "category": "Knowledge of Ninja Ways",
+    "difficulty": "Medium"
+  },
+  {
+    "question": "Which enemy is known for wearing a 'straw hat' (ronin style) and having much faster reflexes than standard guards?",
+    "options": ["The Samurai", "The Ronin Assassin", "The Monk", "The Bandit"],
+    "answer": "The Ronin Assassin",
+    "commentator": "rikimaru",
+    "category": "Characters",
+    "difficulty": "Easy"
+  },
+  {
+    "question": "In the 'Bamboo Forest' stage, what is the best way to determine if an enemy is hiding behind a thicket?",
+    "options": ["Listening for heavy breathing", "Using the Ki Meter", "Throwing a shuriken into every bush", "Watching for birds flying away"],
+    "answer": "Using the Ki Meter",
+    "commentator": "rikimaru",
+    "category": "Stealth",
+    "difficulty": "Medium"
+  },
+  {
+    "question": "Which mission focuses on 'Theft' rather than 'Assassination'?",
+    "options": ["The Merchant's Greed", "The Sacred Medicine", "The Lord's Justice", "The Traitor's End"],
+    "answer": "The Sacred Medicine",
+    "commentator": "rikimaru",
+    "category": "Lore",
+    "difficulty": "Hard"
+  },
+  {
+    "question": "In Tenchu 2, what unique stage feature allows for 'Underwater Stealth Kills'?",
+    "options": ["The Bamboo Pipe", "The Water Scroll", "The Grappling Hook", "The Net"],
+    "answer": "The Bamboo Pipe",
+    "commentator": "rikimaru",
+    "category": "Stealth",
+    "difficulty": "Medium"
+  },
+  {
+    "question": "What is the ultimate goal of the 'Training Mission' given at the start of most Azuma trials?",
+    "options": ["To kill the master", "To reach the end without being spotted", "To collect 10 items", "To survive for 5 minutes"],
+    "answer": "To reach the end without being spotted",
+    "commentator": "rikimaru",
+    "category": "Knowledge of Ninja Ways",
+    "difficulty": "Easy"
+  },
+  {
+    "question": "You are perched on a rafter and a guard stops directly beneath you to yawn. What is the most efficient 'Situational' action?",
+    "options": ["Drop and hide", "Perform a Hanging Stealth Kill", "Throw a smoke bomb", "Wait for him to move"],
+    "answer": "Perform a Hanging Stealth Kill",
+    "commentator": "rikimaru",
+    "category": "Stealth",
+    "difficulty": "Easy"
+  },
+  {
+    "question": "While infiltrating a moonlit courtyard, you realize your shadow is stretching toward a guard’s line of sight. What must you do?",
+    "options": ["Run forward", "Extinguish nearby torches", "Freeze in place", "Draw your sword"],
+    "answer": "Extinguish nearby torches",
+    "commentator": "rikimaru",
+    "category": "Tactics and Strategies",
+    "difficulty": "Medium"
+  },
+  {
+    "question": "A guard dog has picked up your scent and is barking, but hasn't seen you. How do you neutralize the situation without a kill?",
+    "options": ["Throw Poison Rice", "Climb a tall tree", "Use a Whistle", "Run to water"],
+    "answer": "Throw Poison Rice",
+    "commentator": "rikimaru",
+    "category": "Tools",
+    "difficulty": "Easy"
+  },
+  {
+    "question": "You find a locked door in a heavily patrolled mansion. Where is the most likely 'situational' location of the key?",
+    "options": ["In a treasure chest", "On the belt of a nearby Captain", "Hidden in the garden", "Under a floorboard"],
+    "answer": "On the belt of a nearby Captain",
+    "commentator": "rikimaru",
+    "category": "Stages of Games",
+    "difficulty": "Medium"
+  },
+  {
+    "question": "You are spotted (!!) in a small room with three guards. What is the first principle of 'Situational Escape'?",
+    "options": ["Fight all three", "Drop a Smoke Bomb and Grapple up", "Hide under a table", "Surrender"],
+    "answer": "Drop a Smoke Bomb and Grapple up",
+    "commentator": "rikimaru",
+    "category": "Tactics and Strategies",
+    "difficulty": "Easy"
+  },
+  {
+    "question": "While crossing a pond, you run out of air while using the Bamboo Pipe. What happens to your stealth status?",
+    "options": ["You remain hidden", "You splash loudly, alerting nearby guards", "You drown instantly", "Nothing"],
+    "answer": "You splash loudly, alerting nearby guards",
+    "commentator": "rikimaru",
+    "category": "Stealth",
+    "difficulty": "Medium"
+  },
+  {
+    "question": "You encounter a civilian who screams upon seeing you. How does this affect the mission 'situation'?",
+    "options": ["Mission Failure", "Nearby guards enter 'Alert' state", "The civilian attacks you", "No effect"],
+    "answer": "Nearby guards enter 'Alert' state",
+    "commentator": "rikimaru",
+    "category": "Ethics",
+    "difficulty": "Easy"
+  },
+  {
+    "question": "You are in a narrow hallway with a guard walking toward you. There are no rafters. What 'situational' move is best?",
+    "options": ["Wall Press and wait", "Run past him", "Frontal kill", "Jump over him"],
+    "answer": "Wall Press and wait",
+    "commentator": "rikimaru",
+    "category": "Stealth",
+    "difficulty": "Medium"
+  },
+  {
+    "question": "You witness a guard eating. If you swap his food with Poison Rice, what is the 'Situational' result?",
+    "options": ["Instant death", "Paralysis and health drain", "He falls asleep", "He calls for help"],
+    "answer": "Paralysis and health drain",
+    "commentator": "rikimaru",
+    "category": "Tactics and Strategies",
+    "difficulty": "Medium"
+  },
+  {
+    "question": "In a burning building, your health is slowly ticking down. What situational tool can stop the fire damage?",
+    "options": ["Healing Potion", "Protection Amulet", "Ninja Armor", "Fire-Douse Scroll"],
+    "answer": "Healing Potion",
+    "commentator": "rikimaru",
+    "category": "Tools",
+    "difficulty": "Hard"
+  },
+  {
+    "question": "A guard finds a body you left behind. What is his situational behavior change?",
+    "options": ["He stays put", "He begins a wider, faster patrol", "He runs to the exit", "He goes back to sleep"],
+    "answer": "He begins a wider, faster patrol",
+    "commentator": "rikimaru",
+    "category": "Stealth",
+    "difficulty": "Easy"
+  },
+  {
+    "question": "You are falling from a great height toward a bottomless pit. What 'Situational' action can save you?",
+    "options": ["Double jump", "Deploy the Grappling Hook to a ledge", "Use a Feather Scroll", "Attack the air"],
+    "answer": "Deploy the Grappling Hook to a ledge",
+    "commentator": "rikimaru",
+    "category": "Tactics and Strategies",
+    "difficulty": "Easy"
+  },
+  {
+    "question": "An archer is positioned on a tower looking right at your path. What situational tool creates a temporary blind spot?",
+    "options": ["Shuriken", "Smoke Bomb", "Caltrops", "Colored Rice"],
+    "answer": "Smoke Bomb",
+    "commentator": "rikimaru",
+    "category": "Tools",
+    "difficulty": "Medium"
+  },
+  {
+    "question": "You hear the sound of a 'wooden floor creaking' (Nightingale Floor). What does this mean for your movement?",
+    "options": ["Move faster", "Crouch-walk to remain silent", "Jump constantly", "The floor is trapped"],
+    "answer": "Crouch-walk to remain silent",
+    "commentator": "rikimaru",
+    "category": "Stealth",
+    "difficulty": "Hard"
+  },
+  {
+    "question": "Your target is behind a shoji (paper) door. What is the most iconic situational kill here?",
+    "options": ["Burst through the door", "Thrust sword through the paper", "Burn the door down", "Wait for him to exit"],
+    "answer": "Thrust sword through the paper",
+    "commentator": "rikimaru",
+    "category": "Knowledge of Ninja Ways",
+    "difficulty": "Medium"
+  },
+  {
+    "question": "You are poisoned by an enemy trap. What situational priority takes precedence?",
+    "options": ["Find the exit", "Use an Antidote or Healing Potion", "Kill the nearest guard", "Hide in a corner"],
+    "answer": "Use an Antidote or Healing Potion",
+    "commentator": "rikimaru",
+    "category": "Tactics and Strategies",
+    "difficulty": "Easy"
+  },
+  {
+    "question": "A guard is standing on a bridge over deep water. What is the best situational kill?",
+    "options": ["Knock him into the water", "Shuriken to the head", "Sword duel", "Ignore him"],
+    "answer": "Knock him into the water",
+    "commentator": "rikimaru",
+    "category": "Tactics and Strategies",
+    "difficulty": "Medium"
+  },
+  {
+    "question": "You need to infiltrate a party. What situational 'disguise' tool allows you to walk past guards?",
+    "options": ["Chameleon Spell", "Ninja Mask", "Invisibility Scroll", "Shadow Clone"],
+    "answer": "Chameleon Spell",
+    "commentator": "rikimaru",
+    "category": "Tools",
+    "difficulty": "Medium"
+  },
+  {
+    "question": "You are out of items and facing a boss. What 'Situational' combat mechanic becomes your best friend?",
+    "options": ["Running away", "Blocking and Counter-attacking", "Throwing stones", "Taunting"],
+    "answer": "Blocking and Counter-attacking",
+    "commentator": "rikimaru",
+    "category": "Tactics and Strategies",
+    "difficulty": "Hard"
+  },
+  {
+    "question": "The mission objective is to 'Deliver a Message' without being seen. If spotted, the message is compromised. What state must you stay in?",
+    "options": ["Aware (Kyau)", "Alert (?!)", "Undetected (Ki meter below 10)", "Spotted (!!)"],
+    "answer": "Undetected (Ki meter below 10)",
+    "commentator": "rikimaru",
+    "category": "Stealth",
+    "difficulty": "Hard"
+  },
+  {
+    "question": "You find a 'sleeping' guard. What is the most efficient situational choice?",
+    "options": ["Wake him up for a fair fight", "Perform a Stealth Kill", "Steal his items and leave", "Kill him with a shuriken"],
+    "answer": "Perform a Stealth Kill",
+    "commentator": "rikimaru",
+    "category": "Ethics",
+    "difficulty": "Easy"
+  },
+  {
+    "question": "Rain starts falling in the stage. How does this situational change affect your stealth?",
+    "options": ["Guards see further", "Footsteps are dampened/harder to hear", "The Grappling Hook slips", "You move slower"],
+    "answer": "Footsteps are dampened/harder to hear",
+    "commentator": "rikimaru",
+    "category": "Stealth",
+    "difficulty": "Medium"
+  },
+  {
+    "question": "You are cornered in a dead-end with a guard approaching. What 'situational' ceiling move can you use?",
+    "options": ["Ceiling Cling", "Headstand", "Smoke Jump", "None"],
+    "answer": "Ceiling Cling",
+    "commentator": "rikimaru",
+    "category": "Knowledge of Ninja Ways",
+    "difficulty": "Hard"
+  },
+  {
+    "question": "A mission requires you to find 'three herbs'. What situational hint usually marks their location?",
+    "options": ["Glowing butterflies or lights", "A trail of blood", "Guards standing in circles", "Loud noises"],
+    "answer": "Glowing butterflies or lights",
+    "commentator": "rikimaru",
+    "category": "Stages of Games",
+    "difficulty": "Medium"
+  },
+  {
+    "question": "You have a mission timer of 10 minutes. What situational action helps you gain the most time?",
+    "options": ["Killing all enemies", "Using the Grappling Hook for shortcuts", "Running on the ground", "Fighting bosses slowly"],
+    "answer": "Using the Grappling Hook for shortcuts",
+    "commentator": "rikimaru",
+    "category": "Tactics and Strategies",
+    "difficulty": "Easy"
+  },
+  {
+    "question": "You see two guards talking to each other. What situational strategy allows for a 'Double Stealth Kill'?",
+    "options": ["Attack from between them", "Kill one and run", "Wait for them to split up", "Use a smoke bomb and kill both"],
+    "answer": "Wait for them to split up",
+    "commentator": "rikimaru",
+    "category": "Stealth",
+    "difficulty": "Medium"
+  },
+  {
+    "question": "You are low on health and see a cat. In some Tenchu games, what situational use does the cat have?",
+    "options": ["It can be possessed/controlled for scouting", "It gives health", "It attacks guards", "It reveals the map"],
+    "answer": "It can be possessed/controlled for scouting",
+    "commentator": "rikimaru",
+    "category": "Knowledge of Ninja Ways",
+    "difficulty": "Hard"
+  },
+  {
+    "question": "You encounter a trap door that opens to a spike pit. How do you 'situationally' bypass it?",
+    "options": ["Jump over it", "Wall run past it", "Walk slowly over the edge", "Use a tool to jam it"],
+    "answer": "Jump over it",
+    "commentator": "rikimaru",
+    "category": "Stages of Games",
+    "difficulty": "Easy"
+  },
+  {
+    "question": "A guard is looking over a cliff. What is the most 'satisfying' situational stealth kill?",
+    "options": ["Kick him off", "Backstab", "Ledge kill from below", "Drop attack"],
+    "answer": "Ledge kill from below",
+    "commentator": "rikimaru",
+    "category": "Stealth",
+    "difficulty": "Medium"
+  },
+  {
+    "question": "The 'Situational' result of being caught in a bear trap is?",
+    "options": ["Instant death", "Immobilization and noise", "Loss of all items", "Mission failure"],
+    "answer": "Immobilization and noise",
+    "commentator": "rikimaru",
+    "category": "Tactics and Strategies",
+    "difficulty": "Medium"
   }
 ]
