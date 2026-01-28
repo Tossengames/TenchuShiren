@@ -1,4 +1,7 @@
-// game.js - Updated with authentic Tenchu ranks
+// ============================================
+// TENCHU SHIREN - GAME ENGINE
+// No preset questions or feedback - All external
+// ============================================
 
 // Game state
 let playerName = "Shadow Warrior";
@@ -12,50 +15,6 @@ let showAppreciation = false;
 
 // Game elements
 let currentScreen = 'menu';
-
-// Fallback questions
-const fallbackQuestions = [
-    {
-        question: "A shadow moves with silver hair under the moonlight. Who is this?",
-        options: ["Rikimaru", "Onikage", "Tatsumaru", "Lord Gohda"],
-        answer: "Rikimaru",
-        commentator: "rikimaru",
-        category: "Characters",
-        difficulty: "Medium"
-    },
-    {
-        question: "Which tool lets you scale castle walls silently?",
-        options: ["Grappling Hook", "Shuriken", "Smoke Bomb", "Poison Dart"],
-        answer: "Grappling Hook",
-        commentator: "ayame",
-        category: "Tools",
-        difficulty: "Easy"
-    },
-    {
-        question: "You're trapped in a room with two guards facing each other. What do you do?",
-        options: ["Wait for patrol patterns", "Create a distraction", "Attack both", "Use smoke bomb"],
-        answer: "Wait for patrol patterns",
-        commentator: "rikimaru",
-        category: "Stealth",
-        difficulty: "Hard"
-    },
-    {
-        question: "Your target sleeps, but his family is nearby. Do you proceed?",
-        options: ["Wait for another chance", "Complete the mission", "Take family hostage", "Abandon mission"],
-        answer: "Wait for another chance",
-        commentator: "ayame",
-        category: "Ethics",
-        difficulty: "Hard"
-    },
-    {
-        question: "What is the Azuma clan's primary weapon against corruption?",
-        options: ["Stealth Assassination", "Open Warfare", "Diplomacy", "Bribery"],
-        answer: "Stealth Assassination",
-        commentator: "rikimaru",
-        category: "Lore",
-        difficulty: "Medium"
-    }
-];
 
 // ==================== TENCHU RANKS SYSTEM ====================
 const tenchuRanks = [
@@ -261,11 +220,14 @@ async function loadQuestions() {
             questions = data.sort(() => Math.random() - 0.5).slice(0, 5);
             console.log(`Loaded ${questions.length} questions`);
         } else {
-            throw new Error('Failed to load questions');
+            throw new Error('Failed to load questions.json');
         }
     } catch (error) {
-        console.log("Using fallback questions");
-        questions = [...fallbackQuestions];
+        console.error("Error loading questions:", error);
+        // No fallback questions - game will not start
+        alert("Failed to load questions. Please check questions.json file.");
+        backToMenu();
+        return;
     }
 }
 
@@ -432,6 +394,70 @@ function showAppreciationScreen() {
     console.log(`Showing appreciation for supporter: ${supporter.name}`);
 }
 
+// ==================== CHARACTER FEEDBACK SYSTEM ====================
+
+function getFinalFeedback(character, percentage, rankName, playerName) {
+    // Check if the new random feedback system is available
+    if (typeof getCharacterResultFeedback === 'function') {
+        // Convert rank name to match feedback keys (e.g., "GRAND MASTER" -> "grandMaster")
+        const rankKey = rankName.toLowerCase()
+            .split(' ')
+            .map((word, index) => 
+                index === 0 ? word : word.charAt(0).toUpperCase() + word.slice(1)
+            )
+            .join('');
+        
+        // Try to get random feedback
+        const randomFeedback = getCharacterResultFeedback(character, rankKey, playerName);
+        if (randomFeedback && randomFeedback !== "The trial ends here.") {
+            return randomFeedback;
+        }
+    }
+    
+    // Fallback to original system if new system fails
+    const characterName = typeof getCharacterDisplayName === 'function' 
+        ? getCharacterDisplayName(character) 
+        : "Master";
+    
+    if (character === 'rikimaru') {
+        if (rankName === "GRAND MASTER") {
+            return `${playerName}. Perfect. Your discipline is absolute. You have mastered the way of the shadow.`;
+        } else if (rankName === "MASTER NINJA") {
+            return `${playerName}. Excellent. Your judgment is sound, your movements precise.`;
+        } else if (rankName === "NINJA") {
+            return `${playerName}. Competent. You understand the basics, but true mastery requires more discipline.`;
+        } else {
+            return `${playerName}. You lack the focus required. The way of the ninja demands perfection.`;
+        }
+    }
+    
+    if (character === 'ayame') {
+        if (rankName === "GRAND MASTER") {
+            return `${playerName}! Absolutely brilliant! Your intuition is unmatched!`;
+        } else if (rankName === "MASTER NINJA") {
+            return `${playerName}! Well done! Your cleverness serves you well.`;
+        } else if (rankName === "NINJA") {
+            return `${playerName}. You show promise! With more training, you could become a true shadow.`;
+        } else {
+            return `${playerName}. Too direct, too obvious. The shadows demand elegance.`;
+        }
+    }
+    
+    if (character === 'tatsumaru') {
+        if (rankName === "GRAND MASTER") {
+            return `Hmph. ${playerName}. You understand true power. The weak perish, the strong rule.`;
+        } else if (rankName === "MASTER NINJA") {
+            return `${playerName}. Not bad. You grasp that strength determines fate.`;
+        } else if (rankName === "NINJA") {
+            return `${playerName}. Mediocre. You show glimpses of understanding, but still cling to false honor.`;
+        } else {
+            return `${playerName}. Weak. Pathetic. The shadows have no place for the feeble.`;
+        }
+    }
+    
+    return "The trial is complete. Your fate is sealed.";
+}
+
 // ==================== RESULTS SCREEN ====================
 
 function showResults() {
@@ -472,13 +498,13 @@ function showResults() {
     
     if (percentage >= 70) {
         feedbackCharacter = 'rikimaru';
-        feedbackMessage = getFinalFeedback('rikimaru', percentage, rank.name);
+        feedbackMessage = getFinalFeedback('rikimaru', percentage, rank.name, playerName);
     } else if (percentage >= 50) {
         feedbackCharacter = 'ayame';
-        feedbackMessage = getFinalFeedback('ayame', percentage, rank.name);
+        feedbackMessage = getFinalFeedback('ayame', percentage, rank.name, playerName);
     } else {
         feedbackCharacter = 'tatsumaru';
-        feedbackMessage = getFinalFeedback('tatsumaru', percentage, rank.name);
+        feedbackMessage = getFinalFeedback('tatsumaru', percentage, rank.name, playerName);
     }
     
     // Update feedback
@@ -505,55 +531,6 @@ function showResults() {
     }
     
     console.log(`Game completed. Score: ${correctAnswers}/${totalQuestions} (${percentage}%). Rank: ${rank.name}`);
-}
-
-// Get final character feedback based on performance
-function getFinalFeedback(character, percentage, rankName) {
-    if (!character || !percentage || !rankName) {
-        return "Your journey ends here.";
-    }
-    
-    const characterName = typeof getCharacterDisplayName === 'function' 
-        ? getCharacterDisplayName(character) 
-        : "Master";
-    
-    if (character === 'rikimaru') {
-        if (rankName === "GRAND MASTER") {
-            return `${playerName}. Perfect. Your discipline is absolute. You have mastered the way of the shadow. The Azuma clan has found its new Grand Master.`;
-        } else if (rankName === "MASTER NINJA") {
-            return `${playerName}. Excellent. Your judgment is sound, your movements precise. You honor the Azuma way. Continue to master your craft.`;
-        } else if (rankName === "NINJA") {
-            return `${playerName}. Competent. You understand the basics, but true mastery requires more discipline. Study, train, improve.`;
-        } else {
-            return `${playerName}. You lack the focus required. The way of the ninja demands perfection. Return to training or find another path.`;
-        }
-    }
-    
-    if (character === 'ayame') {
-        if (rankName === "GRAND MASTER") {
-            return `${playerName}! Absolutely brilliant! Your intuition is unmatched! You move with the grace of cherry blossoms in the wind. A true master kunoichi!`;
-        } else if (rankName === "MASTER NINJA") {
-            return `${playerName}! Well done! Your cleverness serves you well. A true ninja thinks three steps ahead. The clan is proud of your progress!`;
-        } else if (rankName === "NINJA") {
-            return `${playerName}. You show promise! With more training, you could become a true shadow. Remember: elegance and subtlety are our weapons.`;
-        } else {
-            return `${playerName}. Too direct, too obvious. The shadows demand elegance. Perhaps the way of the kunoichi is not for you.`;
-        }
-    }
-    
-    if (character === 'tatsumaru') {
-        if (rankName === "GRAND MASTER") {
-            return `Hmph. ${playerName}. You understand true power. The weak perish, the strong rule. With that rank, you could reshape this world... if you dared.`;
-        } else if (rankName === "MASTER NINJA") {
-            return `${playerName}. Not bad. You grasp that strength determines fate. Sentiment is a chain that binds the weak. Break yours and you could achieve more.`;
-        } else if (rankName === "NINJA") {
-            return `${playerName}. Mediocre. You show glimpses of understanding, but still cling to false honor. Power cares not for morality. Remember that.`;
-        } else {
-            return `${playerName}. Weak. Pathetic. The shadows have no place for the feeble. Either grow stronger or be crushed by those who will.`;
-        }
-    }
-    
-    return "The trial is complete. Your fate is sealed.";
 }
 
 // ==================== INITIALIZATION ====================
@@ -594,6 +571,8 @@ window.addEventListener('load', function() {
     
     console.log('Game initialized successfully');
 });
+
+// ==================== GLOBAL EXPORTS ====================
 
 // Export functions for global access
 window.showPlayerNameScreen = showPlayerNameScreen;
