@@ -4,7 +4,7 @@
 // ============================================
 
 // Game state
-let playerName = "Shadow Warrior";
+let playerName = "Nameless Warrior";
 let currentQuestionIndex = 0;
 let score = 0;
 let questions = [];
