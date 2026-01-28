@@ -1,82 +1,122 @@
 [
   {
-    "question": "A shadow moves with silver hair under the moonlight. Who is this?",
-    "options": ["Rikimaru", "Onikage", "Tatsumaru", "Lord Gohda"],
-    "answer": "Rikimaru",
+    "question": "Before a night infiltration, a ninja must check the direction of which natural element to remain downwind and silent?",
+    "options": ["The Moon", "The Wind", "Flowing Water", "Crickets"],
+    "answer": "The Wind",
     "commentator": "rikimaru",
-    "category": "Characters",
+    "category": "Stealth",
+    "difficulty": "Easy"
+  },
+  {
+    "question": "If confronted by two guards at a gate, and stealth is compromised, what is the Azuma principle for engagement?",
+    "options": ["Stand your ground and fight honorably.", "Create a distraction to separate them, then dispatch each silently.", "Use a smoke bomb and flee to return another night.", "Challenge their leader to single combat."],
+    "answer": "Create a distraction to separate them, then dispatch each silently.",
+    "commentator": "rikimaru",
+    "category": "Tactics",
     "difficulty": "Medium"
   },
   {
-    "question": "Which tool lets you scale castle walls silently?",
-    "options": ["Grappling Hook", "Shuriken", "Smoke Bomb", "Poison Dart"],
-    "answer": "Grappling Hook",
+    "question": "What is the primary, non-lethal purpose of a simple tool like a *Metsubishi* (blinding powder)?",
+    "options": ["To poison a water supply.", "To mark a trail for other ninja.", "To create a momentary diversion for escape or repositioning.", "To disable a guard permanently."],
+    "answer": "To create a momentary diversion for escape or repositioning.",
     "commentator": "ayame",
     "category": "Tools",
     "difficulty": "Easy"
   },
   {
-    "question": "You're trapped in a room with two guards facing each other. What do you do?",
-    "options": ["Wait for patrol patterns", "Create a distraction", "Attack both", "Use smoke bomb"],
-    "answer": "Wait for patrol patterns",
+    "question": "You discover a fellow clan member is taking bribes from a local merchant. According to Azuma code, what is your first duty?",
+    "options": ["Confront them publicly to shame them.", "Report your suspicion directly and privately to the clan leader.", "Ignore it; clan matters are not your concern.", "Take a larger bribe from the merchant's rival to balance the scales."],
+    "answer": "Report your suspicion directly and privately to the clan leader.",
     "commentator": "rikimaru",
-    "category": "Stealth",
-    "difficulty": "Hard"
-  },
-  {
-    "question": "Your target sleeps, but his family is nearby. Do you proceed?",
-    "options": ["Wait for another chance", "Complete the mission", "Take family hostage", "Abandon mission"],
-    "answer": "Wait for another chance",
-    "commentator": "ayame",
     "category": "Ethics",
     "difficulty": "Hard"
   },
   {
-    "question": "What is the Azuma clan's primary weapon against corruption?",
-    "options": ["Stealth Assassination", "Open Warfare", "Diplomacy", "Bribery"],
-    "answer": "Stealth Assassination",
+    "question": "Which of these is the truest representation of 'Shinobi' (忍) in the Azuma way?",
+    "options": ["Mastery of a hundred killing techniques.", "The strength to endure any hardship for the mission's success.", "The ability to move completely unseen at all times.", "Owning the finest and sharpest blades."],
+    "answer": "The strength to endure any hardship for the mission's success.",
+    "commentator": "rikimaru",
+    "category": "Principles",
+    "difficulty": "Medium"
+  },
+  {
+    "question": "When using a *Kaginawa* (grappling hook) on a rotten wooden ledge, what technique minimizes noise?",
+    "options": ["A swift, powerful throw to ensure it bites deeply.", "Wrapping the rope with cloth to dampen the sound.", "Tapping the ledge first with a kunai to test its strength.", "A gentle, controlled toss so the hook settles into place."],
+    "answer": "A gentle, controlled toss so the hook settles into place.",
+    "commentator": "ayame",
+    "category": "Tools",
+    "difficulty": "Medium"
+  },
+  {
+    "question": "A mission to protect your lord fails, and he is dishonored. What does the Azuma code demand of you?",
+    "options": ["Go into exile to atone for your shame.", "Seek immediate revenge on those responsible, regardless of orders.", "Offer your life in ritual seppuku to restore honor.", "Live with the failure, and let your future service be your atonement."],
+    "answer": "Live with the failure, and let your future service be your atonement.",
+    "commentator": "rikimaru",
+    "category": "Ethics",
+    "difficulty": "Hard"
+  },
+  {
+    "question": "What is the most critical factor when choosing a hiding spot in a garden?",
+    "options": ["Its proximity to the target.", "How completely it breaks your silhouette against the environment.", "That it has a clear escape route.", "That it is comfortable for a long wait."],
+    "answer": "How completely it breaks your silhouette against the environment.",
+    "commentator": "ayame",
+    "category": "Stealth",
+    "difficulty": "Easy"
+  },
+  {
+    "question": "The legendary sword Izayoi, carried by Rikimaru, symbolizes what Azuma ideal?",
+    "options": ["The cutting truth of justice.", "A tool that is only drawn when stealth is impossible.", "The enduring will that outlasts the night.", "A weapon that seeks the blood of demons."],
+    "answer": "The enduring will that outlasts the night.",
     "commentator": "rikimaru",
     "category": "Lore",
     "difficulty": "Medium"
   },
   {
-    "question": "Which poison works fastest on human targets?",
-    "options": ["Cobra Venom", "Spider Toxin", "Wolfsbane", "Hemlock"],
-    "answer": "Cobra Venom",
+    "question": "You are ordered to assassinate a corrupt official who is guarded by innocent, conscripted farmers. What is the proper course?",
+    "options": ["Complete the mission; the guards' lives are forfeit to their position.", "Abort the mission and return for new instructions.", "Disable the farmers non-lethally to reach your target.", "Reveal yourself and demand the official face you alone."],
+    "answer": "Disable the farmers non-lethally to reach your target.",
     "commentator": "ayame",
-    "category": "Tools",
-    "difficulty": "Medium"
-  },
-  {
-    "question": "You've been spotted. What's the first rule of escape?",
-    "options": ["Break line of sight", "Kill witnesses", "Surrender", "Fight to death"],
-    "answer": "Break line of sight",
-    "commentator": "rikimaru",
-    "category": "Stealth",
-    "difficulty": "Easy"
-  },
-  {
-    "question": "What caused Tatsumaru to betray the Azuma?",
-    "options": ["Sister's death", "Power hunger", "Love", "Madness"],
-    "answer": "Sister's death",
-    "commentator": "tatsumaru",
-    "category": "Story",
-    "difficulty": "Medium"
-  },
-  {
-    "question": "Which item makes you temporarily invisible?",
-    "options": ["Divine Water", "Magic Mirror", "Ghost Mantle", "Shadow Powder"],
-    "answer": "Divine Water",
-    "commentator": "ayame",
-    "category": "Items",
+    "category": "Ethics",
     "difficulty": "Hard"
   },
   {
-    "question": "Is it acceptable to sacrifice civilians for a greater mission?",
-    "options": ["Never", "Sometimes", "Always", "If ordered"],
-    "answer": "Never",
+    "question": "What does the stealth principle 'Like a leaf on the wind' primarily refer to?",
+    "options": ["Moving with unpredictable speed.", "Allowing natural sounds to cover your movement.", "Using a glider for aerial insertion.", "Having no attachment to a single plan, adapting fluidly."],
+    "answer": "Allowing natural sounds to cover your movement.",
+    "commentator": "ayame",
+    "category": "Stealth",
+    "difficulty": "Medium"
+  },
+  {
+    "question": "In Azuma lore, what was the tragic flaw of the ninja Tatsumaru that led to his fall?",
+    "options": ["An insatiable thirst for personal power.", "A compassionate heart that was manipulated by evil.", "A lack of faith in his own skills.", "The betrayal of his closest friend."],
+    "answer": "A compassionate heart that was manipulated by evil.",
     "commentator": "rikimaru",
-    "category": "Morality",
+    "category": "Lore",
+    "difficulty": "Hard"
+  },
+  {
+    "question": "What is the correct way to carry a *shuriken* to prevent injury and ensure a smooth draw?",
+    "options": ["In a tight fist, points outward.", "In a belt pouch, loosely mixed with caltrops.", "In a dedicated pouch or cloth wrap, with edges separated.", "Tied to a wrist band with the points facing your arm."],
+    "answer": "In a dedicated pouch or cloth wrap, with edges separated.",
+    "commentator": "ayame",
+    "category": "Tools",
+    "difficulty": "Easy"
+  },
+  {
+    "question": "The final test for an Azuma initiate often involves spending a night in a haunted location. What is the true purpose?",
+    "options": ["To conquer one's fear of death.", "To prove one can remain perfectly still and silent for hours.", "To learn the difference between real threats and distracting illusions.", "To commune with the spirits that protect our clan."],
+    "answer": "To learn the difference between real threats and distracting illusions.",
+    "commentator": "rikimaru",
+    "category": "Principles",
+    "difficulty": "Medium"
+  },
+  {
+    "question": "If captured and tortured for information, what is the only weapon an Azuma ninja always has left?",
+    "options": ["A hidden poison tooth.", "The strength to endure until death.", "The will to deceive their captors with false information.", "The hope of a rescue by their clan."],
+    "answer": "The strength to endure until death.",
+    "commentator": "rikimaru",
+    "category": "Ethics",
     "difficulty": "Hard"
   }
 ]
