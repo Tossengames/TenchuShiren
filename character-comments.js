@@ -1,9 +1,9 @@
 // character-comments.js - For final results feedback only
 
 const characterPortraits = {
-    rikimaru: "https://via.placeholder.com/150/8b0000/ffffff?text=RIKIMARU",
-    ayame: "https://via.placeholder.com/150/8b0000/ffffff?text=AYAME",
-    tatsumaru: "https://via.placeholder.com/150/8b0000/ffffff?text=TATSAMARU"
+    rikimaru: "assets/characters/rikimaru.png",
+    ayame: "assets/characters/ayame.png",
+    tatsumaru: "assets/characters/tatsumaru.png"
 };
 
 const characterNames = {
