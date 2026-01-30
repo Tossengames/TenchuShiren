@@ -462,6 +462,77 @@ button:active i, .btn-ninja:active i {
     100% { transform: rotate(360deg); }
 }
 
+/* ==================== MISSIONS STATS ==================== */
+.missions-stats-section {
+    background: rgba(0, 0, 0, 0.4);
+    border: 2px solid rgba(65, 105, 225, 0.3);
+    border-radius: 10px;
+    padding: 25px;
+    margin: 25px 0;
+}
+
+.missions-stats-section h4 {
+    color: #4169e1;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.2rem;
+}
+
+.missions-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 15px;
+}
+
+.mission-stat-card {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(139, 0, 0, 0.2);
+    border-radius: 8px;
+    padding: 15px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.mission-stat-card:hover {
+    transform: translateY(-3px);
+    border-color: rgba(65, 105, 225, 0.5);
+}
+
+.mission-stat-icon {
+    color: #4169e1;
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+}
+
+.mission-stat-title {
+    color: var(--smoke);
+    font-size: 0.8rem;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.mission-stat-value {
+    color: var(--parchment);
+    font-size: 1.5rem;
+    font-weight: bold;
+    font-family: 'Noto Sans JP', sans-serif;
+}
+
+.no-missions-data {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 30px;
+    color: #666;
+}
+
+.no-missions-data i {
+    font-size: 3rem;
+    margin-bottom: 15px;
+    opacity: 0.5;
+}
 /* ==================== INFO SCREEN ==================== */
 .info-screen {
     background: var(--info-bg);
