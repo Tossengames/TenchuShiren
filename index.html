@@ -23,23 +23,12 @@
         </div>
         
         <div class="screen-content">
-            <!-- Updated Main Menu Hook -->
-            <div class="menu-hook">
-                <p class="hook-text">Ready to become an Azuma shinobi?</p>
-                <p class="hook-subtext">Start your trial now!</p>
-                <p class="hook-description">
-                    Your knowledge, judgment, and discipline will be tested.<br>
-                    The masters are watching.
-                </p>
-                <p class="hook-action">
-                    Begin your trial and discover how you would be judged.
-                </p>
-            </div>
+            <p class="menu-description">Prove your worth in the shadows. Earn your place among the Azuma elite.</p>
             
             <div class="menu-buttons">
                 <button class="btn-ninja btn-menu" onclick="showPlayerNameScreen()">
                     <i class="fas fa-mask"></i>
-                    <span>START TRIAL</span>
+                    <span>ENTER THE SHADOWS</span>
                 </button>
                 
                 <button class="btn-ninja btn-menu" onclick="showInfo()">
@@ -47,19 +36,9 @@
                     <span>NINJA SCROLLS</span>
                 </button>
                 
-                <button class="btn-ninja btn-menu" onclick="showStatsScreen()">
-                    <i class="fas fa-chart-line"></i>
-                    <span>SHINOBI STATS</span>
-                </button>
-                
                 <button class="btn-ninja btn-menu" onclick="showSupporters()">
                     <i class="fas fa-users"></i>
                     <span>CLAN ALLIES</span>
-                </button>
-                
-                <button class="btn-ninja btn-menu" onclick="showMissionsScreen()">
-                    <i class="fas fa-flag"></i>
-                    <span>MISSIONS</span>
                 </button>
             </div>
             
@@ -114,39 +93,23 @@
             <div class="info-section">
                 <h3><i class="fas fa-crosshairs"></i> THE SHINOBI TRIAL</h3>
                 <p class="info-text">
-                    Tenchu: Shiren is a free, fan-made game inspired by the Tenchu series.
-                </p>
-                <p class="info-text">
-                    You will be tested by questions drawn from the world of Tenchu, its characters, tools, rules, and the mindset of a true shinobi.
+                    This is a fan-made tribute to the Tenchu series. Not an encyclopedia, but a test of your inner ninja.
                 </p>
                 <ul class="info-list">
-                    <li><i class="fas fa-brain"></i> Some questions challenge your memory</li>
-                    <li><i class="fas fa-balance-scale"></i> Others test your judgment in situations faced by Azuma ninja</li>
-                    <li><i class="fas fa-user-ninja"></i> Familiar characters will observe your choices</li>
-                    <li><i class="fas fa-crown"></i> Earn points to increase your shinobi rank</li>
+                    <li><i class="fas fa-skull-crossbones"></i> 5 trials of stealth, tools, and ninja ethics</li>
+                    <li><i class="fas fa-user-ninja"></i> Judged by Azuma masters Rikimaru, Ayame, and Tatsumaru</li>
+                    <li><i class="fas fa-crown"></i> Your answers reveal your true Shinobi spirit</li>
+                    <li><i class="fas fa-ghost"></i> Discover your rank in the Azuma clan hierarchy</li>
                 </ul>
-            </div>
-            
-            <div class="info-section">
-                <h3><i class="fas fa-exclamation-triangle"></i> DISCLAIMER</h3>
-                <div class="disclaimer-box">
-                    <p>This is a free, fan made project inspired by Tenchu.<br>
-                    It is not affiliated with or endorsed by the original creators or rights holders.<br>
-                    All content is created as a tribute by fans, for fans.</p>
-                </div>
             </div>
             
             <div class="info-section">
                 <h3><i class="fas fa-handshake"></i> HONORED ALLIES</h3>
                 <div class="honor-box">
-                    <p>This fan-made project exists thanks to those who support it.</p>
-                    <p class="support-description">
-                        Your contribution helps keep the trial alive, improve visuals, add new questions, and expand future updates.
-                        Supporters may be honored in-game as Honorary Shinobi, acknowledged by the masters during the trial.
-                    </p>
-                    <button class="btn-ninja btn-support" onclick="window.open('https://ko-fi.com/zesan', '_blank')">
+                    <p>Supporters of this fan tribute are immortalized in our clan scrolls as honored allies.</p>
+                    <button class="btn-ninja btn-support" onclick="window.open('https://ko-fi.com', '_blank')">
                         <i class="fas fa-coins"></i>
-                        <span>SUPPORT THE TRIAL</span>
+                        <span>SUPPORT THIS TRIBUTE</span>
                     </button>
                 </div>
             </div>
@@ -162,7 +125,7 @@
     <div id="supporters-screen" class="screen hidden supporters-screen">
         <div class="screen-header">
             <h2><i class="fas fa-users"></i> CLAN ALLIES</h2>
-            <div class="subtitle">Honorary Shinobi of the Azuma Clan</div>
+            <div class="subtitle">Those who stand with the Azuma</div>
         </div>
         
         <div class="screen-content">
@@ -181,9 +144,9 @@
             </div>
             
             <div class="become-supporter">
-                <h3><i class="fas fa-plus-circle"></i> SUPPORT THE TRIAL</h3>
-                <p>Your contribution helps keep the trial alive and expand future updates</p>
-                <button class="btn-ninja btn-join" onclick="window.open('https://ko-fi.com/zesan', '_blank')">
+                <h3><i class="fas fa-plus-circle"></i> JOIN THE SHADOWS</h3>
+                <p>Become an honored ally and have your name recorded in our scrolls</p>
+                <button class="btn-ninja btn-join" onclick="window.open('https://ko-fi.com', '_blank')">
                     <i class="fas fa-fist-raised"></i>
                     <span>BECOME A SUPPORTER</span>
                 </button>
@@ -198,193 +161,8 @@
         </div>
     </div>
 
-    <!-- Stats Screen -->
-    <div id="stats-screen" class="screen hidden stats-screen">
-        <div class="screen-header">
-            <h2><i class="fas fa-chart-line"></i> SHINOBI STATS</h2>
-            <div class="subtitle">Your Journey in the Shadows</div>
-        </div>
-        
-        <div class="screen-content">
-            <div class="stats-welcome">
-                <h3 id="stats-player-name">SHADOW WARRIOR</h3>
-                <p class="stats-subtitle">Your progress in the Azuma trials</p>
-            </div>
-            
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="stat-icon"><i class="fas fa-crosshairs"></i></div>
-                    <div class="stat-title">TOTAL SCORE</div>
-                    <div class="stat-value" id="stat-total-score">0</div>
-                </div>
-                
-                <div class="stat-card">
-                    <div class="stat-icon"><i class="fas fa-gamepad"></i></div>
-                    <div class="stat-title">TRIALS COMPLETED</div>
-                    <div class="stat-value" id="stat-trials-completed">0</div>
-                </div>
-                
-                <div class="stat-card">
-                    <div class="stat-icon"><i class="fas fa-coins"></i></div>
-                    <div class="stat-title">SHINOBI COINS</div>
-                    <div class="stat-value" id="stat-coins">0</div>
-                </div>
-                
-                <div class="stat-card">
-                    <div class="stat-icon"><i class="fas fa-percentage"></i></div>
-                    <div class="stat-title">SUCCESS RATE</div>
-                    <div class="stat-value" id="stat-success-rate">0%</div>
-                </div>
-            </div>
-            
-            <div class="rank-display-stats">
-                <div class="rank-title-stats">CURRENT SHINOBI RANK</div>
-                <div class="rank-container">
-                    <div class="rank-name-stats" id="stat-rank-name">APPRENTICE</div>
-                    <div class="rank-stars" id="stat-rank-stars">☆☆☆</div>
-                </div>
-                <div class="rank-progress">
-                    <div class="progress-label">
-                        <span>Progress to next rank</span>
-                        <span id="stat-rank-progress-text">0/100</span>
-                    </div>
-                    <div class="progress-bar-stats">
-                        <div class="progress-fill-stats" id="stat-rank-progress"></div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="rank-info-box">
-                <h4><i class="fas fa-info-circle"></i> RANK SYSTEM</h4>
-                <p>Your rank is determined by your total score. Earn points by completing trials successfully.</p>
-                <div class="rank-list">
-                    <div class="rank-item">
-                        <span class="rank-badge apprentice">APPRENTICE</span>
-                        <span class="rank-requirement">0+ points</span>
-                    </div>
-                    <div class="rank-item">
-                        <span class="rank-badge shinobi">SHINOBI</span>
-                        <span class="rank-requirement">100+ points</span>
-                    </div>
-                    <div class="rank-item">
-                        <span class="rank-badge assassin">ASSASSIN</span>
-                        <span class="rank-requirement">300+ points</span>
-                    </div>
-                    <div class="rank-item">
-                        <span class="rank-badge ninja">NINJA</span>
-                        <span class="rank-requirement">600+ points</span>
-                    </div>
-                    <div class="rank-item">
-                        <span class="rank-badge masterNinja">MASTER NINJA</span>
-                        <span class="rank-requirement">1000+ points</span>
-                    </div>
-                    <div class="rank-item">
-                        <span class="rank-badge grandMaster">GRAND MASTER</span>
-                        <span class="rank-requirement">2000+ points</span>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="stats-actions">
-                <button class="btn-ninja btn-share" onclick="shareStats()">
-                    <i class="fas fa-share-alt"></i>
-                    <span>SHARE YOUR RANK</span>
-                </button>
-                
-                <button class="btn-ninja btn-back" onclick="backToMenu()">
-                    <i class="fas fa-arrow-left"></i>
-                    <span>RETURN TO MENU</span>
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Missions Screen -->
-    <div id="missions-screen" class="screen hidden missions-screen">
-        <div class="screen-header">
-            <h2><i class="fas fa-flag"></i> MISSIONS</h2>
-            <div class="subtitle">Azuma Clan Operations</div>
-        </div>
-        
-        <div class="screen-content">
-            <div id="missions-list">
-                <!-- Missions content loaded by JavaScript -->
-            </div>
-        </div>
-    </div>
-
-    <!-- ==================== MISSION SCREENS ==================== -->
-
-    <!-- Mission Briefing Screen -->
-    <div id="mission-briefing-screen" class="screen hidden">
-        <div class="screen-header">
-            <h2><i class="fas fa-scroll"></i> MISSION BRIEFING</h2>
-            <div class="subtitle">Azuma Clan Operation Details</div>
-        </div>
-        <div class="screen-content">
-            <div id="briefing-content">
-                <!-- Content loaded by JavaScript -->
-            </div>
-        </div>
-    </div>
-
-    <!-- Mission Items Screen -->
-    <div id="mission-items-screen" class="screen hidden">
-        <div class="screen-header">
-            <h2><i class="fas fa-tools"></i> EQUIPMENT SELECTION</h2>
-            <div class="subtitle">Choose Your Tools Wisely</div>
-        </div>
-        <div class="screen-content">
-            <div id="items-content">
-                <!-- Content loaded by JavaScript -->
-            </div>
-        </div>
-    </div>
-
-    <!-- Mission Game Screen -->
-    <div id="mission-game-screen" class="screen hidden">
-        <div class="screen-header">
-            <h2><i class="fas fa-user-secret"></i> MISSION IN PROGRESS</h2>
-            <div class="subtitle">Move Like a Shadow</div>
-        </div>
-        <div class="screen-content">
-            <div id="mission-game-content">
-                <!-- Content loaded by JavaScript -->
-            </div>
-        </div>
-    </div>
-
-    <!-- Mission End Screen -->
-    <div id="mission-end-screen" class="screen hidden">
-        <div class="screen-header">
-            <h2><i class="fas fa-flag-checkered"></i> MISSION COMPLETE</h2>
-            <div class="subtitle">The Shadows Remember</div>
-        </div>
-        <div class="screen-content">
-            <div id="mission-end-content">
-                <!-- Content loaded by JavaScript -->
-            </div>
-        </div>
-    </div>
-
     <!-- Game Screen -->
     <div id="game" class="screen hidden game-screen">
-        <!-- ALWAYS VISIBLE STATS -->
-        <div class="game-stats-header">
-            <div class="game-stat-item">
-                <div class="stat-label">SCORE</div>
-                <div class="stat-value" id="live-score">0</div>
-            </div>
-            <div class="game-stat-item">
-                <div class="stat-label">COINS</div>
-                <div class="stat-value" id="live-coins">0</div>
-            </div>
-            <div class="game-stat-item">
-                <div class="stat-label">RANK</div>
-                <div class="stat-value" id="live-rank">APPRENTICE</div>
-            </div>
-        </div>
-        
         <!-- Question Screen -->
         <div id="question-screen" class="game-content active">
             <div class="game-header">
@@ -450,70 +228,33 @@
             </div>
         </div>
 
-        <!-- Results Screen - UPDATED FOR SCORE SYSTEM -->
+        <!-- Results Screen -->
         <div id="result-screen" class="game-content hidden">
             <div class="results-container">
                 <div class="results-header">
-                    <div class="results-title">TRIAL COMPLETE</div>
-                    <div class="results-subtitle">Your performance has been recorded</div>
+                    <div class="results-title">MISSION COMPLETE</div>
+                    <div class="results-subtitle">Your fate is sealed</div>
                 </div>
                 
                 <div class="results-content">
-                    <!-- Score Display Section -->
-                    <div class="score-results">
-                        <div class="score-title">TRIAL RESULTS</div>
-                        
-                        <div class="score-breakdown">
-                            <div class="score-item">
-                                <div class="score-label">Correct Answers</div>
-                                <div class="score-value" id="result-correct">0/5</div>
-                            </div>
-                            
-                            <div class="score-item highlight">
-                                <div class="score-label">Points Earned</div>
-                                <div class="score-value" id="result-points">+0</div>
-                            </div>
-                            
-                            <div class="score-item">
-                                <div class="score-label">Coins Earned</div>
-                                <div class="score-value" id="result-coins">+0</div>
-                            </div>
-                            
-                            <div class="score-item total">
-                                <div class="score-label">TOTAL SCORE NOW</div>
-                                <div class="score-value" id="result-total">0</div>
-                            </div>
-                        </div>
-                        
-                        <!-- Rank Progress Notification -->
-                        <div class="rank-notification" id="rank-notification">
-                            <i class="fas fa-arrow-up"></i>
-                            <span>Your rank has increased!</span>
-                        </div>
+                    <div class="rank-display">
+                        <div class="rank-symbol" id="rank-symbol">⚔️</div>
+                        <div class="rank-title" id="result-rank">SHADOW</div>
+                        <div class="rank-name" id="result-title">Silent Assassin</div>
+                        <div class="rank-description" id="rank-description">Perfect execution. Moves like a phantom.</div>
                     </div>
                     
-                    <!-- Character Feedback Section -->
                     <div class="character-feedback">
                         <div class="feedback-portrait" id="feedback-portrait"></div>
                         <div class="feedback-message">
                             <p id="feedback-text">Your journey in the shadows has been observed...</p>
-                            <div class="feedback-instruction">
-                                <i class="fas fa-info-circle"></i>
-                                <span>Check your Shinobi Stats to see your rank progression</span>
-                            </div>
                         </div>
                     </div>
                     
-                    <!-- Results Actions -->
                     <div class="results-actions">
-                        <button class="btn-ninja btn-stats" onclick="showStatsScreenFromResults()">
-                            <i class="fas fa-chart-line"></i>
-                            <span>VIEW STATS</span>
-                        </button>
-                        
                         <button class="btn-ninja btn-retry" onclick="startGame()">
                             <i class="fas fa-redo"></i>
-                            <span>ANOTHER TRIAL</span>
+                            <span>RE-ENTER SHADOWS</span>
                         </button>
                         
                         <button class="btn-ninja btn-menu-result" onclick="backToMenu()">
@@ -524,7 +265,7 @@
                 </div>
                 
                 <div class="results-footer">
-                    <p>Your performance has been recorded in the Azuma scrolls</p>
+                    <p>Your name has been recorded in the Azuma scrolls</p>
                 </div>
             </div>
         </div>
@@ -534,7 +275,6 @@
     <script src="supporters.js"></script>
     <script src="character-comments.js"></script>
     <script src="game.js"></script>
-    <script src="missions.js"></script>
     <script src="vfx.js"></script>
     
     <script>
@@ -556,11 +296,6 @@
                 updateSupportersList();
             }
             
-            // Initialize missions system
-            if (typeof initializeMissions === 'function') {
-                initializeMissions();
-            }
-            
             // Setup name input
             const nameInput = document.getElementById('player-name-input');
             if (nameInput) {
@@ -580,7 +315,8 @@
             
             // Prevent touch scrolling on body
             document.addEventListener('touchmove', function(e) {
-                const scrollableContainers = ['.screen-content', '.question-container', '.supporters-scroll', '.appreciation-container', '.results-container', '.missions-intro', '.briefing-content', '.items-content', '.mission-game-content', '.mission-end-content'];
+                // Only allow touch move inside scrollable containers
+                const scrollableContainers = ['.screen-content', '.question-container', '.supporters-scroll', '.appreciation-container', '.results-container'];
                 let isScrollable = false;
                 
                 for (let selector of scrollableContainers) {
@@ -600,6 +336,7 @@
                 const vh = window.innerHeight * 0.01;
                 document.documentElement.style.setProperty('--vh', `${vh}px`);
                 
+                // Set screen heights
                 const screens = document.querySelectorAll('.screen');
                 screens.forEach(screen => {
                     screen.style.height = `${window.innerHeight * 0.85}px`;
@@ -613,62 +350,8 @@
                 setTimeout(setVH, 100);
             });
             
-            // Load player stats if available
-            if (typeof loadPlayerStats === 'function') {
-                loadPlayerStats();
-            }
-            
-            // Initialize live stats display
-            if (typeof updateLiveStats === 'function') {
-                updateLiveStats();
-            }
-            
-            console.log('Game initialized successfully with missions system');
+            console.log('Game initialized successfully');
         });
-        
-        // New screen functions
-        function showStatsScreen() {
-            showScreen('stats-screen');
-            if (typeof updateStatsDisplay === 'function') {
-                updateStatsDisplay();
-            }
-        }
-        
-        function showMissionsScreen() {
-            showScreen('missions-screen');
-            if (typeof updateMissionsList === 'function') {
-                updateMissionsList();
-            }
-        }
-        
-        function showStatsScreenFromResults() {
-            showScreen('stats-screen');
-            if (typeof updateStatsDisplay === 'function') {
-                updateStatsDisplay();
-            }
-        }
-        
-        function shareStats() {
-            if (typeof sharePlayerStats === 'function') {
-                sharePlayerStats();
-            } else {
-                const rank = document.getElementById('stat-rank-name').textContent;
-                const stars = document.getElementById('stat-rank-stars').textContent;
-                const text = `I achieved ${rank} ${stars} in Tenchu Shiren! 天誅試練`;
-                
-                if (navigator.share) {
-                    navigator.share({
-                        title: 'Tenchu Shiren - My Shinobi Rank',
-                        text: text,
-                        url: window.location.href
-                    });
-                } else {
-                    navigator.clipboard.writeText(text).then(() => {
-                        alert('Rank copied to clipboard!');
-                    });
-                }
-            }
-        }
     </script>
 </body>
 </html>
