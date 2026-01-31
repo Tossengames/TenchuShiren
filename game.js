@@ -27,11 +27,11 @@ let playerStats = {
 // Rank requirements matching your HTML/Stats
 const rankRequirements = {
     "apprentice": { minScore: 0, stars: 3, nextRank: "shinobi", displayName: "APPRENTICE" },
-    "shinobi": { minScore: 100, stars: 3, nextRank: "assassin", displayName: "SHINOBI" },
-    "assassin": { minScore: 300, stars: 3, nextRank: "ninja", displayName: "ASSASSIN" },
-    "ninja": { minScore: 600, stars: 3, nextRank: "masterNinja", displayName: "NINJA" },
-    "masterNinja": { minScore: 1000, stars: 3, nextRank: "grandMaster", displayName: "MASTER NINJA" },
-    "grandMaster": { minScore: 2000, stars: 3, nextRank: null, displayName: "GRAND MASTER" }
+    "shinobi": { minScore: 500, stars: 3, nextRank: "assassin", displayName: "SHINOBI" },
+    "assassin": { minScore: 1000, stars: 3, nextRank: "ninja", displayName: "ASSASSIN" },
+    "ninja": { minScore: 2000, stars: 3, nextRank: "masterNinja", displayName: "NINJA" },
+    "masterNinja": { minScore: 3000, stars: 3, nextRank: "grandMaster", displayName: "MASTER NINJA" },
+    "grandMaster": { minScore: 5000, stars: 3, nextRank: null, displayName: "GRAND MASTER" }
 };
 
 const POINTS_PER_CORRECT = 20;
