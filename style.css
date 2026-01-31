@@ -1804,9 +1804,9 @@ input, textarea {
 }
 
 .character-portrait-large:empty::before {
-    content: "忍";
+    content: "";
 }
 
 .feedback-portrait:empty::before {
-    content: "影";
+    content: "";
 }
