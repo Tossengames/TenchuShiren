@@ -1,6 +1,5 @@
 // ============================================
-// TENCHU SHIREN - COMPLETE GAME ENGINE (FIXED)
-// Uses character-comments.js for all character functions
+// TENCHU SHIREN - COMPLETE GAME ENGINE
 // ============================================
 
 // Game state
@@ -18,124 +17,28 @@ let playerStats = {
     trialsCompleted: 0,
     totalCorrectAnswers: 0,
     totalQuestionsAnswered: 0,
-    currentRank: "failed",
+    currentRank: "apprentice",
     rankStars: 0,
     coins: 0,
     lastPlayed: null,
-    highestRank: "failed"
+    highestRank: "apprentice"
 };
 
-// TENCHU-STYLE RANKING SYSTEM (Higher scores like real Tenchu)
-const tenchuRankRequirements = {
-    "failed": { 
-        minScore: 0, 
-        stars: 0, 
-        nextRank: "apprentice", 
-        displayName: "FAILED",
-        title: "失敗",
-        symbol: "💀"
-    },
-    "apprentice": { 
-        minScore: 500, 
-        stars: 1, 
-        nextRank: "shinobi", 
-        displayName: "APPRENTICE",
-        title: "見習い",
-        symbol: "🍃"
-    },
-    "shinobi": { 
-        minScore: 1000, 
-        stars: 2, 
-        nextRank: "assassin", 
-        displayName: "SHINOBI",
-        title: "忍び",
-        symbol: "🥷"
-    },
-    "assassin": { 
-        minScore: 2000, 
-        stars: 3, 
-        nextRank: "ninja", 
-        displayName: "ASSASSIN",
-        title: "殺し屋",
-        symbol: "🎯"
-    },
-    "ninja": { 
-        minScore: 3000, 
-        stars: 3, 
-        nextRank: "masterNinja", 
-        displayName: "NINJA",
-        title: "中忍",
-        symbol: "🗡️"
-    },
-    "masterNinja": { 
-        minScore: 4000, 
-        stars: 3, 
-        nextRank: "grandMaster", 
-        displayName: "MASTER NINJA",
-        title: "上忍",
-        symbol: "⚔️"
-    },
-    "grandMaster": { 
-        minScore: 5000, 
-        stars: 3, 
-        nextRank: null, 
-        displayName: "GRAND MASTER",
-        title: "天誅忍",
-        symbol: "👑"
-    }
+// Rank requirements matching your HTML/Stats
+const rankRequirements = {
+    "apprentice": { minScore: 0, stars: 3, nextRank: "shinobi", displayName: "APPRENTICE" },
+    "shinobi": { minScore: 100, stars: 3, nextRank: "assassin", displayName: "SHINOBI" },
+    "assassin": { minScore: 300, stars: 3, nextRank: "ninja", displayName: "ASSASSIN" },
+    "ninja": { minScore: 600, stars: 3, nextRank: "masterNinja", displayName: "NINJA" },
+    "masterNinja": { minScore: 1000, stars: 3, nextRank: "grandMaster", displayName: "MASTER NINJA" },
+    "grandMaster": { minScore: 2000, stars: 3, nextRank: null, displayName: "GRAND MASTER" }
 };
 
-// Game constants
-const POINTS_PER_CORRECT = 100; // Increased for higher rank progression
-const POINTS_PER_GAME_COMPLETION = 500; // Bonus for perfect game
-const COINS_PER_CORRECT = 5;
-const COINS_PER_GAME = 50;
+const POINTS_PER_CORRECT = 20;
+const POINTS_PER_GAME_COMPLETION = 50;
+const COINS_PER_CORRECT = 2;
+const COINS_PER_GAME = 10;
 let currentScreen = 'menu';
-
-// ==================== CHARACTER FUNCTIONS ====================
-// These functions now use character-comments.js
-
-function getCharacterPortrait(character) {
-    // Use the function from character-comments.js if available
-    if (typeof window.getCharacterPortrait === 'function') {
-        return window.getCharacterPortrait(character);
-    }
-    // Fallback
-    const portraits = {
-        'rikimaru': './assets/characters/rikimaru.png',
-        'ayame': './assets/characters/ayame.png',
-        'tatsumaru': './assets/characters/tatsumaru.png'
-    };
-    return portraits[character] || '';
-}
-
-function getCharacterDisplayName(character) {
-    // Use the function from character-comments.js if available
-    if (typeof window.getCharacterDisplayName === 'function') {
-        return window.getCharacterDisplayName(character);
-    }
-    // Fallback
-    const names = {
-        'rikimaru': 'RIKIMARU',
-        'ayame': 'AYAME',
-        'tatsumaru': 'TATSAMARU'
-    };
-    return names[character] || 'MASTER';
-}
-
-function getCharacterResultFeedback(character, rank, playerName) {
-    // Use the function from character-comments.js if available
-    if (typeof window.getCharacterResultFeedback === 'function') {
-        return window.getCharacterResultFeedback(character, rank, playerName);
-    }
-    // Fallback feedback
-    const fallback = {
-        'rikimaru': `${playerName}. Your performance has been noted.`,
-        'ayame': `${playerName}! You did your best!`,
-        'tatsumaru': `Hmph. ${playerName}.`
-    };
-    return fallback[character] || "The trial is complete.";
-}
 
 // ==================== INITIALIZATION & PERSISTENCE ====================
 
@@ -168,10 +71,10 @@ function savePlayerStats() {
     }
 }
 
-// Update player rank based on total score (using Tenchu ranks)
+// Update player rank based on total score
 function updatePlayerRank() {
-    const ranks = Object.keys(tenchuRankRequirements);
-    let newRank = "failed";
+    const ranks = Object.keys(rankRequirements);
+    let newRank = "apprentice";
     let newStars = 0;
     let rankChanged = false;
     const oldRank = playerStats.currentRank;
@@ -179,9 +82,22 @@ function updatePlayerRank() {
     // Find current rank based on score
     for (let i = ranks.length - 1; i >= 0; i--) {
         const rank = ranks[i];
-        if (playerStats.totalScore >= tenchuRankRequirements[rank].minScore) {
+        if (playerStats.totalScore >= rankRequirements[rank].minScore) {
             newRank = rank;
-            newStars = tenchuRankRequirements[rank].stars;
+            
+            // Calculate stars within this rank
+            const nextRank = rankRequirements[rank].nextRank;
+            if (nextRank) {
+                const currentMin = rankRequirements[rank].minScore;
+                const nextMin = rankRequirements[nextRank].minScore;
+                const progress = playerStats.totalScore - currentMin;
+                const totalRange = nextMin - currentMin;
+                const starProgress = (progress / totalRange) * 3;
+                newStars = Math.min(2, Math.floor(starProgress));
+            } else {
+                // For grand master, show full stars
+                newStars = 2;
+            }
             break;
         }
     }
@@ -193,7 +109,7 @@ function updatePlayerRank() {
     playerStats.rankStars = newStars;
     
     // Update highest rank
-    const rankOrder = ["failed", "apprentice", "shinobi", "assassin", "ninja", "masterNinja", "grandMaster"];
+    const rankOrder = ["apprentice", "shinobi", "assassin", "ninja", "masterNinja", "grandMaster"];
     const currentIndex = rankOrder.indexOf(newRank);
     const highestIndex = rankOrder.indexOf(playerStats.highestRank);
     if (currentIndex > highestIndex) {
@@ -222,43 +138,31 @@ function addGameScore(gameScore, correctCount, totalQuestions) {
     // Save stats
     savePlayerStats();
     
-    return { 
-        score: gameScore, 
-        coins: coinsEarned, 
-        rankChanged: rankChanged, 
-        oldRank: oldRank, 
-        newRank: playerStats.currentRank,
-        rankInfo: tenchuRankRequirements[playerStats.currentRank]
-    };
+    return { score: gameScore, coins: coinsEarned, rankChanged: rankChanged, oldRank: oldRank, newRank: playerStats.currentRank };
 }
 
-// Get stars display for stats screen
+// Get stars display (☆ = empty, ★ = filled)
 function getStarsDisplay(stars) {
-    if (stars === 0) return "☆☆☆";
-    if (stars === 1) return "★☆☆";
-    if (stars === 2) return "★★☆";
-    if (stars === 3) return "★★★";
-    return "☆☆☆";
+    switch(stars) {
+        case 0: return "☆☆☆";
+        case 1: return "★☆☆";
+        case 2: return "★★☆";
+        case 3: return "★★★";
+        default: return "☆☆☆";
+    }
 }
 
 // Get progress to next rank
 function getRankProgress() {
     const currentRank = playerStats.currentRank;
-    const rankInfo = tenchuRankRequirements[currentRank];
-    const nextRank = rankInfo.nextRank;
+    const nextRank = rankRequirements[currentRank].nextRank;
     
     if (!nextRank) {
-        return { 
-            current: playerStats.totalScore, 
-            required: rankInfo.minScore, 
-            percent: 100,
-            currentMin: rankInfo.minScore
-        };
+        return { current: playerStats.totalScore, required: playerStats.totalScore, percent: 100 };
     }
     
-    const nextRankInfo = tenchuRankRequirements[nextRank];
-    const currentMin = rankInfo.minScore;
-    const nextMin = nextRankInfo.minScore;
+    const currentMin = rankRequirements[currentRank].minScore;
+    const nextMin = rankRequirements[nextRank].minScore;
     const progress = playerStats.totalScore - currentMin;
     const totalNeeded = nextMin - currentMin;
     const percent = Math.min(100, Math.floor((progress / totalNeeded) * 100));
@@ -284,6 +188,7 @@ function showScreen(screenId) {
     const target = document.getElementById(screenId);
     if (target) {
         target.classList.remove('hidden');
+        // Small delay to allow CSS transitions
         setTimeout(() => target.classList.add('active'), 50);
         currentScreen = screenId;
     }
@@ -335,6 +240,7 @@ async function startGame() {
     
     if (typeof createGameVFX === 'function') createGameVFX('gameStart');
     
+    // Load first question with small delay for transition
     setTimeout(() => {
         loadQuestion();
     }, 300);
@@ -349,7 +255,7 @@ async function loadQuestions() {
         console.log(`Loaded ${questions.length} questions`);
     } catch (e) {
         console.error("Error loading questions:", e);
-        // Fallback questions
+        // Fallback if file doesn't exist to prevent black screen
         questions = [{
             question: "A true shinobi moves like...",
             options: ["A storm", "A shadow", "A flame", "A river"],
@@ -387,6 +293,7 @@ async function loadQuestions() {
 function loadQuestion() {
     if (!gameActive) return;
     
+    // Check if all questions are answered
     if (currentQuestionIndex >= questions.length) {
         showAppreciation = Math.random() < 0.4;
         
@@ -408,17 +315,21 @@ function loadQuestion() {
         }, 200);
     }
     
+    // Update Trial Counters
     ['current-trial', 'trial-number', 'progress-current'].forEach(id => {
         const el = document.getElementById(id);
         if (el) el.textContent = currentQuestionIndex + 1;
     });
 
+    // Update Difficulty
     const diff = document.querySelector('.diff-level');
     if (diff) diff.textContent = q.difficulty || "NORMAL";
 
+    // Progress Bar
     const fill = document.getElementById('progress-fill');
     if (fill) fill.style.width = `${(currentQuestionIndex / questions.length) * 100}%`;
 
+    // Create options with letters
     const optionsDiv = document.getElementById('options');
     if (optionsDiv) {
         optionsDiv.innerHTML = '';
@@ -470,7 +381,7 @@ function checkAnswer(selected, correct, commentator) {
 // ==================== RESULTS SCREEN ====================
 
 function showResults() {
-    console.log('DEBUG: showResults() called.');
+    console.log('DEBUG: showResults() called. Element exists:', document.getElementById('result-screen') !== null);
     
     const totalQuestions = questions.length;
     const percentage = Math.round((correctAnswers / totalQuestions) * 100);
@@ -485,7 +396,7 @@ function showResults() {
     // Update results screen
     updateResultsDisplay(pointsEarned, gameResult.coins, totalQuestions, correctAnswers, percentage, gameResult);
     
-    // Show results screen
+    // Show results screen - FIXED SCREEN NAVIGATION
     showGameSubScreen('result');
     
     // Create VFX based on performance
@@ -508,14 +419,13 @@ function updateResultsDisplay(pointsEarned, coinsEarned, totalQuestions, correct
     // Show rank notification if rank changed
     const rankNotification = document.getElementById('rank-notification');
     if (gameResult.rankChanged) {
-        const oldRankInfo = tenchuRankRequirements[gameResult.oldRank];
-        const newRankInfo = tenchuRankRequirements[gameResult.newRank];
         rankNotification.style.display = 'flex';
         rankNotification.innerHTML = `
             <i class="fas fa-arrow-up"></i>
-            <span>Rank Up! ${oldRankInfo.displayName} → ${newRankInfo.displayName}</span>
+            <span>Rank Up! ${rankRequirements[gameResult.oldRank]?.displayName} → ${rankRequirements[gameResult.newRank]?.displayName}</span>
         `;
         
+        // Add celebration effect
         if (typeof createGameVFX === 'function') {
             setTimeout(() => {
                 createGameVFX('victory');
@@ -525,34 +435,83 @@ function updateResultsDisplay(pointsEarned, coinsEarned, totalQuestions, correct
         rankNotification.style.display = 'none';
     }
     
-    // Determine which character gives feedback based on performance
+    // Get character feedback based on performance
     let feedbackCharacter;
-    if (percentage >= 70) {
+    let feedbackMessage = "";
+    
+    // Determine which character gives feedback based on percentage
+    if (percentage >= 80) {
         feedbackCharacter = 'rikimaru';
-    } else if (percentage >= 50) {
+    } else if (percentage >= 60) {
         feedbackCharacter = 'ayame';
     } else {
         feedbackCharacter = 'tatsumaru';
     }
     
-    // Get character feedback using character-comments.js
-    const feedbackMessage = getCharacterResultFeedback(
-        feedbackCharacter, 
-        playerStats.currentRank, 
-        playerName
-    );
+    // Get character name and feedback from character-comments.js
+    let characterName = "Master";
+    if (typeof getCharacterDisplayName === 'function') {
+        characterName = getCharacterDisplayName(feedbackCharacter);
+    }
+    
+    // Get feedback message from character-comments.js if available
+    if (typeof getCharacterResultFeedback === 'function') {
+        feedbackMessage = getCharacterResultFeedback(feedbackCharacter, playerStats.currentRank, playerName);
+    } else {
+        // Fallback feedback
+        feedbackMessage = getPerformanceFeedback(feedbackCharacter, percentage, correctAnswers, totalQuestions);
+    }
     
     // Update feedback
     const feedbackText = document.getElementById('feedback-text');
     if (feedbackText) feedbackText.textContent = feedbackMessage;
     
-    // Set character portrait using character-comments.js function
-    const portrait = getCharacterPortrait(feedbackCharacter);
+    // Set character portrait - USING character-comments.js FUNCTION
+    let portrait = '';
+    if (typeof getCharacterPortrait === 'function') {
+        portrait = getCharacterPortrait(feedbackCharacter);
+    }
+    
     const feedbackPortrait = document.getElementById('feedback-portrait');
     if (portrait && feedbackPortrait) {
         feedbackPortrait.style.backgroundImage = `url('${portrait}')`;
-        console.log(`Set feedback portrait to: ${portrait}`);
+        console.log(`Character portrait set: ${portrait}`);
     }
+}
+
+// Get performance feedback from characters (fallback)
+function getPerformanceFeedback(character, percentage, correct, total) {
+    if (character === 'rikimaru') {
+        if (percentage >= 80) {
+            return "Your precision is commendable. Continue to hone your skills in the shadows.";
+        } else if (percentage >= 60) {
+            return "Acceptable performance. Focus on improving your judgment.";
+        } else {
+            return "Your technique needs refinement. Study the ancient scrolls.";
+        }
+    }
+    
+    if (character === 'ayame') {
+        if (percentage >= 80) {
+            return "Well done! Your intuition serves you well in the shadows!";
+        } else if (percentage >= 60) {
+            return "Good effort! Remember, a true kunoichi relies on both skill and wit!";
+        } else {
+            return "You need more practice! Don't lose heart - every master was once a beginner!";
+        }
+    }
+    
+    if (character === 'tatsumaru') {
+        if (percentage >= 80) {
+            return "Hmph. Not bad. You understand that strength comes from knowledge.";
+        } else if (percentage >= 60) {
+            return "Adequate. But true power requires perfection.";
+        } else {
+            return "Weak. The shadows have no mercy for the unprepared.";
+        }
+    }
+    
+    return "The trial is complete. Your performance has been recorded.";
 }
 
 // ==================== RANKING & STATS ====================
@@ -579,8 +538,8 @@ function updateStatsDisplay() {
     set('stat-success-rate', `${successRate}%`);
     
     // Update rank display
-    const rankInfo = tenchuRankRequirements[playerStats.currentRank];
-    set('stat-rank-name', rankInfo.displayName);
+    const rankName = rankRequirements[playerStats.currentRank]?.displayName || "APPRENTICE";
+    set('stat-rank-name', rankName);
     
     // Update stars
     const starsDisplay = getStarsDisplay(playerStats.rankStars);
@@ -599,7 +558,6 @@ function updateStatsDisplay() {
     const rankNameEl = document.getElementById('stat-rank-name');
     if (rankNameEl) {
         const rankColors = {
-            "failed": "#5a0000",
             "apprentice": "#808080",
             "shinobi": "#9370db",
             "assassin": "#dc143c",
@@ -625,9 +583,16 @@ function showAppreciationScreen() {
     const characters = ['rikimaru', 'ayame', 'tatsumaru'];
     const randomCharacter = characters[Math.floor(Math.random() * characters.length)];
     
-    // Use character-comments.js function
-    let portrait = getCharacterPortrait(randomCharacter);
-    let characterName = getCharacterDisplayName(randomCharacter);
+    // Get portrait from character-comments.js
+    let portrait = '';
+    if (typeof getCharacterPortrait === 'function') {
+        portrait = getCharacterPortrait(randomCharacter);
+    }
+    
+    let characterName = "Azuma Master";
+    if (typeof getCharacterDisplayName === 'function') {
+        characterName = getCharacterDisplayName(randomCharacter);
+    }
     
     const messages = [
         `${characterName} acknowledges your support.`,
@@ -646,15 +611,27 @@ function showAppreciationScreen() {
     const appreciationPortrait = document.getElementById('appreciation-portrait');
     if (portrait && appreciationPortrait) {
         appreciationPortrait.style.backgroundImage = `url('${portrait}')`;
+        console.log(`Appreciation portrait set: ${portrait}`);
     }
     
-    // Set supporter rank badge
     const supporterRank = document.querySelector('.supporter-rank');
     if (supporterRank && supporter.rank) {
-        supporterRank.innerHTML = `
-            <i class="fas fa-shield-alt"></i>
-            <span>${supporter.rank.toUpperCase()}</span>
-        `;
+        // Use the local function from supporters.js
+        if (typeof getRankInfo === 'function') {
+            const rankInfo = getRankInfo(supporter.rank);
+            if (rankInfo) {
+                supporterRank.innerHTML = `
+                    <i class="fas fa-shield-alt"></i>
+                    <span>${rankInfo.name}</span>
+                `;
+            }
+        } else {
+            // Fallback if function not available
+            supporterRank.innerHTML = `
+                <i class="fas fa-shield-alt"></i>
+                <span>HONORED ALLY</span>
+            `;
+        }
     }
     
     showGameSubScreen('appreciation');
@@ -664,7 +641,7 @@ function showAppreciationScreen() {
     }
 }
 
-// ==================== UTILITY FUNCTIONS ====================
+// ==================== UTILS & MISSING FUNCTIONS ====================
 
 function showGameSubScreen(type) {
     const screens = ['question-screen', 'appreciation-screen', 'result-screen'];
@@ -675,6 +652,7 @@ function showGameSubScreen(type) {
             el.classList.remove('active'); 
         }
     });
+    
     const target = document.getElementById(type + '-screen');
     if (target) { 
         target.classList.remove('hidden'); 
@@ -697,7 +675,7 @@ function showStatsScreenFromResults() {
 }
 
 function shareStats() {
-    const rank = document.getElementById('stat-rank-name')?.textContent || 'FAILED';
+    const rank = document.getElementById('stat-rank-name')?.textContent || 'APPRENTICE';
     const stars = document.getElementById('stat-rank-stars')?.textContent || '☆☆☆';
     const score = document.getElementById('stat-total-score')?.textContent || '0';
     const text = `I achieved ${rank} ${stars} with ${score} points in Tenchu Shiren! 天誅試練`;
@@ -724,6 +702,36 @@ function fallbackShare(text) {
     } else {
         alert('Share this text:\n\n' + text);
     }
+}
+
+// Animate number counting up
+function animateValue(elementId, start, end, duration) {
+    const element = document.getElementById(elementId);
+    if (!element) return;
+    
+    const range = end - start;
+    const startTime = performance.now();
+    
+    function update(currentTime) {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        
+        // Easing function for smooth animation
+        const easeProgress = progress < 0.5 
+            ? 2 * progress * progress 
+            : 1 - Math.pow(-2 * progress + 2, 2) / 2;
+        
+        const currentValue = Math.floor(start + (range * easeProgress));
+        element.textContent = currentValue;
+        
+        if (progress < 1) {
+            requestAnimationFrame(update);
+        } else {
+            element.textContent = end;
+        }
+    }
+    
+    requestAnimationFrame(update);
 }
 
 // ==================== INITIALIZATION ====================
@@ -788,8 +796,3 @@ window.shareStats = shareStats;
 window.updateStatsDisplay = updateStatsDisplay;
 window.loadPlayerStats = loadPlayerStats;
 window.savePlayerStats = savePlayerStats;
-
-// Export character functions (these will use character-comments.js if available)
-window.getCharacterPortrait = getCharacterPortrait;
-window.getCharacterDisplayName = getCharacterDisplayName;
-window.getCharacterResultFeedback = getCharacterResultFeedback;
