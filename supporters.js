@@ -4,38 +4,10 @@
 const supporters = [
     {
         name: "Shadow Walker",
-        handle: "@NinjaPath",
+        handle: "",
         rank: "grandMaster",
         supportLevel: 5,
-        supportText: "Clan Patron"
-    },
-    {
-        name: "Silent Blade",
-        handle: "@StealthMaster",
-        rank: "masterNinja",
-        supportLevel: 4,
-        supportText: "Elite Ally"
-    },
-    {
-        name: "Kunoichi",
-        handle: "@NightFlower",
-        rank: "ninja",
-        supportLevel: 3,
-        supportText: "Honored Ally"
-    },
-    {
-        name: "Blood Moon",
-        handle: "@BloodMoonNinja",
-        rank: "assassin",
-        supportLevel: 2,
-        supportText: "Loyal Ally"
-    },
-    {
-        name: "Ghost Whisper",
-        handle: "@GhostPath",
-        rank: "shinobi",
-        supportLevel: 1,
-        supportText: "Clan Friend"
+        supportText: ""
     }
     // To add new supporters, simply copy the format above and paste here
     // {
