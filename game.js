@@ -238,6 +238,7 @@ function showResults() {
     
     updateResultsDisplay(pointsEarned, gameResult.coins, totalQuestions, correctAnswers, percentage, gameResult);
     
+    // FIX: Make sure we're showing the right screen
     showGameSubScreen('result');
     
     if (typeof createGameVFX === 'function') {
@@ -270,7 +271,7 @@ function updateResultsDisplay(pointsEarned, coinsEarned, totalQuestions, correct
         rankNotification.style.display = 'none';
     }
     
-    // Determine which character gives feedback
+    // Get character for feedback
     let feedbackCharacter;
     if (percentage >= 70) {
         feedbackCharacter = 'rikimaru';
@@ -280,54 +281,52 @@ function updateResultsDisplay(pointsEarned, coinsEarned, totalQuestions, correct
         feedbackCharacter = 'tatsumaru';
     }
     
-    // Get feedback from character-comments.js if available
+    // Get feedback from character-comments.js
     let feedbackMessage = "";
-    if (typeof getCharacterResultFeedback === 'function') {
-        // Convert our rank to character-comments.js format
-        const rankKey = playerStats.currentRank;
-        feedbackMessage = getCharacterResultFeedback(feedbackCharacter, rankKey, playerName);
-    } else {
-        // Fallback to simple feedback
-        if (feedbackCharacter === 'rikimaru') {
-            if (percentage >= 80) {
-                feedbackMessage = "Your precision is commendable. Continue to hone your skills in the shadows.";
-            } else if (percentage >= 60) {
-                feedbackMessage = "Acceptable performance. Focus on improving your judgment.";
-            } else {
-                feedbackMessage = "Your technique needs refinement. Study the ancient scrolls.";
-            }
-        } else if (feedbackCharacter === 'ayame') {
-            if (percentage >= 80) {
-                feedbackMessage = "Well done! Your intuition serves you well in the shadows!";
-            } else if (percentage >= 60) {
-                feedbackMessage = "Good effort! Remember, a true kunoichi relies on both skill and wit!";
-            } else {
-                feedbackMessage = "You need more practice! Don't lose heart - every master was once a beginner!";
-            }
-        } else if (feedbackCharacter === 'tatsumaru') {
-            if (percentage >= 80) {
-                feedbackMessage = "Hmph. Not bad. You understand that strength comes from knowledge.";
-            } else if (percentage >= 60) {
-                feedbackMessage = "Adequate. But true power requires perfection.";
-            } else {
-                feedbackMessage = "Weak. The shadows have no mercy for the unprepared.";
-            }
-        } else {
-            feedbackMessage = "The trial is complete. Your performance has been recorded.";
+    if (typeof window.getCharacterResultFeedback === 'function') {
+        try {
+            feedbackMessage = window.getCharacterResultFeedback(feedbackCharacter, playerStats.currentRank, playerName);
+        } catch (e) {
+            console.error("Error getting character feedback:", e);
+            feedbackMessage = getFallbackFeedback(feedbackCharacter, percentage);
         }
+    } else {
+        feedbackMessage = getFallbackFeedback(feedbackCharacter, percentage);
     }
     
     const feedbackText = document.getElementById('feedback-text');
     if (feedbackText) feedbackText.textContent = feedbackMessage;
     
     // Set character portrait
-    if (typeof getCharacterPortrait === 'function') {
-        const portrait = getCharacterPortrait(feedbackCharacter);
+    if (typeof window.getCharacterPortrait === 'function') {
+        const portrait = window.getCharacterPortrait(feedbackCharacter);
         const feedbackPortrait = document.getElementById('feedback-portrait');
         if (portrait && feedbackPortrait) {
             feedbackPortrait.style.backgroundImage = `url('${portrait}')`;
         }
     }
+}
+
+function getFallbackFeedback(character, percentage) {
+    if (character === 'rikimaru') {
+        if (percentage >= 80) return "Your precision is commendable. Continue to hone your skills in the shadows.";
+        else if (percentage >= 60) return "Acceptable performance. Focus on improving your judgment.";
+        else return "Your technique needs refinement. Study the ancient scrolls.";
+    }
+    
+    if (character === 'ayame') {
+        if (percentage >= 80) return "Well done! Your intuition serves you well in the shadows!";
+        else if (percentage >= 60) return "Good effort! Remember, a true kunoichi relies on both skill and wit!";
+        else return "You need more practice! Don't lose heart - every master was once a beginner!";
+    }
+    
+    if (character === 'tatsumaru') {
+        if (percentage >= 80) return "Hmph. Not bad. You understand that strength comes from knowledge.";
+        else if (percentage >= 60) return "Adequate. But true power requires perfection.";
+        else return "Weak. The shadows have no mercy for the unprepared.";
+    }
+    
+    return "The trial is complete. Your performance has been recorded.";
 }
 
 // ==================== PERSISTENCE ====================
@@ -455,19 +454,44 @@ function getRankProgress() {
 // ==================== UTILS ====================
 
 function showGameSubScreen(type) {
+    console.log("showGameSubScreen called with:", type);
+    
     const screens = ['question-screen', 'appreciation-screen', 'result-screen'];
     screens.forEach(s => {
         const el = document.getElementById(s);
         if (el) { 
-            el.classList.add('hidden'); 
+            console.log("Hiding screen:", s);
             el.classList.remove('active'); 
+            el.classList.add('hidden');
         }
     });
     
-    const target = document.getElementById(type + '-screen');
+    let screenId;
+    switch(type) {
+        case 'question':
+            screenId = 'question-screen';
+            break;
+        case 'appreciation':
+            screenId = 'appreciation-screen';
+            break;
+        case 'result':
+            screenId = 'result-screen';
+            break;
+        default:
+            console.error("Unknown screen type:", type);
+            return;
+    }
+    
+    const target = document.getElementById(screenId);
     if (target) { 
+        console.log("Showing screen:", screenId);
         target.classList.remove('hidden'); 
-        setTimeout(() => target.classList.add('active'), 50);
+        setTimeout(() => {
+            target.classList.add('active');
+            console.log("Screen activated:", screenId);
+        }, 50);
+    } else {
+        console.error("Screen not found:", screenId);
     }
 }
 
@@ -484,13 +508,13 @@ function showAppreciationScreen() {
     const randomCharacter = characters[Math.floor(Math.random() * characters.length)];
     
     let portrait = '';
-    if (typeof getCharacterPortrait === 'function') {
-        portrait = getCharacterPortrait(randomCharacter);
+    if (typeof window.getCharacterPortrait === 'function') {
+        portrait = window.getCharacterPortrait(randomCharacter);
     }
     
     let characterName = "Azuma Master";
-    if (typeof getCharacterDisplayName === 'function') {
-        characterName = getCharacterDisplayName(randomCharacter);
+    if (typeof window.getCharacterDisplayName === 'function') {
+        characterName = window.getCharacterDisplayName(randomCharacter);
     }
     
     const messages = [
@@ -657,3 +681,4 @@ window.shareStats = shareStats;
 window.updateStatsDisplay = updateStatsDisplay;
 window.loadPlayerStats = loadPlayerStats;
 window.savePlayerStats = savePlayerStats;
+window.showGameSubScreen = showGameSubScreen;
