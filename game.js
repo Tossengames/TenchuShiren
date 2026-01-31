@@ -40,6 +40,285 @@ const COINS_PER_CORRECT = 2;
 const COINS_PER_GAME = 10;
 let currentScreen = 'menu';
 
+// ==================== WORKING FUNCTIONS FROM WORKING SCRIPT ====================
+
+// Show specific screen within game - FROM WORKING SCRIPT
+function showGameSubScreen(screenType) {
+    const screens = ['question-screen', 'appreciation-screen', 'result-screen'];
+    
+    // Hide all game screens
+    screens.forEach(screenId => {
+        const screen = document.getElementById(screenId);
+        if (screen) {
+            screen.classList.remove('active');
+            screen.classList.add('hidden');
+        }
+    });
+    
+    // Show requested screen
+    let screenToShow;
+    switch(screenType) {
+        case 'question':
+            screenToShow = 'question-screen';
+            break;
+        case 'appreciation':
+            screenToShow = 'appreciation-screen';
+            break;
+        case 'result': // FIXED: Your original uses 'result' not 'results'
+            screenToShow = 'result-screen';
+            break;
+    }
+    
+    const screen = document.getElementById(screenToShow);
+    if (screen) {
+        screen.classList.remove('hidden');
+        setTimeout(() => {
+            screen.classList.add('active');
+        }, 50);
+    }
+}
+
+// Check answer function - FROM WORKING SCRIPT
+function checkAnswer(selected, correct, commentator) {
+    const isCorrect = selected === correct;
+    
+    // Store player's answer for results feedback
+    playerAnswers.push({
+        selected: selected,
+        correct: correct,
+        isCorrect: isCorrect,
+        commentator: commentator
+    });
+    
+    if (isCorrect) {
+        correctAnswers++;
+        
+        // Create VFX
+        if (typeof createGameVFX === 'function') {
+            createGameVFX('correct');
+        }
+    } else {
+        // Create VFX
+        if (typeof createGameVFX === 'function') {
+            createGameVFX('incorrect');
+        }
+    }
+    
+    // Move to next question after a short delay - FROM WORKING SCRIPT
+    setTimeout(() => {
+        currentQuestionIndex++;
+        loadQuestion();
+    }, 800);
+}
+
+// Load question function - FROM WORKING SCRIPT
+function loadQuestion() {
+    if (!gameActive) return;
+    
+    // Check if all questions are answered - FROM WORKING SCRIPT
+    if (currentQuestionIndex >= questions.length) {
+        // Decide if we should show appreciation (40% chance)
+        showAppreciation = Math.random() < 0.4;
+        
+        if (showAppreciation && typeof supporters !== 'undefined' && supporters.length > 0) {
+            showAppreciationScreen();
+        } else {
+            showResults();
+        }
+        return;
+    }
+    
+    const question = questions[currentQuestionIndex];
+    
+    // Update UI - FROM WORKING SCRIPT
+    document.getElementById('question-text').textContent = question.question;
+    document.getElementById('trial-number').textContent = currentQuestionIndex + 1;
+    document.getElementById('current-trial').textContent = currentQuestionIndex + 1;
+    document.getElementById('progress-current').textContent = currentQuestionIndex + 1;
+    
+    // Update progress bar
+    const progressPercentage = (currentQuestionIndex / questions.length) * 100;
+    document.getElementById('progress-fill').style.width = `${progressPercentage}%`;
+    
+    // Update difficulty display
+    const diffElement = document.querySelector('.diff-level');
+    if (diffElement && question.difficulty) {
+        diffElement.textContent = question.difficulty;
+    }
+    
+    // Create options - FROM WORKING SCRIPT
+    const optionsDiv = document.getElementById('options');
+    optionsDiv.innerHTML = '';
+    
+    question.options.forEach((option, index) => {
+        const button = document.createElement('button');
+        button.className = 'btn-ninja';
+        button.innerHTML = `
+            <span class="option-letter">${String.fromCharCode(65 + index)}</span>
+            <span class="option-text">${option}</span>
+        `;
+        
+        // Add click handler
+        button.onclick = () => {
+            // Disable all buttons
+            const allButtons = optionsDiv.querySelectorAll('button');
+            allButtons.forEach(btn => {
+                btn.disabled = true;
+                btn.style.pointerEvents = 'none';
+            });
+            
+            // Highlight selected button
+            button.style.background = 'linear-gradient(145deg, #2a1a1a, #1a1111)';
+            button.style.borderColor = '#8b0000';
+            button.style.transform = 'scale(0.98)';
+            
+            // Check answer
+            checkAnswer(option, question.answer, question.commentator);
+        };
+        
+        optionsDiv.appendChild(button);
+    });
+    
+    // Show question screen
+    showGameSubScreen('question');
+}
+
+// Appreciation screen - FROM WORKING SCRIPT
+function showAppreciationScreen() {
+    if (typeof supporters === 'undefined' || supporters.length === 0) {
+        showResults();
+        return;
+    }
+    
+    const randomIndex = Math.floor(Math.random() * supporters.length);
+    const supporter = supporters[randomIndex];
+    
+    const characters = ['rikimaru', 'ayame', 'tatsumaru'];
+    const randomCharacter = characters[Math.floor(Math.random() * characters.length)];
+    
+    // Get character portrait
+    let portrait = '';
+    if (typeof getCharacterPortrait === 'function') {
+        portrait = getCharacterPortrait(randomCharacter);
+    }
+    
+    // Get character name
+    let characterName = "Azuma Master";
+    if (typeof getCharacterDisplayName === 'function') {
+        characterName = getCharacterDisplayName(randomCharacter);
+    }
+    
+    // Create appreciation message
+    const messages = [
+        `${characterName} acknowledges your support.`,
+        `${characterName} honors those who stand with the Azuma.`,
+        `From the shadows, ${characterName} gives thanks.`,
+        `${characterName} recognizes true allies of the clan.`
+    ];
+    
+    const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+    
+    // Update appreciation screen
+    document.getElementById('appreciation-text').textContent = randomMessage;
+    document.getElementById('honored-name').textContent = supporter.name;
+    document.getElementById('honored-handle').textContent = supporter.handle || '';
+    
+    // SET CHARACTER PORTRAIT - THIS IS THE KEY FIX
+    const appreciationPortrait = document.getElementById('appreciation-portrait');
+    if (portrait && appreciationPortrait) {
+        appreciationPortrait.style.backgroundImage = `url('${portrait}')`;
+    }
+    
+    const supporterRank = document.querySelector('.supporter-rank');
+    if (supporterRank && supporter.rank) {
+        // Use the local function from supporters.js
+        if (typeof getRankInfo === 'function') {
+            const rankInfo = getRankInfo(supporter.rank);
+            if (rankInfo) {
+                supporterRank.innerHTML = `
+                    <i class="fas fa-shield-alt"></i>
+                    <span>${rankInfo.name}</span>
+                `;
+            }
+        } else {
+            // Fallback if function not available
+            supporterRank.innerHTML = `
+                <i class="fas fa-shield-alt"></i>
+                <span>HONORED ALLY</span>
+            `;
+        }
+    }
+    
+    showGameSubScreen('appreciation');
+    
+    if (typeof createGameVFX === 'function') {
+        createGameVFX('appreciation');
+    }
+}
+
+// Get final feedback function - FROM WORKING SCRIPT
+function getFinalFeedback(character, percentage, rankName, playerName) {
+    // Check if the new random feedback system is available
+    if (typeof getCharacterResultFeedback === 'function') {
+        // Convert rank name to match feedback keys (e.g., "GRAND MASTER" -> "grandMaster")
+        const rankKey = rankName.toLowerCase()
+            .split(' ')
+            .map((word, index) => 
+                index === 0 ? word : word.charAt(0).toUpperCase() + word.slice(1)
+            )
+            .join('');
+        
+        // Try to get random feedback
+        const randomFeedback = getCharacterResultFeedback(character, rankKey, playerName);
+        if (randomFeedback && randomFeedback !== "The trial ends here.") {
+            return randomFeedback;
+        }
+    }
+    
+    // Fallback to original system if new system fails
+    const characterName = typeof getCharacterDisplayName === 'function' 
+        ? getCharacterDisplayName(character) 
+        : "Master";
+    
+    if (character === 'rikimaru') {
+        if (rankName === "GRAND MASTER") {
+            return `${playerName}. Perfect. Your discipline is absolute. You have mastered the way of the shadow.`;
+        } else if (rankName === "MASTER NINJA") {
+            return `${playerName}. Excellent. Your judgment is sound, your movements precise.`;
+        } else if (rankName === "NINJA") {
+            return `${playerName}. Competent. You understand the basics, but true mastery requires more discipline.`;
+        } else {
+            return `${playerName}. You lack the focus required. The way of the ninja demands perfection.`;
+        }
+    }
+    
+    if (character === 'ayame') {
+        if (rankName === "GRAND MASTER") {
+            return `${playerName}! Absolutely brilliant! Your intuition is unmatched!`;
+        } else if (rankName === "MASTER NINJA") {
+            return `${playerName}! Well done! Your cleverness serves you well.`;
+        } else if (rankName === "NINJA") {
+            return `${playerName}. You show promise! With more training, you could become a true shadow.`;
+        } else {
+            return `${playerName}. Too direct, too obvious. The shadows demand elegance.`;
+        }
+    }
+    
+    if (character === 'tatsumaru') {
+        if (rankName === "GRAND MASTER") {
+            return `Hmph. ${playerName}. You understand true power. The weak perish, the strong rule.`;
+        } else if (rankName === "MASTER NINJA") {
+            return `${playerName}. Not bad. You grasp that strength determines fate.`;
+        } else if (rankName === "NINJA") {
+            return `${playerName}. Mediocre. You show glimpses of understanding, but still cling to false honor.`;
+        } else {
+            return `${playerName}. Weak. Pathetic. The shadows have no place for the feeble.`;
+        }
+    }
+    
+    return "The trial is complete. Your fate is sealed.";
+}
+
 // ==================== INITIALIZATION & PERSISTENCE ====================
 
 function loadPlayerStats() {
@@ -243,7 +522,7 @@ async function startGame() {
     // Load first question with small delay for transition
     setTimeout(() => {
         loadQuestion();
-    }, 300);
+    }, 500); // Increased from 300 to 500 like working script
 }
 
 async function loadQuestions() {
@@ -290,99 +569,9 @@ async function loadQuestions() {
     }
 }
 
-function loadQuestion() {
-    if (!gameActive) return;
-    
-    // Check if all questions are answered
-    if (currentQuestionIndex >= questions.length) {
-        showAppreciation = Math.random() < 0.4;
-        
-        if (showAppreciation && typeof supporters !== 'undefined' && supporters.length > 0) {
-            showAppreciationScreen();
-        } else {
-            showResults();
-        }
-        return;
-    }
-
-    const q = questions[currentQuestionIndex];
-    const qText = document.getElementById('question-text');
-    if (qText) {
-        qText.style.opacity = '0';
-        setTimeout(() => {
-            qText.textContent = q.question;
-            qText.style.opacity = '1';
-        }, 200);
-    }
-    
-    // Update Trial Counters
-    ['current-trial', 'trial-number', 'progress-current'].forEach(id => {
-        const el = document.getElementById(id);
-        if (el) el.textContent = currentQuestionIndex + 1;
-    });
-
-    // Update Difficulty
-    const diff = document.querySelector('.diff-level');
-    if (diff) diff.textContent = q.difficulty || "NORMAL";
-
-    // Progress Bar
-    const fill = document.getElementById('progress-fill');
-    if (fill) fill.style.width = `${(currentQuestionIndex / questions.length) * 100}%`;
-
-    // Create options with letters
-    const optionsDiv = document.getElementById('options');
-    if (optionsDiv) {
-        optionsDiv.innerHTML = '';
-        const letters = ['A', 'B', 'C', 'D'];
-        q.options.forEach((opt, index) => {
-            const btn = document.createElement('button');
-            btn.className = 'btn-ninja';
-            btn.innerHTML = `<span class="option-letter">${letters[index]}</span><span class="option-text">${opt}</span>`;
-            btn.onclick = () => checkAnswer(opt, q.answer, q.commentator || 'rikimaru');
-            optionsDiv.appendChild(btn);
-        });
-    }
-    showGameSubScreen('question');
-}
-
-function checkAnswer(selected, correct, commentator) {
-    const isCorrect = (selected === correct);
-    playerAnswers.push({ selected, correct, isCorrect, commentator });
-
-    const btns = document.querySelectorAll('#options .btn-ninja');
-    btns.forEach(btn => {
-        btn.disabled = true;
-        btn.style.pointerEvents = 'none';
-        
-        const optionText = btn.querySelector('.option-text').textContent;
-        if (optionText === correct) {
-            btn.style.background = 'linear-gradient(145deg, #1a2a1a, #111a11)';
-            btn.style.borderColor = '#00aa00';
-        }
-        if (optionText === selected && !isCorrect) {
-            btn.style.background = 'linear-gradient(145deg, #2a1a1a, #1a1111)';
-            btn.style.borderColor = '#ff0000';
-        }
-    });
-
-    if (isCorrect) {
-        correctAnswers++;
-        if (typeof createGameVFX === 'function') createGameVFX('correct');
-    } else {
-        if (typeof createGameVFX === 'function') createGameVFX('incorrect');
-    }
-
-    setTimeout(() => {
-        currentQuestionIndex++;
-        loadQuestion();
-    }, 1200);
-}
-
 // ==================== RESULTS SCREEN ====================
 
 function showResults() {
-    console.log('DEBUG: showResults() called. Element exists:', document.getElementById('result-screen') !== null);
-    
     const totalQuestions = questions.length;
     const percentage = Math.round((correctAnswers / totalQuestions) * 100);
     
@@ -396,7 +585,7 @@ function showResults() {
     // Update results screen
     updateResultsDisplay(pointsEarned, gameResult.coins, totalQuestions, correctAnswers, percentage, gameResult);
     
-    // Show results screen - FIXED SCREEN NAVIGATION
+    // Show results screen
     showGameSubScreen('result');
     
     // Create VFX based on performance
@@ -435,83 +624,36 @@ function updateResultsDisplay(pointsEarned, coinsEarned, totalQuestions, correct
         rankNotification.style.display = 'none';
     }
     
-    // Get character feedback based on performance
+    // Get character feedback based on performance - USING WORKING SCRIPT LOGIC
     let feedbackCharacter;
     let feedbackMessage = "";
     
-    // Determine which character gives feedback based on percentage
-    if (percentage >= 80) {
+    if (percentage >= 70) {
         feedbackCharacter = 'rikimaru';
-    } else if (percentage >= 60) {
+    } else if (percentage >= 50) {
         feedbackCharacter = 'ayame';
     } else {
         feedbackCharacter = 'tatsumaru';
     }
     
-    // Get character name and feedback from character-comments.js
-    let characterName = "Master";
-    if (typeof getCharacterDisplayName === 'function') {
-        characterName = getCharacterDisplayName(feedbackCharacter);
-    }
+    // Get rank name for feedback
+    const rankName = rankRequirements[playerStats.currentRank]?.displayName || "APPRENTICE";
     
-    // Get feedback message from character-comments.js if available
-    if (typeof getCharacterResultFeedback === 'function') {
-        feedbackMessage = getCharacterResultFeedback(feedbackCharacter, playerStats.currentRank, playerName);
-    } else {
-        // Fallback feedback
-        feedbackMessage = getPerformanceFeedback(feedbackCharacter, percentage, correctAnswers, totalQuestions);
-    }
+    // Get feedback using the working script function
+    feedbackMessage = getFinalFeedback(feedbackCharacter, percentage, rankName, playerName);
     
     // Update feedback
     const feedbackText = document.getElementById('feedback-text');
     if (feedbackText) feedbackText.textContent = feedbackMessage;
     
-    // Set character portrait - USING character-comments.js FUNCTION
-    let portrait = '';
+    // SET CHARACTER PORTRAIT - THIS IS THE KEY FIX
     if (typeof getCharacterPortrait === 'function') {
-        portrait = getCharacterPortrait(feedbackCharacter);
-    }
-    
-    const feedbackPortrait = document.getElementById('feedback-portrait');
-    if (portrait && feedbackPortrait) {
-        feedbackPortrait.style.backgroundImage = `url('${portrait}')`;
-        console.log(`Character portrait set: ${portrait}`);
-    }
-}
-
-// Get performance feedback from characters (fallback)
-function getPerformanceFeedback(character, percentage, correct, total) {
-    if (character === 'rikimaru') {
-        if (percentage >= 80) {
-            return "Your precision is commendable. Continue to hone your skills in the shadows.";
-        } else if (percentage >= 60) {
-            return "Acceptable performance. Focus on improving your judgment.";
-        } else {
-            return "Your technique needs refinement. Study the ancient scrolls.";
+        const portrait = getCharacterPortrait(feedbackCharacter);
+        const feedbackPortrait = document.getElementById('feedback-portrait');
+        if (portrait && feedbackPortrait) {
+            feedbackPortrait.style.backgroundImage = `url('${portrait}')`;
         }
     }
-    
-    if (character === 'ayame') {
-        if (percentage >= 80) {
-            return "Well done! Your intuition serves you well in the shadows!";
-        } else if (percentage >= 60) {
-            return "Good effort! Remember, a true kunoichi relies on both skill and wit!";
-        } else {
-            return "You need more practice! Don't lose heart - every master was once a beginner!";
-        }
-    }
-    
-    if (character === 'tatsumaru') {
-        if (percentage >= 80) {
-            return "Hmph. Not bad. You understand that strength comes from knowledge.";
-        } else if (percentage >= 60) {
-            return "Adequate. But true power requires perfection.";
-        } else {
-            return "Weak. The shadows have no mercy for the unprepared.";
-        }
-    }
-    
-    return "The trial is complete. Your performance has been recorded.";
 }
 
 // ==================== RANKING & STATS ====================
@@ -569,96 +711,7 @@ function updateStatsDisplay() {
     }
 }
 
-// ==================== APPRECIATION SCREEN ====================
-
-function showAppreciationScreen() {
-    if (typeof supporters === 'undefined' || supporters.length === 0) {
-        showResults();
-        return;
-    }
-    
-    const randomIndex = Math.floor(Math.random() * supporters.length);
-    const supporter = supporters[randomIndex];
-    
-    const characters = ['rikimaru', 'ayame', 'tatsumaru'];
-    const randomCharacter = characters[Math.floor(Math.random() * characters.length)];
-    
-    // Get portrait from character-comments.js
-    let portrait = '';
-    if (typeof getCharacterPortrait === 'function') {
-        portrait = getCharacterPortrait(randomCharacter);
-    }
-    
-    let characterName = "Azuma Master";
-    if (typeof getCharacterDisplayName === 'function') {
-        characterName = getCharacterDisplayName(randomCharacter);
-    }
-    
-    const messages = [
-        `${characterName} acknowledges your support.`,
-        `${characterName} honors those who stand with the Azuma.`,
-        `From the shadows, ${characterName} gives thanks.`,
-        `${characterName} recognizes true allies of the clan.`
-    ];
-    
-    const randomMessage = messages[Math.floor(Math.random() * messages.length)];
-    
-    document.getElementById('appreciation-text').textContent = randomMessage;
-    document.getElementById('honored-name').textContent = supporter.name;
-    document.getElementById('honored-handle').textContent = supporter.handle || '';
-    
-    // Set supporter character portrait
-    const appreciationPortrait = document.getElementById('appreciation-portrait');
-    if (portrait && appreciationPortrait) {
-        appreciationPortrait.style.backgroundImage = `url('${portrait}')`;
-        console.log(`Appreciation portrait set: ${portrait}`);
-    }
-    
-    const supporterRank = document.querySelector('.supporter-rank');
-    if (supporterRank && supporter.rank) {
-        // Use the local function from supporters.js
-        if (typeof getRankInfo === 'function') {
-            const rankInfo = getRankInfo(supporter.rank);
-            if (rankInfo) {
-                supporterRank.innerHTML = `
-                    <i class="fas fa-shield-alt"></i>
-                    <span>${rankInfo.name}</span>
-                `;
-            }
-        } else {
-            // Fallback if function not available
-            supporterRank.innerHTML = `
-                <i class="fas fa-shield-alt"></i>
-                <span>HONORED ALLY</span>
-            `;
-        }
-    }
-    
-    showGameSubScreen('appreciation');
-    
-    if (typeof createGameVFX === 'function') {
-        createGameVFX('appreciation');
-    }
-}
-
-// ==================== UTILS & MISSING FUNCTIONS ====================
-
-function showGameSubScreen(type) {
-    const screens = ['question-screen', 'appreciation-screen', 'result-screen'];
-    screens.forEach(s => {
-        const el = document.getElementById(s);
-        if (el) { 
-            el.classList.add('hidden'); 
-            el.classList.remove('active'); 
-        }
-    });
-    
-    const target = document.getElementById(type + '-screen');
-    if (target) { 
-        target.classList.remove('hidden'); 
-        setTimeout(() => target.classList.add('active'), 50);
-    }
-}
+// ==================== UTILS ====================
 
 function showStatsScreen() {
     showScreen('stats-screen');
