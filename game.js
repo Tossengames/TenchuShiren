@@ -1,5 +1,5 @@
 // ============================================
-// TENCHU SHIREN - COMPLETE GAME ENGINE
+// TENCHU SHIREN - COMPLETE GAME ENGINE (FIXED)
 // ============================================
 
 // Game state
@@ -39,6 +39,49 @@ const POINTS_PER_GAME_COMPLETION = 50;
 const COINS_PER_CORRECT = 2;
 const COINS_PER_GAME = 10;
 let currentScreen = 'menu';
+
+// ==================== CHARACTER FUNCTIONS ====================
+// FIXED: Updated paths to assets/characters/
+
+function getCharacterPortrait(character) {
+    const portraits = {
+        'rikimaru': './assets/characters/rikimaru.png',
+        'ayame': './assets/characters/ayame.png',
+        'tatsumaru': './assets/characters/tatsumaru.png'
+    };
+    return portraits[character] || '';
+}
+
+function getCharacterDisplayName(character) {
+    const names = {
+        'rikimaru': 'Rikimaru',
+        'ayame': 'Ayame',
+        'tatsumaru': 'Tatsumaru'
+    };
+    return names[character] || 'Azuma Master';
+}
+
+// Function to get a random character (excluding given one)
+function getRandomOtherCharacter(currentCharacter) {
+    const characters = ['rikimaru', 'ayame', 'tatsumaru'];
+    const otherCharacters = characters.filter(char => char !== currentCharacter);
+    return otherCharacters[Math.floor(Math.random() * otherCharacters.length)];
+}
+
+// Function to get supporter character image (with fallback)
+function getSupporterCharacterImage(supporterRank) {
+    // Map supporter ranks to characters
+    const rankToCharacter = {
+        'ninja': 'rikimaru',
+        'kunoichi': 'ayame',
+        'ronin': 'tatsumaru',
+        'shinobi': 'rikimaru',
+        'assassin': 'tatsumaru'
+    };
+    
+    const character = rankToCharacter[supporterRank] || 'rikimaru';
+    return getCharacterPortrait(character);
+}
 
 // ==================== INITIALIZATION & PERSISTENCE ====================
 
@@ -455,13 +498,14 @@ function updateResultsDisplay(pointsEarned, coinsEarned, totalQuestions, correct
     const feedbackText = document.getElementById('feedback-text');
     if (feedbackText) feedbackText.textContent = feedbackMessage;
     
-    // Set character portrait if function exists
-    if (typeof getCharacterPortrait === 'function') {
-        const portrait = getCharacterPortrait(feedbackCharacter);
-        const feedbackPortrait = document.getElementById('feedback-portrait');
-        if (portrait && feedbackPortrait) {
-            feedbackPortrait.style.backgroundImage = `url('${portrait}')`;
-        }
+    // FIXED: Set character portrait using the new function
+    const portrait = getCharacterPortrait(feedbackCharacter);
+    const feedbackPortrait = document.getElementById('feedback-portrait');
+    if (portrait && feedbackPortrait) {
+        feedbackPortrait.style.backgroundImage = `url('${portrait}')`;
+        console.log(`Set feedback portrait to: ${portrait}`);
+    } else {
+        console.log(`Could not set portrait. Portrait: ${portrait}, Element: ${feedbackPortrait}`);
     }
 }
 
@@ -555,7 +599,7 @@ function updateStatsDisplay() {
     }
 }
 
-// ==================== APPRECIATION SCREEN ====================
+// ==================== APPRECIATION SCREEN WITH IMAGES ====================
 
 function showAppreciationScreen() {
     if (typeof supporters === 'undefined' || supporters.length === 0) {
@@ -569,15 +613,10 @@ function showAppreciationScreen() {
     const characters = ['rikimaru', 'ayame', 'tatsumaru'];
     const randomCharacter = characters[Math.floor(Math.random() * characters.length)];
     
-    let portrait = '';
-    if (typeof getCharacterPortrait === 'function') {
-        portrait = getCharacterPortrait(randomCharacter);
-    }
+    // FIXED: Use the new character portrait function
+    let portrait = getCharacterPortrait(randomCharacter);
     
-    let characterName = "Azuma Master";
-    if (typeof getCharacterDisplayName === 'function') {
-        characterName = getCharacterDisplayName(randomCharacter);
-    }
+    let characterName = getCharacterDisplayName(randomCharacter);
     
     const messages = [
         `${characterName} acknowledges your support.`,
@@ -592,9 +631,17 @@ function showAppreciationScreen() {
     document.getElementById('honored-name').textContent = supporter.name;
     document.getElementById('honored-handle').textContent = supporter.handle || '';
     
+    // Set supporter character portrait
+    const appreciationPortrait = document.getElementById('appreciation-portrait');
+    if (portrait && appreciationPortrait) {
+        appreciationPortrait.style.backgroundImage = `url('${portrait}')`;
+        console.log(`Set appreciation portrait to: ${portrait}`);
+    }
+    
+    // Set supporter rank badge
     const supporterRank = document.querySelector('.supporter-rank');
     if (supporterRank && supporter.rank) {
-        // Use the local function from supporters.js
+        // Use the local function from supporters.js if available
         if (typeof getRankInfo === 'function') {
             const rankInfo = getRankInfo(supporter.rank);
             if (rankInfo) {
@@ -607,15 +654,8 @@ function showAppreciationScreen() {
             // Fallback if function not available
             supporterRank.innerHTML = `
                 <i class="fas fa-shield-alt"></i>
-                <span>HONORED ALLY</span>
+                <span>${supporter.rank.toUpperCase()}</span>
             `;
-        }
-    }
-    
-    if (portrait) {
-        const appreciationPortrait = document.getElementById('appreciation-portrait');
-        if (appreciationPortrait) {
-            appreciationPortrait.style.backgroundImage = `url('${portrait}')`;
         }
     }
     
@@ -780,3 +820,6 @@ window.shareStats = shareStats;
 window.updateStatsDisplay = updateStatsDisplay;
 window.loadPlayerStats = loadPlayerStats;
 window.savePlayerStats = savePlayerStats;
+// Export the new character functions
+window.getCharacterPortrait = getCharacterPortrait;
+window.getCharacterDisplayName = getCharacterDisplayName;
